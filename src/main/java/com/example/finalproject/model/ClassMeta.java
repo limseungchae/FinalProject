@@ -1,14 +1,13 @@
 package com.example.finalproject.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "CLASSMETA")
 @ToString
@@ -43,7 +42,7 @@ public class ClassMeta {
 
     @CreatedDate
     @Column(insertable = false, updatable = false)
-    private String regdate;
+    private Date regdate;
 
     // front/index/main에서 사용할 생성자 구현
     public ClassMeta(Long link, String cname, String sido, String gugun, String category, String star, int cntrvs, double rate, int sale, String thumbnail) {
