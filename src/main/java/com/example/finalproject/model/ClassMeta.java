@@ -14,7 +14,7 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class CLASSMETA {
+public class ClassMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long link;
@@ -46,7 +46,7 @@ public class CLASSMETA {
     private String regdate;
 
     // front/index/main에서 사용할 생성자 구현
-    public CLASSMETA(Long link, String cname, String sido, String gugun, String category, String star, int cntrvs, double rate, int sale, String thumbnail) {
+    public ClassMeta(Long link, String cname, String sido, String gugun, String category, String star, int cntrvs, double rate, int sale, String thumbnail) {
         this.link = link;
         this.cname = cname;
         this.sido = sido;
