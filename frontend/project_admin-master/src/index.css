@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+:root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #038fde;
+    --secondary: #fa8c16;
+    --success: #52c41a;
+    --info: #1890ff;
+    --warning: #faad14;
+    --danger: #f5222d;
+    --light: #e5e5e5;
+    --dark: #262626;
+    --color-umbak: #F5F5F5;
+    --color-white: #fff;
+    --color-border: rgba(0,0,0,0.25);
+    --color-hamberger: #333;
+
+    /* 브랜드 컬러(대표 색): 김충일 */
+    --color-brand:#18298c;
+    /* 정보를 나타낼때 사용할 글씨 굵기: 김충일
+     ex: 인풋태그의 라벨*/
+    --font-weight-info: 500;
+
+    /* 컬러 팔레트 1: 김충일 */
+    --color1-primary: #18298c;
+    --color1-secondary: #f27781;
+    --color1-success: #04bf8a;
+    --color1-warning: #f2cf1d;
+    --color1-info: #f29f05;
+
+
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+}

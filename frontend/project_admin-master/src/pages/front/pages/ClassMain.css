@@ -1,0 +1,65 @@
+.carousel-control-next
+{
+    width:50%;
+}
+.carousel-control-next-icon,
+.carousel-control-prev-icon
+{
+    display: none;
+}
+.carousel-control-prev
+{
+    width:50%;
+}
+.carousel-indicators
+{
+    width:960px;
+    left:167px;
+}
+
+.carousel-indicators .active
+{
+    background-color: var(--color-brand);
+}
+
+.mainCardContainer .card
+{
+    cursor: pointer;
+}
+
+.mainCardContainer .card .card-body
+{
+    padding:0;
+}
+
+.mainCardContainer .card .card-title
+{
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    overflow: hidden; /* 넘칠 때 숨김 처리 */
+    text-overflow: ellipsis; /* '...'으로 표시 */
+}
+
+.mainNavContainer ul
+{
+    padding-left: 0;
+    margin: 0;
+}
+
+.mainNavContainer ul li
+{
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.mainNavContainer ul li:hover
+{
+    background-color: var(--clr);
+    transform: translateY(-6px);
+    transition:0.2s;
+    color:var(--white);
+}
+
+.mainNavContainer ul li p
+{
+    margin-bottom: 0;
+}

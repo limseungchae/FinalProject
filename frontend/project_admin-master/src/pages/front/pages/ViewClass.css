@@ -1,0 +1,321 @@
+.viewClassContainer{
+    text-align: center;
+    justify-items: center;
+    justify-content: center;
+    text-align: justify;
+}
+
+.viewClassSubContainer{
+    border: 4px solid #eeeeef;
+}
+
+.viewClassInfo{
+    border-bottom: 4px solid #eeeeef;
+}
+
+/* 최상단 클래스 정보 오른쪽 컨테이너 */
+.top-right{
+    margin-left: -10px;
+}
+
+/* (구/시) + 타이틀 컨테이너 */
+.top1{
+    min-height: 30%;
+    border-bottom: 4px solid #eeeeef;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 102%;
+}
+
+/* 최상단 카테고리(구/시) */
+.sigu{
+    font-size: 1.3em;
+}
+
+/* 소요시간.. 컨테이너 */
+.top2{
+    padding: 0px 10px;
+    min-height: 25%;
+    border-bottom: 4px solid #eeeeef;
+    align-items: center;
+    width: 102%;
+}
+
+/* 01시간 30분 폰트 .. */
+.class-infomation{
+    color: gray;
+}
+
+/* 해당 클래스는 일정 협의가 .. */
+.schedule{
+    width: 102%;
+    align-items: center;
+    padding: 0px 10px;
+    min-height: 20%;
+    background-color: #e2e2ff;
+    font-size: 1.3em;
+    color: #7575ef;
+    border-bottom: 4px solid #eeeeef;
+}
+
+/* 강사 프로필 컨테이너 */
+.tcProfile {
+    min-height: 25%;
+    max-height: 25%;
+    align-items: center;
+}
+
+/* 강사 프로필사진 */
+.teacher-img{
+    background-image:url(https://s3.ap-northeast-2.amazonaws.com/umclassuploadboardimg/0e8ba69587da4039bd7c842a1641830c.JPG);
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+    border-radius:100px;
+    width:80px;
+    height:80px;
+    margin-right:20px;
+}
+
+.star{
+    color: #faad14;
+}
+
+.teacher-rating span{
+    color:gray;
+    font-size: 1.3em;
+}
+
+.tcname{
+    font-size: 1.6em;
+}
+
+
+
+
+/* 달력 + 예약 컨테이너*/
+.payboard{
+    width: 101%;
+    justify-content: center;
+    border-bottom: 4px solid #eeeeef;
+}
+
+.schedule-title{
+    margin: 25px 0 0 25px;
+}
+
+
+
+
+
+
+
+
+/* 달력 */
+.dateHead div {
+    background: #7575ef;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px;
+}
+
+.grid div {
+    padding: .6rem;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.dateBoard div {
+    color: #222;
+    font-weight: bold;
+    min-height: 4rem;
+    padding: .6rem .8rem;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.noColor {
+    background: #eee;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+/* 좌우 버튼 */
+.prevDay {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #000;
+    border-width: 3px 3px 0 0;
+    cursor: pointer;
+    transform: rotate(-135deg);
+}
+
+.nextDay {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #000;
+    border-width: 3px 3px 0 0;
+    cursor: pointer;
+    transform: rotate(45deg);
+}
+
+/* ---- */
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: Pretendard;
+}
+
+.rap {
+    max-width: 800px;
+    padding: 0 1.4rem;
+    margin-top: 1.4rem;
+}
+
+.dateHead {
+    margin: .4rem 0;
+}
+
+
+
+
+
+
+
+
+
+/* 금액, 예약 */
+.list-price{
+    text-decoration: line-through;
+}
+
+.discount-price{
+    font-size: 25px;
+}
+
+.discount-pct{
+    font-size: 25px;
+}
+
+.pay{
+    align-content: baseline;
+    align-items: baseline;
+}
+
+.reservation-btn{
+    padding: 8px 60px;
+    font-size: 20px;
+    background-color: #7575ef;
+}
+
+.res-btn-container{
+    text-align: right;
+}
+
+
+
+
+
+
+
+
+
+/* 본문 */
+.class-info-title{
+    font-size:17px; font-weight:600;
+}
+
+/* 편의시설 컨테이너 */
+.convenience{
+
+    text-align: center;
+}
+
+.BsWifi, .BsFillGiftFill{
+    font-size: 3.3em;
+}
+
+.convenience-icon{
+    font-size: 0.8em;
+}
+
+.voucher-contents-font{
+    vertical-align:middle;
+    display:block;
+    width:100%;
+    word-break:break-all;
+    color: #606060;
+}
+
+.curriculumIcon{
+    display:inline-block;
+    background-color:#7575ef;
+    width:10px;
+    margin-left:7px;
+    height:10px;
+    border-radius:100px;
+    margin-right:10px;
+}
+
+.imgContainer{
+    display:inline-block;
+    text-align:left;
+    width:100%;
+    padding-left:4%;
+    padding-right:4%;
+    border-bottom:1px solid #E6E6E6
+}
+
+.voucher-completed-img{
+    margin: 15px 0 0 0;
+}
+
+.class-completed-img{
+    color:#fff;
+    background-image:url(https://s3.ap-northeast-2.amazonaws.com/umclassuploadboardimg/08a8880f80fd46999a0cf41a68790cc6.JPG);
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+    border:1px solid #F2F2F2 ;
+    width:100%;
+    margin-bottom:15px;
+    margin-right:4%;
+    height:689px;
+    max-height:337px
+}
+
+.sectionContainer{
+    margin: 20px 20px;
+}
+
+/* 지도 */
+.map{
+    min-height: 400px;
+    width: 100%;
+}
+
+.map-btn {
+    background-color: #7575ef;
+    color: white;
+    font-size: 1.3em;
+    padding: 5px 33px;
+    border: none;
+}
