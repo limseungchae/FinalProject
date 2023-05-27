@@ -24,5 +24,14 @@ public class FrontTest {
             System.out.println(cm);
     }
 
+    @Test
+    @DisplayName("all")
+    public void findMain() {
+        List<Object[]> cms = frontRepository.findMainAll();
+
+        for(Object[] cm: cms)
+            System.out.println(cm);
+    }
+
 
 }
