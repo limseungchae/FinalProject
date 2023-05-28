@@ -21,8 +21,7 @@ public class FrontController {
     }
 
     @GetMapping("/api/main")
-    public List<Object[]> main(String category) {
-        System.out.println(category);
-        return frtsrv.readMain(category);
+    public List<Object[]> main(String category, String sido) {
+        return frtsrv.readMain(category, sido);
     }
 }

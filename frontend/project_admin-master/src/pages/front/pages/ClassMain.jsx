@@ -11,33 +11,52 @@ import others from "../img/nav/007-more.png";
 import bannerSale1 from "../img/banner/webBanner01.png"
 import bannerLemon1 from "../img/banner/webBanner02.png"
 import pupucook from "../img/banner/webBanner03.png"
-import {Carousel, Col, Container, Row} from "react-bootstrap";
+import {Button, Carousel, Col, Container, Row, ToggleButton} from "react-bootstrap";
+import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import {HiLocationMarker} from "react-icons/hi";
 import {VscFilterFilled} from "react-icons/vsc";
 import {ImStarEmpty, ImStarFull, ImStarHalf} from "react-icons/im";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import {AiFillCaretDown} from "react-icons/ai";
 
 
 
 export default function ClassMain() {
     const [classList, setClassList] = useState([]);
     const [category, setCategory] = useState("all");
+    const [selectMenuActive, setSelectMenuActive] = useState("");
+    const [area, setArea] = useState("지역선택")
 
     useEffect(() => {
-        let param = `?category=${category}`
+        let param = `?category=${category}&sido=${area}`
         console.log(param)
         axios.get(`http://localhost:8080/api/main${param}`)
             .then(response => setClassList(response.data))
             .catch(error => console.log(error))
-    }, [category]);
+    }, [category, area]);
 
     async function handleOnClick(e) {
         let value = e.currentTarget.getAttribute('value');
         await setCategory(value)
     }
 
+    // 선택바 여는 함수
+    const handleOpen = () => {
+        if(selectMenuActive === ""){
+            setSelectMenuActive("selectMenuActive");
+        } else {
+            setSelectMenuActive("");
+        }
+    };
+
+    const handleSelect = (e) => {
+        let area = e.currentTarget.getAttribute('value');
+        setArea(area);
+        if(selectMenuActive === "selectMenuActive") setSelectMenuActive("");
+
+    };
     return(
         <>
                 <Carousel className=" mt-4 mb-5 ">
@@ -97,10 +116,34 @@ export default function ClassMain() {
                 </Row>
 
                 <Row>
-                    <Col className="offset-xl-2 col-xl-8  mb-2" style={{cursor:"pointer"}}>
-                        <span className="border border-1 border-dark rounded-pill px-3 py-1 border-opacity-25" style={{fontSize:"16px"}}>
+                    <Col className="offset-xl-2 col-xl-8  mb-2">
+                        {/*<span className="border border-1 border-dark rounded-pill px-3 py-1 border-opacity-25" style={{fontSize:"16px", cursor:"pointer"}} onClick={() => setModalShow(true)}>
                            <VscFilterFilled className="mb-1" /> 필터
-                        </span>
+                        </span>*/}
+                        <div className={`mainSelectMenu ${selectMenuActive}`}>
+                            <div className="mainSelectBtn" onClick={handleOpen}>
+                                <span className="sBtnText">{area}</span><AiFillCaretDown />
+                            </div>
+                            <ul className="selectOptions mb-0">
+                                <li className="selectOption" value="전체" onClick={handleSelect}><span className="optionText">전체</span></li>
+                                <li className="selectOption" value="강원" onClick={handleSelect}><span className="optionText">강원</span></li>
+                                <li className="selectOption" value="경기" onClick={handleSelect}><span className="optionText">경기</span></li>
+                                <li className="selectOption" value="경남" onClick={handleSelect}><span className="optionText">경남</span></li>
+                                <li className="selectOption" value="경북" onClick={handleSelect}><span className="optionText">경북</span></li>
+                                <li className="selectOption" value="광주" onClick={handleSelect}><span className="optionText">광주</span></li>
+                                <li className="selectOption" value="대구" onClick={handleSelect}><span className="optionText">대구</span></li>
+                                <li className="selectOption" value="대전" onClick={handleSelect}><span className="optionText">대전</span></li>
+                                <li className="selectOption" value="부산" onClick={handleSelect}><span className="optionText">부산</span></li>
+                                <li className="selectOption" value="서울" onClick={handleSelect}><span className="optionText">서울</span></li>
+                                <li className="selectOption" value="울산" onClick={handleSelect}><span className="optionText">울산</span></li>
+                                <li className="selectOption" value="인천" onClick={handleSelect}><span className="optionText">인천</span></li>
+                                <li className="selectOption" value="전남" onClick={handleSelect}><span className="optionText">전남</span></li>
+                                <li className="selectOption" value="전북" onClick={handleSelect}><span className="optionText">전북</span></li>
+                                <li className="selectOption" value="제주" onClick={handleSelect}><span className="optionText">제주</span></li>
+                                <li className="selectOption" value="충남" onClick={handleSelect}><span className="optionText">충남</span></li>
+                            </ul>
+                        </div>
+
                     </Col>
                 </Row>
             </Container>
@@ -114,7 +157,7 @@ export default function ClassMain() {
                               return(
                                   <Col className="col-xl-4 mt-4">
                                       <Link to={array[0]} style={{textDecoration:"none"}}>
-                                      <Card border="light" className="mx-auto" style={{ width: '18rem',color:"black" }}>
+                                      <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
                                           <Card.Img variant="top" src={array[9]} width="100%" height="218px" />
                                           <Card.Body>
                                               <div className="d-flex py-1">
@@ -137,7 +180,6 @@ export default function ClassMain() {
                     </Col>
                 </Row>
             </Container>
-
 
         </>
     )

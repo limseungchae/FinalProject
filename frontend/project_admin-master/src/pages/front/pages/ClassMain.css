@@ -22,6 +22,70 @@
     background-color: var(--color-brand);
 }
 
+.mainSelectMenu
+{
+    width:130px;
+}
+.mainSelectMenu .mainSelectBtn
+{
+    display: flex;
+    height: 40px;
+    background: var(--color-white);
+    padding:  14px 10px 14px 20px;
+    font-size: 17px;
+    font-weight: 400;
+    border-radius: 8px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.mainSelectMenu .mainSelectBtn svg
+{
+    transition: 0.3s;
+}
+
+.mainSelectMenu.selectMenuActive .mainSelectBtn svg
+{
+    transform: rotate(-180deg);
+}
+.mainSelectMenu .selectOptions
+{
+    position: absolute;
+    z-index: 100;
+    width: 130px;
+    height: 176px;
+    overflow-y: auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: var(--color-white);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    display: none;
+}
+.mainSelectMenu.selectMenuActive .selectOptions
+{
+    display: block;
+}
+
+
+.selectOptions .selectOption
+{
+    display: flex;
+    height: 34px;
+    cursor: pointer;
+    padding: 0 8px;
+    border-radius: 8px;
+    align-items: center;
+    background: var(--color-white);
+}
+.selectOptions .selectOption:hover
+{
+    background: #F2F2F2;
+}
+
+
+
+
 .mainCardContainer .card
 {
     cursor: pointer;
