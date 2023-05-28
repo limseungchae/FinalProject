@@ -20,6 +20,7 @@ import {ImStarEmpty, ImStarFull, ImStarHalf} from "react-icons/im";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {AiFillCaretDown} from "react-icons/ai";
+import {MdOutlineSearchOff} from "react-icons/md";
 
 
 
@@ -155,7 +156,7 @@ export default function ClassMain() {
                 <Row>
                     <Col className="offset-xl-2 col-xl-8 mb-5">
                         <Row>
-                            {classList.map((array) => {
+                            { (classList.length > 0) ? classList.map((array) => {
                               return(
                                   <Col className="col-xl-4 mt-4">
                                       <Link to={array[0]} style={{textDecoration:"none"}}>
@@ -175,7 +176,7 @@ export default function ClassMain() {
                                       </Link>
                                   </Col>
                               )
-                            })
+                            }) : <Col className="col-xl-12 mt-4 text-center"><MdOutlineSearchOff style={{fontSize:"200px",color:"grey"}} /><p className="fw-bold h4">검색 결과가 없습니다</p></Col>
                             }
 
                         </Row>
