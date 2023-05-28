@@ -37,11 +37,6 @@ export default function ClassMain() {
             .catch(error => console.log(error))
     }, [category, area]);
 
-    let map = classList.map(array => array[2]);
-    let uniqueMap = Array.from(new Set(map));
-    let areaFilter = ["전체", ...uniqueMap];
-
-
     function handleOnClick(e) {
         let value = e.currentTarget.getAttribute('value');
         setArea("지역선택")
@@ -131,11 +126,23 @@ export default function ClassMain() {
                                 <span className="sBtnText">{area}</span><AiFillCaretDown />
                             </div>
                             <ul className="selectOptions mb-0">
-                                {areaFilter.map(area => {
-                                    return (
-                                        <li className="selectOption" value={area} onClick={handleSelect}><span className="optionText">{area}</span></li>
-                                    )
-                                })}
+                                <li className="selectOption" value="전체" onClick={handleSelect}><span className="optionText">전체</span></li>
+                                <li className="selectOption" value="강원" onClick={handleSelect}><span className="optionText">강원</span></li>
+                                <li className="selectOption" value="경기" onClick={handleSelect}><span className="optionText">경기</span></li>
+                                <li className="selectOption" value="경남" onClick={handleSelect}><span className="optionText">경남</span></li>
+                                <li className="selectOption" value="경북" onClick={handleSelect}><span className="optionText">경북</span></li>
+                                <li className="selectOption" value="광주" onClick={handleSelect}><span className="optionText">광주</span></li>
+                                <li className="selectOption" value="대구" onClick={handleSelect}><span className="optionText">대구</span></li>
+                                <li className="selectOption" value="세종" onClick={handleSelect}><span className="optionText">세종</span></li>
+                                <li className="selectOption" value="대전" onClick={handleSelect}><span className="optionText">대전</span></li>
+                                <li className="selectOption" value="부산" onClick={handleSelect}><span className="optionText">부산</span></li>
+                                <li className="selectOption" value="서울" onClick={handleSelect}><span className="optionText">서울</span></li>
+                                <li className="selectOption" value="울산" onClick={handleSelect}><span className="optionText">울산</span></li>
+                                <li className="selectOption" value="인천" onClick={handleSelect}><span className="optionText">인천</span></li>
+                                <li className="selectOption" value="전남" onClick={handleSelect}><span className="optionText">전남</span></li>
+                                <li className="selectOption" value="전북" onClick={handleSelect}><span className="optionText">전북</span></li>
+                                <li className="selectOption" value="제주" onClick={handleSelect}><span className="optionText">제주</span></li>
+                                <li className="selectOption" value="충남" onClick={handleSelect}><span className="optionText">충남</span></li>
                             </ul>
                         </div>
 
