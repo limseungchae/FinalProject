@@ -11,11 +11,9 @@ import others from "../img/nav/007-more.png";
 import bannerSale1 from "../img/banner/webBanner01.png"
 import bannerLemon1 from "../img/banner/webBanner02.png"
 import pupucook from "../img/banner/webBanner03.png"
-import {Button, Carousel, Col, Container, Row, ToggleButton} from "react-bootstrap";
-import Modal from 'react-bootstrap/Modal';
+import {Carousel, Col, Container, Row} from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import {HiLocationMarker} from "react-icons/hi";
-import {VscFilterFilled} from "react-icons/vsc";
 import {ImStarEmpty, ImStarFull, ImStarHalf} from "react-icons/im";
 import axios from "axios";
 import {Link} from "react-router-dom";
@@ -169,7 +167,7 @@ export default function ClassMain() {
                                               <Card.Title className="fs-6 mb-0 fw-bold">{array[1]}</Card.Title>
                                               <Card.Text>
                                                   <p className="mb-0" ><span className="text-warning"><ImStarFull/> <ImStarFull/> <ImStarFull/> <ImStarHalf /> <ImStarEmpty /></span> <span className="fw-light" style={{fontSize:"12px"}}>({array[6]})</span></p>
-                                                  <p className="fw-bold text-end"><span className="text-danger">{Math.floor(array[7]*100)}% </span >{array[8]}원</p>
+                                                  <p className="fw-bold text-end"><span className="text-danger">{Math.floor(array[7]*100)}% </span >{array[8].toLocaleString()}원</p>
                                               </Card.Text>
                                           </Card.Body>
                                       </Card>
