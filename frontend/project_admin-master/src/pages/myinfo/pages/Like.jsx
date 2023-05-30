@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import {HiLocationMarker} from "react-icons/hi";
 import {ImStarEmpty, ImStarFull, ImStarHalf} from "react-icons/im";
+import {FaCarrot} from "react-icons/fa";
 
 export default function Like(){
     return(
@@ -13,7 +14,7 @@ export default function Like(){
                 </Col>
                 <Col lg={8}>
                     <div className={"my-4"}>
-                        <h3>abc123님의 찜목록</h3>
+                        <h3><FaCarrot className={"mb-2"}/> abc123님의 찜목록</h3>
                         <hr />
                     </div>
                     <Row>
