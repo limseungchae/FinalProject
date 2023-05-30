@@ -5,6 +5,7 @@ import com.example.finalproject.model.ClassMeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,6 +30,19 @@ public class FrontServiceImpl implements FrontService{
                 return frtdao.selectFilterSidoMain(category, sido);
             }
         }
+    }
+
+    @Override
+    public ClassMeta readOne(int link) {
+        return frtdao.selectOne(link);
+    }
+
+    @Override
+    public List<String> readImg(int link) {
+        List<String> imgs = new ArrayList<>();
+
+        if((frtdao.selectLink(link))!=0) imgs = frtdao.selectImgs(link);
+        return imgs;
     }
 
 }
