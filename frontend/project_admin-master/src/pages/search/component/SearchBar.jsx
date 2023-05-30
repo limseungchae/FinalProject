@@ -29,7 +29,12 @@ export default function SearchBar({search, setSearch, processSearch}) {
                       <Col lg={6}>
                           <Form>
                               <InputGroup>
-                                  <Form.Control placeholder={search} className="searchBar" onChange={(e) => setSearch(e.target.value)}/>
+                                  <Form.Control placeholder={search} className="searchBar" onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => {
+                                      e.preventDefault();
+                                      if (e.key === 'Enter') {
+                                          processSearch();
+                                      }
+                                  }}/>
                                   <InputGroup.Text className="bg-white search-btn-container">
                                       <Button className="searchBtn btn-outline-light" onClick={processSearch}>
                                           <BsSearch className="searchIcon"/>
