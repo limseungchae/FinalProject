@@ -26,11 +26,11 @@
     justify-content: center;
     text-align: center;
     margin-right: 12px;
+    cursor:pointer;
 }
 
 .icon-text {
     margin-top: 4px;
-
 }
 
 .searchBar{

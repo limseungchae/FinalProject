@@ -13,6 +13,7 @@ import ViewClass from "./pages/front/pages/ViewClass";
 import AddClass from "./pages/myinfo/pages/AddClass";
 import Modal from "./pages/myinfo/pages/Modal";
 import ListClass from "./pages/myinfo/pages/ListClass";
+import Like from "./pages/myinfo/pages/Like";
 
 
 
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
     path:'/myinfo',
     element:<UserInfo />,
     children: [
+      {path: "like", element: <Like />},
       {path: "modify", element: <Modify />},
       {path: "listclass", element: <ListClass />},
       {path: "modal", element: <Modal />},
