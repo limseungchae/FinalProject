@@ -21,4 +21,7 @@ public interface FrontRepository extends JpaRepository<ClassMeta, Long> {
 
     @Query("select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta where category = :ctg and sido = :sido ")
     List<Object[]> findFilterSidoMain(@Param("ctg") String ctg, @Param("sido") String sido);
+
+    @Query("select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta where cname like :param ")
+    List<Object[]> findClassLikeBySearch(@Param("param") String param);
 }

@@ -31,4 +31,10 @@ public class FrontServiceImpl implements FrontService{
         }
     }
 
+    @Override
+    public List<Object[]> readSearch(String search) {
+
+        return frtdao.selectSearch(search);
+    }
+
 }

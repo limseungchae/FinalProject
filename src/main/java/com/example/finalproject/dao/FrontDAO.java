@@ -13,4 +13,6 @@ public interface FrontDAO {
     List<Object[]> selectSidoMain(String sido);
 
     List<Object[]> selectFilterSidoMain(String category, String sido);
+
+    List<Object[]> selectSearch(String search);
 }

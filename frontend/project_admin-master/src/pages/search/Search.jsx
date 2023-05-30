@@ -7,13 +7,23 @@ import Card from "react-bootstrap/Card";
 import {HiLocationMarker} from "react-icons/hi";
 import {ImStarEmpty, ImStarFull, ImStarHalf} from "react-icons/im";
 import {MdOutlineSearchOff} from "react-icons/md";
+import axios from "axios";
 
 export default function Search() {
     const [classList, setClassList] = useState([]);
+    const [search, setSearch] = useState("지역/클래스 이름으로 검색할 수 있습니다");
+
+    const processSearch = () => {
+        let param = `?search=${search}`
+        console.log(param)
+        axios.get(`http://localhost:8080/api/search${param}`)
+            .then(response => setClassList(response.data))
+            .catch(error => console.log(error))
+    }
 
     return(
         <>
-            <SearchBar />
+            <SearchBar search={search} setSearch={setSearch} processSearch={processSearch}/>
             <Container>
                 <Row>
                     <Col className="offset-xl-2 col-xl-8 mb-5">

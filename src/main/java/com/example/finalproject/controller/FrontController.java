@@ -24,4 +24,10 @@ public class FrontController {
     public List<Object[]> main(String category, String sido) {
         return frtsrv.readMain(category, sido);
     }
+
+    @GetMapping("/api/search")
+    public List<Object[]> search(String search) {
+
+        return frtsrv.readSearch(search);
+    }
 }

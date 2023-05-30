@@ -11,8 +11,9 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 
 // logo 테스트
-export default function SearchBar() {
-  return (
+export default function SearchBar({search, setSearch, processSearch}) {
+
+    return (
       <header className={'header-container'}>
           <Navbar className="headerNav" expand="lg">
               <Container>
@@ -28,9 +29,9 @@ export default function SearchBar() {
                       <Col lg={6}>
                           <Form>
                               <InputGroup>
-                                  <Form.Control placeholder="지역/클래스 이름으로 검색할 수 있습니다" className="searchBar"/>
+                                  <Form.Control placeholder={search} className="searchBar" onChange={(e) => setSearch(e.target.value)}/>
                                   <InputGroup.Text className="bg-white search-btn-container">
-                                      <Button className="searchBtn btn-outline-light" href={'/viewclass'}>
+                                      <Button className="searchBtn btn-outline-light" onClick={processSearch}>
                                           <BsSearch className="searchIcon"/>
                                       </Button>
                                   </InputGroup.Text>

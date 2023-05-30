@@ -32,4 +32,11 @@ public class FrontDAOImpl implements FrontDAO{
     public List<Object[]> selectFilterSidoMain(String ctg, String sido) {
         return frontRepository.findFilterSidoMain(ctg, sido);
     }
+
+    @Override
+    public List<Object[]> selectSearch(String search) {
+        String param = "%" + search + "%";
+
+        return frontRepository.findClassLikeBySearch(param);
+    }
 }
