@@ -28,7 +28,7 @@ export default function SearchBar() {
                       <Col lg={6}>
                           <Form>
                               <InputGroup>
-                                  <Form.Control placeholder="클래스 이름으로 검색할 수 있습니다" className="searchBar"/>
+                                  <Form.Control placeholder="지역/클래스 이름으로 검색할 수 있습니다" className="searchBar"/>
                                   <InputGroup.Text className="bg-white search-btn-container">
                                       <Button className="searchBtn btn-outline-light" href={'/viewclass'}>
                                           <BsSearch className="searchIcon"/>
