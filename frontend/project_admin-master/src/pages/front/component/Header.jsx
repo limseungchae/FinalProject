@@ -3,9 +3,6 @@ import "./Header.css"
 import {Button, Col, Container, Form, Navbar, Row} from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
-import logo from "../img/logo.png";
-import logo2 from "../img/logo2.png";
-import logo3 from "../img/logo3.png";
 import logo4 from "../img/logo4.png";
 
 import {Link} from "react-router-dom";

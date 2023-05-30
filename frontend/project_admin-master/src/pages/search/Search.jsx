@@ -8,6 +8,7 @@ import {HiLocationMarker} from "react-icons/hi";
 import {ImStarEmpty, ImStarFull, ImStarHalf} from "react-icons/im";
 import {MdOutlineSearchOff} from "react-icons/md";
 import axios from "axios";
+import Reservation from "../front/component/Reservation";
 
 export default function Search() {
     const [classList, setClassList] = useState([]);
@@ -54,6 +55,7 @@ export default function Search() {
                     </Col>
                 </Row>
             </Container>
+            <Reservation />
         </>
     )
 }
