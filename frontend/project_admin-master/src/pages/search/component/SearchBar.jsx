@@ -1,11 +1,8 @@
 import React from 'react';
-import "./Header.css"
+import "./SearchBar.css"
 import {Button, Col, Container, Form, Navbar, Row} from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
-import logo from "../img/logo.png";
-import logo2 from "../img/logo2.png";
-import logo3 from "../img/logo3.png";
 import logo4 from "../img/logo4.png";
 
 import {Link} from "react-router-dom";
@@ -14,36 +11,31 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 
 // logo 테스트
-export default function Header() {
+export default function SearchBar() {
   return (
       <header className={'header-container'}>
           <Navbar className="headerNav" expand="lg">
               <Container>
                   <Row className="w-100 align-items-center">
-                      <Col lg={3} className="offset-2">
+                      <Col lg={1} className="offset-2">
                           <div className="logo-container d-flex justify-content-between" style={{marginLeft:"-10px"}}>
                               <Link to="/">
-                                <img src={logo4} alt="logo4" style={{padding:"8px"}} />
+                                <img src={logo4} alt="logo4" style={{padding:"8px"}}/>
                               </Link>
-                              <Link href="/" className='navbar-brand text-white logo'>스킬라빗</Link>
                           </div>
                       </Col>
 
-                      <Col lg={4}>
-                          <Link to={"/search"}>
+                      <Col lg={6}>
                           <Form>
                               <InputGroup>
-
-                                  <Form.Control placeholder="클래스를 찾아보세요!" className="searchBar"/>
+                                  <Form.Control placeholder="클래스 이름으로 검색할 수 있습니다" className="searchBar"/>
                                   <InputGroup.Text className="bg-white search-btn-container">
                                       <Button className="searchBtn btn-outline-light" href={'/viewclass'}>
                                           <BsSearch className="searchIcon"/>
                                       </Button>
                                   </InputGroup.Text>
-
                               </InputGroup>
                           </Form>
-                          </Link>
                       </Col>
 
                       <Col lg={2} className="d-flex justify-content-end">

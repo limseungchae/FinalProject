@@ -14,6 +14,7 @@ import AddClass from "./pages/myinfo/pages/AddClass";
 import Modal from "./pages/myinfo/pages/Modal";
 import ListClass from "./pages/myinfo/pages/ListClass";
 import Like from "./pages/myinfo/pages/Like";
+import Search from "./pages/search/Search";
 
 
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {path: "join", element: <Join />},
       {path: "viewclass", element: <ViewClass />}
     ]
+  },
+  {
+    path:'/search',
+    element:<Search />
   },
   {
     path:'/admin',

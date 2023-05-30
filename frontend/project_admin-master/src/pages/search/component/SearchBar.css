@@ -1,0 +1,54 @@
+
+.headerNav{
+    background-color: #7575ef;
+    min-height: 100px;
+}
+.logo{
+    font-size: 3.2em;
+    font-weight: bold;
+}
+
+.toCartPg{
+
+    text-decoration: none;
+}
+
+.toMyPg{
+
+    text-decoration: none;
+}
+
+.icon-text-container {
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-right: 12px;
+    cursor:pointer;
+}
+
+.icon-text {
+    margin-top: 4px;
+}
+
+.searchBar{
+    border: none;
+}
+
+.search-btn-container{
+    border: white;
+}
+
+.searchBtn{
+    background: white;
+    border: none;
+    color: gray;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
