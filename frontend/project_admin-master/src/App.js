@@ -13,6 +13,9 @@ import ViewClass from "./pages/front/pages/ViewClass";
 import AddClass from "./pages/myinfo/pages/AddClass";
 import Modal from "./pages/myinfo/pages/Modal";
 import ListClass from "./pages/myinfo/pages/ListClass";
+import CountClass from "./pages/admin/pages/countclass";
+import AddClass from "./pages/admin/pages/addclass";
+import ClassList from "./pages/admin/pages/classlist";
 
 
 
@@ -32,7 +35,10 @@ const router = createBrowserRouter([
     element:<Admin />,
     children: [
       {index: true, element: <Home />},
-      {path: "myinfo", element: <MyInfo />}
+      {path: "myinfo", element: <MyInfo />},
+      {path: "addclass", element: <AddClass />},
+      {path: "countclass", element: <CountClass />},
+      {path: "classlist", element: <ClassList />}
     ]
   },
   {

@@ -58,7 +58,7 @@ export default function SideNav({isActive, setIsActive}) {
             </li>
             <li className={`sidebar_list ${activeLi === 3 ? 'sidebar_active' : ''}`}
                 onClick={() => setActiveLi(3)}>
-                <Link to="#">
+                <Link to="/admin/addclass">
                     <span className={`sidebar_icon`} style={{'--clr': '#2196f3'}}>
                         <FaChalkboardTeacher />
                     </span>
@@ -85,7 +85,7 @@ export default function SideNav({isActive, setIsActive}) {
             </li>
             <li className={`sidebar_list ${activeLi === 6 ? 'sidebar_active' : ''}`}
                 onClick={() => setActiveLi(6)}>
-                <Link to="#">
+                <Link to="/admin/countclass">
                     <span className={`sidebar_icon`} style={{'--clr': '#c5e1a5'}}>
                         <RiFileListLine />
                     </span>
