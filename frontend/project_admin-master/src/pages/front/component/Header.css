@@ -3,17 +3,9 @@
     background-color: #7575ef;
     min-height: 100px;
 }
-
-.logo-container{
-    margin-top: -13px
-}
 .logo{
-    font-style: italic;
     font-size: 3.2em;
     font-weight: bold;
-}
-
-.headerLink{
 }
 
 .toCartPg{
