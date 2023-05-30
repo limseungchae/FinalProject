@@ -22,4 +22,14 @@ public class FrontDAOImpl implements FrontDAO{
 
         return frontRepository.findFilteredMain(ctg);
     }
+
+    @Override
+    public List<Object[]> selectSidoMain(String sido) {
+        return frontRepository.findSidoMain(sido);
+    }
+
+    @Override
+    public List<Object[]> selectFilterSidoMain(String ctg, String sido) {
+        return frontRepository.findFilterSidoMain(ctg, sido);
+    }
 }
