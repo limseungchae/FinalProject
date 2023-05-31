@@ -6,6 +6,15 @@ import {Link} from "react-router-dom";
 
 
 export default function Login () {
+    const API_KEY = '5d1c1e7c981c84a329eb735d9ad56f88';
+    const REDIRECTION = 'http://localhost:3000/oauth/kakao';
+
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${API_KEY}&redirect_uri=${REDIRECTION}&response_type=code`
+
+    const kakaoLogin = () => {
+        window.location.href = KAKAO_AUTH_URL;
+    }
+
     return (
         <Container className={"text-center"}>
           <div className="loginMain">
@@ -53,7 +62,7 @@ export default function Login () {
                                 </Col>
 
                                 <Col className={"offset-1 col-10 mt-2"}>
-                                    <div className="kakaoLogin">
+                                    <div className="kakaoLogin" onClick={kakaoLogin}>
                                         <Image src={kakao} className={"kakaoImg"}/>
                                     </div>
                                 </Col>
