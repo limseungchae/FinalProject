@@ -25,10 +25,10 @@ public interface FrontRepository extends JpaRepository<ClassMeta, Long> {
     List<Object[]> findClassLikeBySearch(@Param("param") String param);
 
     // like 페이지 사용
-    @Query("SELECT cm.link, cm.cname, cm.sido, cm.gugun, cm.category, cm.star, cm.cntrvs, cm.rate, cm.sale, cm.thumbnail, lk.userid " +
+    @Query("SELECT cm.link, cm.cname, cm.sido, cm.gugun, cm.category, cm.star, cm.cntrvs, cm.rate, cm.sale, cm.thumbnail " +
             "FROM ClassMeta cm " +
             "JOIN Likey lk ON cm.link = lk.link " +
-            "WHERE lk.userid = 'test123'")
+            "WHERE lk.kakaoid = '2813856259'")
     List<Object[]> findLikeyByUserid();
 
 }
