@@ -39,4 +39,10 @@ public class FrontDAOImpl implements FrontDAO{
 
         return frontRepository.findClassLikeBySearch(param);
     }
+
+    @Override
+    public List<Object[]> selectLikey(){
+
+        return frontRepository.findLikeyByUserid();
+    }
 }

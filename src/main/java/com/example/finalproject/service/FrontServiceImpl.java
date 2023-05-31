@@ -37,4 +37,8 @@ public class FrontServiceImpl implements FrontService{
         return frtdao.selectSearch(search);
     }
 
+    @Override
+    public List<Object[]> readLikey() {
+        return frtdao.selectLikey();
+    }
 }

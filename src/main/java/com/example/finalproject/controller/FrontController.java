@@ -30,4 +30,9 @@ public class FrontController {
 
         return frtsrv.readSearch(search);
     }
+
+    @GetMapping("/api/likey")
+    public List<Object[]> searchLikey() {
+        return frtsrv.readLikey();
+    }
 }
