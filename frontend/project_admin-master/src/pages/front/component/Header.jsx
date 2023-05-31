@@ -12,7 +12,7 @@ import { BsFillHeartFill } from "react-icons/bs";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 
-
+// logo 테스트
 export default function Header() {
   return (
       <header className={'header-container'}>
