@@ -1,0 +1,8 @@
+.offcanvas
+{
+    max-width: 50%;
+    margin-left: 25%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    --bs-offcanvas-height: 60vh;
+}

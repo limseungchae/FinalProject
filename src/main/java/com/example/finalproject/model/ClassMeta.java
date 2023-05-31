@@ -18,7 +18,7 @@ public class ClassMeta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long link;
     private String cname;
-    private String derail;
+    private String detail;
     private String sido;
     private String gugun;
     private String strdate;
@@ -40,7 +40,6 @@ public class ClassMeta {
     private int sale;
     private String thumbnail;
     private String addr;
-    private String detail;
 
     @CreatedDate
     @Column(insertable = false, updatable = false)

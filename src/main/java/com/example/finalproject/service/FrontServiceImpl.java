@@ -32,6 +32,19 @@ public class FrontServiceImpl implements FrontService{
         }
     }
 
+    // 서치페이지
+    @Override
+    public List<Object[]> readSearch(String search) {
+
+        return frtdao.selectSearch(search);
+    }
+    // 찜 검색
+    @Override
+    public List<Object[]> readLikey() {
+        return frtdao.selectLikey();
+    }
+
+    // 득열이 추가분
     @Override
     public ClassMeta readOne(int link) {
         return frtdao.selectOne(link);

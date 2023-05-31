@@ -13,6 +13,7 @@ public class FrontDAOImpl implements FrontDAO{
     @Autowired
     FrontRepository frontRepository;
 
+    //득열이 추가분
     @Autowired
     ClassImgRepository classImgRepository;
 
@@ -37,6 +38,21 @@ public class FrontDAOImpl implements FrontDAO{
         return frontRepository.findFilterSidoMain(ctg, sido);
     }
 
+    // 서치페이지
+    @Override
+    public List<Object[]> selectSearch(String search) {
+        String param = "%" + search + "%";
+
+        return frontRepository.findClassLikeBySearch(param);
+    }
+    // 찜페이지
+    @Override
+    public List<Object[]> selectLikey(){
+
+        return frontRepository.findLikeyByUserid();
+    }
+
+    // 득열이 추가분
     // 클래스 상세보기 클래스 정보
     @Override
     public ClassMeta selectOne(int link) {
