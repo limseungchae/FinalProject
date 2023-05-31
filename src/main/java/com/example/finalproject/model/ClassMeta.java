@@ -40,7 +40,6 @@ public class ClassMeta {
     private int sale;
     private String thumbnail;
     private String addr;
-    private String detail;
 
     @CreatedDate
     @Column(insertable = false, updatable = false)
