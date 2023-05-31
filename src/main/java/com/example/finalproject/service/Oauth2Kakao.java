@@ -18,6 +18,7 @@ import java.util.Objects;
 public class Oauth2Kakao {
     private final RestTemplate restTemplate;
 
+    // 프론트에서 전달해준 accessToken으로 카카오서버에 유저 정보 요청
     public String callGetUserByAccessToken(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
