@@ -70,14 +70,26 @@
 
 /* 강사 프로필사진 */
 .teacher-img{
-    background-image:url(https://s3.ap-northeast-2.amazonaws.com/umclassuploadboardimg/0e8ba69587da4039bd7c842a1641830c.JPG);
     background-size:cover;
     background-position:center center;
     background-repeat:no-repeat;
     border-radius:100px;
-    width:80px;
-    height:80px;
+    width:60px;
+    height:60px;
     margin-right:20px;
+    margin-bottom: 30px;
+}
+
+.favorite-btn{
+    font-size: 1.5em;
+    padding: 5px 30px;
+    background: #7575ef;
+}
+
+.favorite-modal-body{
+    padding: 50px 0px;
+    font-size: 1.8em;
+    text-align: center;
 }
 
 .star{
@@ -240,7 +252,7 @@
 
 /* 본문 */
 .class-info-title{
-    font-size:17px; font-weight:600;
+    font-size:1.7em; font-weight:600;
 }
 
 /* 편의시설 컨테이너 */
@@ -263,6 +275,7 @@
     width:100%;
     word-break:break-all;
     color: #606060;
+    font-size: 1.5em;
 }
 
 .curriculumIcon{
@@ -290,7 +303,6 @@
 
 .class-completed-img{
     color:#fff;
-    background-image:url(https://s3.ap-northeast-2.amazonaws.com/umclassuploadboardimg/08a8880f80fd46999a0cf41a68790cc6.JPG);
     background-size:cover;
     background-position:center center;
     background-repeat:no-repeat;
@@ -298,8 +310,8 @@
     width:100%;
     margin-bottom:15px;
     margin-right:4%;
-    height:689px;
-    max-height:337px
+    height:100%;
+    max-height:800px
 }
 
 .sectionContainer{
@@ -318,4 +330,9 @@
     font-size: 1.3em;
     padding: 5px 33px;
     border: none;
+}
+
+/* 주소 출력 컨테이너 */
+.addr-container{
+    font-size: 1.5em;
 }

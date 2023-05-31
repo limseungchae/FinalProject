@@ -152,7 +152,7 @@ export default function ClassMain() {
                             { (classList.length > 0) ? classList.map((array) => {
                               return(
                                   <Col className="col-xl-4 mt-4">
-                                      <Link to={array[0]} style={{textDecoration:"none"}}>
+                                      <Link to={`/viewclass?link=${array[0]}`} style={{textDecoration:"none"}}>
                                       <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
                                           <Card.Img variant="top" src={array[9]} width="100%" height="218px" />
                                           <Card.Body>
