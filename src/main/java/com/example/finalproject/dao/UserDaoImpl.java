@@ -20,4 +20,10 @@ public class UserDaoImpl implements UserDao{
         if(user1 != null) result = 1;
         return result;
     }
+
+    @Override
+    public User selectUser(long id) {
+//        System.out.println("JPA로 회원테이블에서 회원이 이미 가입했는지 확인한다 그결과는 .... => " + userRepository.findUserByKakaoid(id));
+        return userRepository.findUserByKakaoid(id);
+    }
 }
