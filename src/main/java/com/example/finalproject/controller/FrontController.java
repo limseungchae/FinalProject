@@ -43,4 +43,15 @@ public class FrontController {
     @GetMapping("/viewclass/addfavorite")
     public void addFavorite(HttpSession session, int link){
     }
+
+    @GetMapping("/api/search")
+    public List<Object[]> search(String search) {
+
+        return frtsrv.readSearch(search);
+    }
+
+    @GetMapping("/api/likey")
+    public List<Object[]> searchLikey() {
+        return frtsrv.readLikey();
+    }
 }

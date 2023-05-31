@@ -33,5 +33,15 @@ public class FrontTest {
             System.out.println(cm);
     }
 
+    @Test
+    @DisplayName("like")
+    public void findlike() {
+        List<Object[]> lks = frontRepository.findLikeyByUserid();
+
+        for(Object[] lk: lks)
+            System.out.println(lk);
+    }
+
+
 
 }

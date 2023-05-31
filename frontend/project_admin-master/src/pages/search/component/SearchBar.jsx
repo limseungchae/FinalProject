@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Header.css"
+import "./SearchBar.css"
 import {Button, Col, Container, Form, Navbar, Row} from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -11,36 +11,37 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 
 // logo 테스트
-export default function Header() {
-  return (
+export default function SearchBar({search, setSearch, processSearch}) {
+
+    return (
       <header className={'header-container'}>
           <Navbar className="headerNav" expand="lg">
               <Container>
                   <Row className="w-100 align-items-center">
-                      <Col lg={3} className="offset-2">
+                      <Col lg={1} className="offset-2">
                           <div className="logo-container d-flex justify-content-between" style={{marginLeft:"-10px"}}>
                               <Link to="/">
-                                <img src={logo4} alt="logo4" style={{padding:"8px"}} />
+                                <img src={logo4} alt="logo4" style={{padding:"8px"}}/>
                               </Link>
-                              <Link href="/" className='navbar-brand text-white logo'>스킬라빗</Link>
                           </div>
                       </Col>
 
-                      <Col lg={4}>
-                          <Link to={"/search"}>
+                      <Col lg={6}>
                           <Form>
                               <InputGroup>
-
-                                  <Form.Control placeholder="클래스를 찾아보세요!" className="searchBar"/>
+                                  <Form.Control placeholder={search} className="searchBar" onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => {
+                                      e.preventDefault();
+                                      if (e.key === 'Enter') {
+                                          processSearch();
+                                      }
+                                  }}/>
                                   <InputGroup.Text className="bg-white search-btn-container">
-                                      <Button className="searchBtn btn-outline-light" href={'/viewclass'}>
+                                      <Button className="searchBtn btn-outline-light" onClick={processSearch}>
                                           <BsSearch className="searchIcon"/>
                                       </Button>
                                   </InputGroup.Text>
-
                               </InputGroup>
                           </Form>
-                          </Link>
                       </Col>
 
                       <Col lg={2} className="d-flex justify-content-end">

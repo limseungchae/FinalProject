@@ -13,6 +13,9 @@ import ViewClass from "./pages/front/pages/ViewClass";
 import AddClass from "./pages/myinfo/pages/AddClass";
 import Modal from "./pages/myinfo/pages/Modal";
 import ListClass from "./pages/myinfo/pages/ListClass";
+import Like from "./pages/myinfo/pages/Like";
+import Search from "./pages/search/Search";
+import Oauth from "./pages/front/pages/Oauth";
 
 
 
@@ -24,8 +27,13 @@ const router = createBrowserRouter([
       {index:"main", element: <ClassMain />},
       {path: "login", element: <Login />},
       {path: "join", element: <Join />},
-      {path: "viewclass", element: <ViewClass />}
+      {path: "viewclass", element: <ViewClass />},
+      {path: "oauth/kakao", element: <Oauth />},
     ]
+  },
+  {
+    path:'/search',
+    element:<Search />
   },
   {
     path:'/admin',
@@ -39,6 +47,7 @@ const router = createBrowserRouter([
     path:'/myinfo',
     element:<UserInfo />,
     children: [
+      {path: "like", element: <Like />},
       {path: "modify", element: <Modify />},
       {path: "listclass", element: <ListClass />},
       {path: "modal", element: <Modal />},

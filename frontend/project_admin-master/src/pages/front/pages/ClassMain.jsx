@@ -30,7 +30,6 @@ export default function ClassMain() {
 
     useEffect(() => {
         let param = `?category=${category}&sido=${area}`
-        console.log(param)
         axios.get(`http://localhost:8080/api/main${param}`)
             .then(response => setClassList(response.data))
             .catch(error => console.log(error))
@@ -117,9 +116,6 @@ export default function ClassMain() {
 
                 <Row>
                     <Col className="offset-xl-2 col-xl-8">
-                        {/*<span className="border border-1 border-dark rounded-pill px-3 py-1 border-opacity-25" style={{fontSize:"16px", cursor:"pointer"}} onClick={() => setModalShow(true)}>
-                           <VscFilterFilled className="mb-1" /> 필터
-                        </span>*/}
                         <div className={`mainSelectMenu ${selectMenuActive}`}>
                             <div className="mainSelectBtn" onClick={handleOpen}>
                                 <span className="sBtnText">{area}</span><AiFillCaretDown />
@@ -144,7 +140,6 @@ export default function ClassMain() {
                                 <li className="selectOption" value="충남" onClick={handleSelect}><span className="optionText">충남</span></li>
                             </ul>
                         </div>
-
                     </Col>
                 </Row>
             </Container>
