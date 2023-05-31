@@ -6,45 +6,17 @@ import {BsFillInfoCircleFill} from 'react-icons/bs';
 import axios from "axios";
 import { useLocation } from "react-router-dom"
 import Modal from "react-bootstrap/Modal";
-
-const makeCalendar = (date) => {
-    const currentYear = new Date(date).getFullYear();
-    const currentMonth = new Date(date).getMonth() + 1;
-
-    const firstDay = new Date(currentYear, currentMonth - 1, 1).getDay();
-    const lastDay = new Date(currentYear, currentMonth, 0).getDate();
-
-    const limitDay = firstDay + lastDay;
-    const nextDay = Math.ceil(limitDay / 7) * 7;
-
-    let htmlDummy = '';
-
-    for (let i = 0; i < firstDay; i++) {
-        htmlDummy += `<div class="noColor"></div>`;
-    }
-
-    for (let i = 1; i <= lastDay; i++) {
-        htmlDummy += `<div>${i}</div>`;
-    }
-
-    for (let i = limitDay; i < nextDay; i++) {
-        htmlDummy += `<div class="noColor"></div>`;
-    }
-
-    const dateBoard = document.querySelector('.dateBoard');
-    const dateTitle = document.querySelector('.dateTitle');
-    if (dateTitle && dateBoard) {
-        dateBoard.innerHTML = htmlDummy;
-        dateTitle.innerText = `${currentYear}년 ${currentMonth}월`;
-    }
-}
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 
 export default function ViewClass () {
     const location = useLocation(); // url값 가져오는 훅
-    const [date, setDate] = useState(new Date());
     const [classInfo, setClassInfo] = useState({});
     const [completeImg, setCompleteImg] = useState([]);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [date, setDate] = useState(null);
 
 
     // 클래스 정보
@@ -62,36 +34,10 @@ export default function ViewClass () {
             .catch(error => console.log(error))
     }, []);
 
-    // 달력
-    useEffect(() => {
-        makeCalendar(date);
-        const prevDay = document.querySelector('.prevDay');
-        const nextDay = document.querySelector('.nextDay');
+    // 리액트 달력
+    const handleDateChange = (date) => {
 
-        const handlePrevDayClick = () => {
-            const prevDate = new Date(date);
-            prevDate.setMonth(prevDate.getMonth() - 1);
-            setDate(prevDate);
-            makeCalendar(date);
-        };
-
-        const handleNextDayClick = () => {
-            const nextDate = new Date(date);
-            nextDate.setMonth(nextDate.getMonth() + 1);
-            setDate(nextDate);
-            makeCalendar(date);
-        };
-
-        prevDay.addEventListener('click', handlePrevDayClick);
-        nextDay.addEventListener('click', handleNextDayClick);
-
-
-        return () => {
-            prevDay.removeEventListener('click', handlePrevDayClick);
-            nextDay.removeEventListener('click', handleNextDayClick);
-        };
-    }, [date]);
-
+    };
 
     // 찜하기 처리
     const [favoriteShow, setFavoriteShow] = useState(false);
@@ -180,23 +126,13 @@ export default function ViewClass () {
                 <Row className={'payboard'}>
                     <h5 className={'schedule-title'}>일정</h5>
                     <div className='rap'>
-                        <div className="header">
-                            <div className="btn prevDay"></div>
-                            <h5 className='dateTitle'></h5>
-                            <div className="btn nextDay"></div>
+                        <div>
+                            <Calendar
+                                onChange={handleDateChange}
+                                value={[startDate, endDate]}
+                                className="calendar"
+                            />
                         </div>
-
-                        <div className="grid dateHead">
-                            <div>일</div>
-                            <div>월</div>
-                            <div>화</div>
-                            <div>수</div>
-                            <div>목</div>
-                            <div>금</div>
-                            <div>토</div>
-                        </div>
-
-                        <div className="grid dateBoard"></div>
                     </div>
 
                     <Row className={'mt-3'}>
