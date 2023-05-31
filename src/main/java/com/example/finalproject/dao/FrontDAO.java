@@ -13,4 +13,10 @@ public interface FrontDAO {
     List<Object[]> selectSidoMain(String sido);
 
     List<Object[]> selectFilterSidoMain(String category, String sido);
+
+    ClassMeta selectOne(int link);
+
+    List<String> selectImgs(int link);
+
+    int selectLink(int link);
 }
