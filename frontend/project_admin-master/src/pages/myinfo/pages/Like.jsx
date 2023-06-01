@@ -39,7 +39,7 @@ export default function Like(){
                                                 <div className="d-flex py-1">
                                                     <div><HiLocationMarker className="fs-5 fw-light" /> <span style={{fontSize:"12px"}}>{array[3]} / {array[2]}</span></div>
                                                 </div>
-                                                <Card.Title className="fs-6 mb-0 fw-bold">{array[1]}</Card.Title>
+                                                <Card.Title className="fs-6 mb-0 fw-bold" style={{whiteSpace: "nowrap",overflow: "hidden", textOverflow: "ellipsis"}}>{array[1]}</Card.Title>
                                                 <Card.Text>
                                                     <p className="mb-0" ><span className="text-warning"><ImStarFull/> <ImStarFull/> <ImStarFull/> <ImStarHalf /> <ImStarEmpty /></span> <span className="fw-light" style={{fontSize:"12px"}}>({array[6]})</span></p>
                                                     <p className="fw-bold text-end"><span className="text-danger">{Math.floor(array[7]*100)}% </span >{array[8].toLocaleString()}원</p>
@@ -49,7 +49,7 @@ export default function Like(){
                                     </Link>
                                 </Col>
                             )
-                        }) : <Col className="col-xl-12 mt-4 text-center"><MdOutlineSearchOff style={{fontSize:"200px",color:"grey"}} /><p className="fw-bold h4">검색 결과가 없습니다</p></Col>
+                        }) : <Col className="col-xl-12 mt-4 text-center"><MdOutlineSearchOff style={{fontSize:"200px",color:"grey"}} /><p className="fw-bold h4">찜 목록이 없습니다</p></Col>
                         }
                     </Row>
                 </Col>

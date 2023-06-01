@@ -2,6 +2,7 @@ package com.example.finalproject.service;
 
 import com.example.finalproject.dao.FrontDAO;
 import com.example.finalproject.model.ClassMeta;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Service("frtsrv")
+@RequiredArgsConstructor
 public class FrontServiceImpl implements FrontService{
+
+    private final Oauth2Kakao oauth2Kakao;
+
     @Autowired
     FrontDAO frtdao;
+
 
     @Override
     public List<Object[]> readMain(String category, String sido) {
@@ -41,6 +47,9 @@ public class FrontServiceImpl implements FrontService{
     // 찜 검색
     @Override
     public List<Object[]> readLikey() {
+
+
+
         return frtdao.selectLikey();
     }
 
