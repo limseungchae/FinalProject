@@ -3,6 +3,7 @@ package com.example.finalproject.dao;
 import com.example.finalproject.model.ClassMeta;
 import com.example.finalproject.repository.ClassImgRepository;
 import com.example.finalproject.repository.FrontRepository;
+import com.example.finalproject.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,9 @@ import java.util.List;
 public class FrontDAOImpl implements FrontDAO{
     @Autowired
     FrontRepository frontRepository;
+
+    @Autowired
+    MemberRepository memberRepository;
 
     //득열이 추가분
     @Autowired
@@ -47,9 +51,15 @@ public class FrontDAOImpl implements FrontDAO{
     }
     // 찜페이지
     @Override
-    public List<Object[]> selectLikey(){
+    public List<Object[]> selectLikey(String kId){
 
-        return frontRepository.findLikeyByUserid();
+        return frontRepository.findLikeyByUserid(kId);
+    }
+
+    @Override
+    public List<Object[]> selectMember(String kId) {
+
+        return memberRepository.findMemberByUserid(kId);
     }
 
     // 득열이 추가분

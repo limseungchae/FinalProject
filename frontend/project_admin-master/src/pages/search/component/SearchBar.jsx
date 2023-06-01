@@ -27,22 +27,16 @@ export default function SearchBar({search, setSearch, processSearch}) {
                       </Col>
 
                       <Col lg={6}>
-                          <Form onKeyDown={(e) => {
-                              e.preventDefault()
-                          }} >
-                              <InputGroup>
-                                  <Form.Control placeholder="지역/클래스 이름으로 검색할 수 있습니다" value={search} onChange={(e) => setSearch(e.target.value)} className="searchBar"  onKeyDown={(e) => {
-                                      if (e.key === 'Enter') {
-                                          processSearch();
-                                      }
-                                  }}/>
-                                  <InputGroup.Text className="bg-white search-btn-container">
-                                      <Button className="searchBtn btn-outline-light" onClick={processSearch}>
-                                          <BsSearch className="searchIcon"/>
-                                      </Button>
-                                  </InputGroup.Text>
-                              </InputGroup>
-                          </Form>
+                          <div id="searchBar" style={{position:"relative"}}>
+                              <input type="text" className="w-100 ps-2" placeholder="지역/클래스 이름으로 검색할 수 있습니다" style={{height:"48px", borderRadius:"8px", border:"none", outline: "none"}} value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => {
+                                  if (e.key === 'Enter') {
+                                      processSearch();
+                                  }
+                              }}/>
+                              <Button className="searchBtn btn-outline-light" onClick={processSearch} style={{position:"absolute", top:"4px", right:"5px"}}>
+                                  <BsSearch className="searchIcon"/>
+                              </Button>
+                          </div>
                       </Col>
 
                       <Col lg={2} className="d-flex justify-content-end">

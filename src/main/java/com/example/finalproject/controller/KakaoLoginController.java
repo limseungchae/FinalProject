@@ -1,5 +1,6 @@
 package com.example.finalproject.controller;
 
+import com.example.finalproject.service.FrontService;
 import com.example.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,8 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
-@Controller
+@RestController
 @SessionAttributes("sess")
 public class KakaoLoginController {
     @Autowired
@@ -21,4 +23,6 @@ public class KakaoLoginController {
         userService.oauth2AuthorizationKakao(token, sess);
         return "";
     }
+
+
 }
