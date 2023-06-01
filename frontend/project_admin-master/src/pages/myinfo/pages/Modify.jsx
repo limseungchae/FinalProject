@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./Modify.css"
 import {Col, Row} from "react-bootstrap";
 
 export default function Modify() {
     const [birth, setBirth] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState('none');
     const [phone, setPhone] = useState('');
     const [userType, setUserType] = useState('user');
+    const [isAgree, setIsAgree] = useState(false);
 
-
+    useEffect(() => {
+        if(userType === "user") setIsAgree(false);
+    },[userType])
 
     const handleBirth = (e) => {
         setBirth(e.target.value);
@@ -22,6 +25,26 @@ export default function Modify() {
     };
     const handleUserType = (e) => {
         setUserType(e.target.value);
+    };
+    const handleAgree = (e) => {
+        setIsAgree(e.target.checked);
+    };
+    //여기서 검증과 post 요청을 하도록 한다.
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // 생년월일이 8자리 숫자인지 검증
+        const birthRegex = /^\d{8}$/; // 정규표현식
+        const phoneRegex = /^\d{10,11}$/; // 정규표현식
+        if (!birthRegex.test(birth)) {
+            alert("생년월일을 8자리 숫자로 작성해주세요")
+        } else if (!phoneRegex.test(phone)) {
+            alert("핸드폰 번호는 10자리, 11자리 숫자여야 합니다.");
+        } else if(userType === "tutor" && isAgree === false) {
+            alert("이용약관에 동의해주세요")
+        } else {
+            alert("submit 성공!")
+        }
+
     };
     return(
         <div className="modifyMain mt-5">
@@ -43,7 +66,7 @@ export default function Modify() {
                                 <p style={{margin:"0"}}>생년월일</p>
                             </Col>
                             <Col className={"col-6"}>
-                                <input type="text" style={{width:"100%",height:"40px"}} placeholder='ex)20130527' onChange={handleBirth} value={birth}/>
+                                <input type="text" style={{width:"100%",height:"40px"}} placeholder='ex)20130527' onChange={handleBirth} value={birth}  />
                             </Col>
                         </Row>
                         <Row className={"mb-4"}>
@@ -379,14 +402,14 @@ export default function Modify() {
 부칙 이 약관은 2023년 03월 07일부터 시행됩니다.
                                 </textarea>
                                 <div className="mt-3 d-flex justify-content-end" id="agreeContainer">
-                                    <label className="justify-content-end"><input type="checkbox" id="agree" name="agree" /> 이용약관에 동의합니다.</label>
+                                    <label className="justify-content-end"><input type="checkbox" id="agree" name="agree"  checked={isAgree} onChange={handleAgree} /> 이용약관에 동의합니다.</label>
                                 </div>
                             </Col>
                         </Row>
 
                         <Row style={{marginBottom:"100px"}}>
                             <Col className={"offset-3 col-6 d-flex justify-content-center"}>
-                                <button className="joinSubmitButton">수정하기</button>
+                                <button className="joinSubmitButton" onClick={handleSubmit}>수정하기</button>
                             </Col>
                         </Row>
                     </div>
