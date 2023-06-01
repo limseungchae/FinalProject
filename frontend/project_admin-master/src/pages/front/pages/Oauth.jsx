@@ -24,6 +24,7 @@ export default function Oauth() {
             // 성공적으로 요청을 보낸 경우의 처리
             console.log(response.data);
             axios.get('http://localhost:8080/oauth/token?token=' + response.data.access_token)  // 토큰을 백으로 보낸다
+            window.location.href = "/"
         })
         .catch(error => {
             // 요청이 실패한 경우의 처리

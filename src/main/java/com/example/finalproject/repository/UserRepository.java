@@ -8,5 +8,5 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select * from MEMBER where KAKAOID = :id", nativeQuery = true)
-    User findUserByKakaoid(@Param("id") Long id);
+    User findUserByKakaoid(@Param("id") String id);
 }
