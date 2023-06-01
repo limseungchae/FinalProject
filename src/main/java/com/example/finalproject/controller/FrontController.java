@@ -2,7 +2,9 @@ package com.example.finalproject.controller;
 
 import com.example.finalproject.model.ClassMeta;
 import com.example.finalproject.service.FrontService;
+import com.example.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -11,10 +13,15 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-@SessionAttributes("sess")
 public class FrontController {
     @Autowired
     FrontService frtsrv;
+
+    @Autowired
+    UserService userservice;
+
+    @Autowired
+    private HttpSession httpSession;
 
     @GetMapping("/api/hello")
     public String test() {
@@ -27,15 +34,16 @@ public class FrontController {
     }
 
     @GetMapping("/api/search")
-    public List<Object[]> search(String search) {
-
+    public List<Object[]> search(String search, HttpSession sess) {
+        System.out.println( userservice.kId + "여기서는?");
+        System.out.println( httpSession.getId() + "서치?");
         return frtsrv.readSearch(search);
     }
 
     @GetMapping("/api/likey")
-    public List<Object[]> searchLikey(HttpSession sess ) {
-        System.out.println(sess.getAttribute("kId") + "여기서는?");
-
+    public List<Object[]> searchLikey(HttpSession sess) {
+        System.out.println( userservice.kId + "여기서는?");
+        System.out.println( httpSession.getId() + "like?");
 
         return frtsrv.readLikey();
     }

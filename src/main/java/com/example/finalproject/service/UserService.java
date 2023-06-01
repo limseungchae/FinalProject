@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import javax.servlet.http.HttpSession;
 
 
-@Service
+@Service("userservice")
 @RequiredArgsConstructor
-@SessionAttributes("sess")
 public class UserService {
     private final Oauth2Kakao oauth2Kakao;
 
+    public String kId;
+
     @Autowired
     private UserDao urdao;
+
 
     public void oauth2AuthorizationKakao(String token, HttpSession sess) {
         String userInfoFromKakao = oauth2Kakao.callGetUserByAccessToken(token); // 카카오 서버에 유저 정보 요청
@@ -52,7 +54,10 @@ public class UserService {
             sess.setAttribute("kName", nickname);
             sess.setAttribute("kEmail", email);
 
-            System.out.println(sess.getAttribute("kId")+ "여기서");
+            System.out.println(sess.getId() + "여기서");
+
+            this.kId = id;
+
 
 
         } catch (Exception e) {
