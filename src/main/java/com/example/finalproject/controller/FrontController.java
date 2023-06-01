@@ -24,6 +24,20 @@ public class FrontController {
         return frtsrv.readMain(category, sido);
     }
 
+    @GetMapping("/api/search")
+    public List<Object[]> search(String search) {
+
+        return frtsrv.readSearch(search);
+    }
+
+    @GetMapping("/api/likey")
+    public List<Object[]> searchLikey(HttpSession sess ) {
+        System.out.println(sess.getAttribute("kId"));
+
+
+        return frtsrv.readLikey();
+    }
+
 
 
     //---------------- 클래스 상세보기 - 김득열
@@ -44,14 +58,5 @@ public class FrontController {
     public void addFavorite(HttpSession session, int link){
     }
 
-    @GetMapping("/api/search")
-    public List<Object[]> search(String search) {
 
-        return frtsrv.readSearch(search);
-    }
-
-    @GetMapping("/api/likey")
-    public List<Object[]> searchLikey() {
-        return frtsrv.readLikey();
-    }
 }

@@ -20,7 +20,7 @@ public class User {
     private Long mid;
 
     @Column(name = "KAKAOID")
-    private Long kakaoid;
+    private String kakaoid;
 
     @Column(name = "NICKNAME")
     private String nickname;

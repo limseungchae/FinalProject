@@ -31,7 +31,7 @@ public class UserService {
             JsonNode jsonNode = objectMapper.readTree(userInfoFromKakao);
 
             // User 객체 만들기 위한 값을 jsonNode에서 추출
-            Long id = jsonNode.get("id").asLong();
+            String id = jsonNode.get("id").asText();
             String nickname = String.valueOf(jsonNode.get("properties").get("nickname"));
             String email = String.valueOf(jsonNode.get("kakao_account").get("email"));
             System.out.println(id + " " + email + " " + nickname);
@@ -48,6 +48,8 @@ public class UserService {
             session.setAttribute("kId", id);
             session.setAttribute("kName", nickname);
             session.setAttribute("kEmail", email);
+
+            System.out.println(session.getAttribute("kId")+ "여기서");
 
 
         } catch (Exception e) {

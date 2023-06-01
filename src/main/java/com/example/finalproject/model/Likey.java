@@ -17,7 +17,7 @@ public class Likey {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long likey;
-    private String kakaoid;
+    private int kakaoid;
     @Column(name = "link")
     private int link;
     @CreatedDate

@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User selectUser(long id) {
+    public User selectUser(String id) {
 //        System.out.println("JPA로 회원테이블에서 회원이 이미 가입했는지 확인한다 그결과는 .... => " + userRepository.findUserByKakaoid(id));
         return userRepository.findUserByKakaoid(id);
     }
