@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import "./Modify.css"
 import {Col, Row} from "react-bootstrap";
+import axios from "axios";
 
 export default function Modify() {
+    const [name, setName] = useState("");
     const [birth, setBirth] = useState('');
     const [gender, setGender] = useState('none');
     const [phone, setPhone] = useState('');
@@ -12,6 +14,27 @@ export default function Modify() {
     useEffect(() => {
         if(userType === "user") setIsAgree(false);
     },[userType])
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/readModify`)
+            .then(response => {
+               let userInfo = response.data[0];
+               let name = userInfo[0].replaceAll("\"","");
+               let birth = userInfo[1];
+               let gender = userInfo[2];
+               let phone = userInfo[3];
+               let type = userInfo[4];
+               setName(name);
+               setBirth(birth);
+               setGender(gender);
+               setPhone(phone);
+               setUserType(type);
+
+                console.log(type);
+
+            })
+            .catch(error => console.log(error))
+    }, []);
 
     const handleBirth = (e) => {
         setBirth(e.target.value);
@@ -57,7 +80,7 @@ export default function Modify() {
                                 <label htmlFor="name"><p style={{margin:"0"}}>이름</p></label>
                             </Col>
                             <Col className={"col-6"}>
-                                <input type="text" id="name" readOnly={true} style={{width:"100%",height:"40px"}} />
+                                <input type="text" id="name" readOnly={true} style={{width:"100%",height:"40px"}} value={name} />
                             </Col>
                         </Row>
 

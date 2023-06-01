@@ -25,4 +25,6 @@ public interface FrontDAO {
     List<String> selectImgs(int link);
 
     int selectLink(int link);
+
+    List<Object[]> selectMember(String kId);
 }

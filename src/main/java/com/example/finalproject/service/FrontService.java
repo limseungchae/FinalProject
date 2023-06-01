@@ -16,4 +16,6 @@ public interface FrontService {
     ClassMeta readOne(int link);
 
     List<String> readImg(int link);
+
+    List<Object[]> readModify(String kId);
 }

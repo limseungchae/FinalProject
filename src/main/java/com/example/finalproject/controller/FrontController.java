@@ -27,11 +27,13 @@ public class FrontController {
         return "Hello, world!";
     }
 
+    // 메인 페이지
     @GetMapping("/api/main")
     public List<Object[]> main(String category, String sido) {
         return frtsrv.readMain(category, sido);
     }
 
+    // search 페이지
     @GetMapping("/api/search")
     public List<Object[]> search(String search) {
         System.out.println( userservice.kId + "여기서는?");
@@ -39,12 +41,19 @@ public class FrontController {
         return frtsrv.readSearch(search);
     }
 
+    // like 페이지
     @GetMapping("/api/likey")
     public List<Object[]> searchLikey() {
 
         return frtsrv.readLikey(kId);
     }
 
+    // modify페이지 1): read
+    @GetMapping("/api/readModify")
+    public List<Object[]> readModify() {
+
+        return frtsrv.readModify(kId);
+    }
 
 
     //---------------- 클래스 상세보기 - 김득열

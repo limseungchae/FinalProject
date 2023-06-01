@@ -47,10 +47,13 @@ public class FrontServiceImpl implements FrontService{
     // 찜 검색
     @Override
     public List<Object[]> readLikey(String kId) {
-
-
-
         return frtdao.selectLikey(kId);
+    }
+
+    @Override
+    public List<Object[]> readModify(String kId) {
+
+        return frtdao.selectMember(kId);
     }
 
     // 득열이 추가분
@@ -66,5 +69,7 @@ public class FrontServiceImpl implements FrontService{
         if((frtdao.selectLink(link))!=0) imgs = frtdao.selectImgs(link);
         return imgs;
     }
+
+
 
 }
