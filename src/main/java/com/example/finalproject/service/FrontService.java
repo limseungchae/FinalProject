@@ -10,10 +10,12 @@ public interface FrontService {
     // 서치페이지
     List<Object[]> readSearch(String search);
     // 라이크페이지
-    List<Object[]> readLikey();
+    List<Object[]> readLikey(String kId);
 
     // 득열이 추가분
     ClassMeta readOne(int link);
 
     List<String> readImg(int link);
+
+    List<Object[]> readModify(String kId);
 }

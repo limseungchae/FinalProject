@@ -22,7 +22,7 @@ export default function Header() {
                               <Link to="/">
                                 <img src={logo4} alt="logo4" style={{padding:"8px"}} />
                               </Link>
-                              <Link href="/" className='navbar-brand text-white logo'>스킬라빗</Link>
+                              <Link to="/" className='navbar-brand text-white logo'>스킬라빗</Link>
                           </div>
                       </Col>
 
