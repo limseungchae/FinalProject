@@ -47,9 +47,9 @@ public class FrontDAOImpl implements FrontDAO{
     }
     // 찜페이지
     @Override
-    public List<Object[]> selectLikey(){
+    public List<Object[]> selectLikey(String kId){
 
-        return frontRepository.findLikeyByUserid();
+        return frontRepository.findLikeyByUserid(kId);
     }
 
     // 득열이 추가분

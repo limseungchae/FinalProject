@@ -17,7 +17,7 @@ public interface FrontDAO {
     // 서치페이지
     List<Object[]> selectSearch(String search);
     // 찜페이지
-    List<Object[]> selectLikey();
+    List<Object[]> selectLikey(String kId);
 
     // 득열이 추가분
     ClassMeta selectOne(int link);

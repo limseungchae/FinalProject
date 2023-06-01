@@ -14,14 +14,13 @@ import java.util.List;
 
 @RestController
 public class FrontController {
+    public String kId = "2813856259";
+
     @Autowired
     FrontService frtsrv;
 
     @Autowired
     UserService userservice;
-
-    @Autowired
-    private HttpSession httpSession;
 
     @GetMapping("/api/hello")
     public String test() {
@@ -34,18 +33,16 @@ public class FrontController {
     }
 
     @GetMapping("/api/search")
-    public List<Object[]> search(String search, HttpSession sess) {
+    public List<Object[]> search(String search) {
         System.out.println( userservice.kId + "여기서는?");
-        System.out.println( httpSession.getId() + "서치?");
+
         return frtsrv.readSearch(search);
     }
 
     @GetMapping("/api/likey")
-    public List<Object[]> searchLikey(HttpSession sess) {
-        System.out.println( userservice.kId + "여기서는?");
-        System.out.println( httpSession.getId() + "like?");
+    public List<Object[]> searchLikey() {
 
-        return frtsrv.readLikey();
+        return frtsrv.readLikey(kId);
     }
 
 

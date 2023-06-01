@@ -19,6 +19,8 @@ public class FrontTest {
     @Autowired
     UserRepository userRepository;
 
+    public String kId = "2813856259";
+
 
     @Test
     @DisplayName("all")
@@ -41,7 +43,7 @@ public class FrontTest {
     @Test
     @DisplayName("like")
     public void findlike() {
-        List<Object[]> lks = frontRepository.findLikeyByUserid();
+        List<Object[]> lks = frontRepository.findLikeyByUserid(kId);
 
         for(Object[] lk: lks)
             System.out.println(lk);
