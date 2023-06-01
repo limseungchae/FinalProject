@@ -27,10 +27,11 @@ export default function SearchBar({search, setSearch, processSearch}) {
                       </Col>
 
                       <Col lg={6}>
-                          <Form>
+                          <Form onKeyDown={(e) => {
+                              e.preventDefault()
+                          }} >
                               <InputGroup>
-                                  <Form.Control placeholder={search} className="searchBar" onChange={(e) => setSearch(e.target.value)} onKeyPress={(e) => {
-                                      e.preventDefault();
+                                  <Form.Control placeholder="지역/클래스 이름으로 검색할 수 있습니다" value={search} onChange={(e) => setSearch(e.target.value)} className="searchBar"  onKeyDown={(e) => {
                                       if (e.key === 'Enter') {
                                           processSearch();
                                       }
@@ -63,20 +64,4 @@ export default function SearchBar({search, setSearch, processSearch}) {
           </Navbar>
       </header>
   );
-}
-
-function myInfo() {
-    return (
-        <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Dropdown Button
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
-    );
 }

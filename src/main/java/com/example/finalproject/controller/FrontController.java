@@ -5,11 +5,13 @@ import com.example.finalproject.service.FrontService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
+@SessionAttributes("sess")
 public class FrontController {
     @Autowired
     FrontService frtsrv;
@@ -32,7 +34,7 @@ public class FrontController {
 
     @GetMapping("/api/likey")
     public List<Object[]> searchLikey(HttpSession sess ) {
-        System.out.println(sess.getAttribute("kId"));
+        System.out.println(sess.getAttribute("kId") + "여기서는?");
 
 
         return frtsrv.readLikey();

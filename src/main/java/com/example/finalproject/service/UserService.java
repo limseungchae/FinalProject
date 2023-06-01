@@ -7,19 +7,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 
 
 @Service
 @RequiredArgsConstructor
+@SessionAttributes("sess")
 public class UserService {
     private final Oauth2Kakao oauth2Kakao;
 
     @Autowired
     private UserDao urdao;
 
-    public void oauth2AuthorizationKakao(String token, HttpSession session) {
+    public void oauth2AuthorizationKakao(String token, HttpSession sess) {
         String userInfoFromKakao = oauth2Kakao.callGetUserByAccessToken(token); // 카카오 서버에 유저 정보 요청
 
         System.out.println("userInfoFromKakao - 서버로부터 응답받은 카카오유저 정보는 " + userInfoFromKakao + "  입니다 ! ");
@@ -45,11 +48,11 @@ public class UserService {
             }
 
             // 세션 생성
-            session.setAttribute("kId", id);
-            session.setAttribute("kName", nickname);
-            session.setAttribute("kEmail", email);
+            sess.setAttribute("kId", id);
+            sess.setAttribute("kName", nickname);
+            sess.setAttribute("kEmail", email);
 
-            System.out.println(session.getAttribute("kId")+ "여기서");
+            System.out.println(sess.getAttribute("kId")+ "여기서");
 
 
         } catch (Exception e) {

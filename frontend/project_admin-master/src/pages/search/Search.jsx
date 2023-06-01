@@ -12,7 +12,8 @@ import Reservation from "../front/component/Reservation";
 
 export default function Search() {
     const [classList, setClassList] = useState([]);
-    const [search, setSearch] = useState("지역/클래스 이름으로 검색할 수 있습니다");
+    const [search, setSearch] = useState("");
+    console.log(search)
 
     const processSearch = () => {
         let param = `?search=${search}`
@@ -55,7 +56,6 @@ export default function Search() {
                     </Col>
                 </Row>
             </Container>
-            <Reservation />
         </>
     )
 }
