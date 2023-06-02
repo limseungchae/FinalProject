@@ -54,3 +54,8 @@
     --breakpoint-lg: 992px;
     --breakpoint-xl: 1200px;
 }
+
+main
+{
+    min-height: 700px;
+}

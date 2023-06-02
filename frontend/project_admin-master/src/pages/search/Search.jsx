@@ -24,7 +24,7 @@ export default function Search() {
     }
 
     return(
-        <>
+        <main>
             <SearchBar search={search} setSearch={setSearch} processSearch={processSearch}/>
             <Container>
                 <Row>
@@ -56,6 +56,6 @@ export default function Search() {
                     </Col>
                 </Row>
             </Container>
-        </>
+        </main>
     )
 }
