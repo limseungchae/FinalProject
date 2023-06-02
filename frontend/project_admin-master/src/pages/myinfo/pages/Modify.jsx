@@ -86,12 +86,14 @@ export default function Modify() {
 
     };
     return(
-        <div className="modifyMain mt-5">
+        <div className="modifyMain">
             <Row>
-                <Col lg={1}></Col>
-                <Col lg={8} className={"modifyContainer"}>
-                    <h3 className={"text-start ps-4 registerHeader"} style={{marginBottom:"32px"}}>개인 정보 수정</h3>
-                    <div id="modifyForm" className="ps-3 border-top border-2 border-dark">
+                <Col lg={10} className={"modifyContainer"}>
+                    <div className={"my-4"}>
+                        <h3 className={"text-start ps-4 registerHeader"} >개인 정보 수정</h3>
+                        <hr />
+                    </div>
+                    <div id="modifyForm" className="ps-3 border-dark">
                         <Row className={"mb-4 mt-3"}>
                             <Col className={"col-3 align-self-center"}>
                                 <label htmlFor="name"><p style={{margin:"0"}}>이름</p></label>

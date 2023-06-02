@@ -5,6 +5,7 @@ import {Link, Outlet} from 'react-router-dom';
 import Header from "../front/component/Header";
 import Footer from "../front/component/Footer";
 import Footer_2 from "../front/component/Footer_2";
+import {MdOutlineKeyboardArrowRight} from "react-icons/md";
 
 export default function UserInfo() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -39,16 +40,14 @@ export default function UserInfo() {
             <main>
                 <Container>
                     <Row>
-                        <Col lg={2} className={`sidebar ${sidebarOpen ? 'open' : ''}`} >
-                            <div className="sidebar-toggle" onClick={toggleSidebar}>
-                                <span></span>
-                                <span></span>
-                                <span></span>
+                        <Col lg={2} className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
+                            <div style={{height:"77px"}}>
+
                             </div>
-                            <ul>
-                                <li><Link to="/myinfo/modify">마이페이지 수정</Link></li>
-                                <li><Link to="/myinfo/like">찜 목록</Link></li>
-                                <li><Link to="/myinfo/paylist">결재내역</Link></li>
+                            <ul className="border border-1">
+                                <li className="border-bottom py-2 ps-2"><Link to="/myinfo/modify">마이페이지 수정</Link></li>
+                                <li className="border-bottom py-2 ps-2"><Link to="/myinfo/like">찜 목록</Link></li>
+                                <li className="py-2 ps-2"><Link to="/myinfo/paylist">결재내역</Link></li>
                             </ul>
                         </Col>
                         <Col lg={10}>

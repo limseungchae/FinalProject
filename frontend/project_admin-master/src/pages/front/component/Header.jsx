@@ -18,6 +18,12 @@ export default function Header() {
 
     const [isMyMenuOpen, setIsMyMenuOpen] = useState(false);
 
+    const handleDropdown = () => {
+        if (localStorage.getItem("ACCESS_TOKEN") == null) {
+            window.location.href = "/login";
+        }
+    };
+
     const handleMyMenuToggle = () => {
         setIsMyMenuOpen(!isMyMenuOpen);
     };
@@ -36,11 +42,7 @@ export default function Header() {
         window.location.href = "/login";
     }
 
-    const handleDropdown = () => {
-        if (localStorage.getItem("ACCESS_TOKEN") == null) {
-            window.location.href = "/login";
-        }
-    };
+
     return (
         <header className={'header-container'}>
             <Navbar className="headerNav" expand="lg">
