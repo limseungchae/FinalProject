@@ -154,7 +154,7 @@ export default function ClassMain() {
                                   <Col className="col-xl-4 mt-4">
                                       <Link to={`/viewclass?link=${array[0]}`} style={{textDecoration:"none"}}>
                                       <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
-                                          <Card.Img variant="top" src={array[9]} width="100%" height="218px" />
+                                          <Card.Img variant="top" src={array[9]} width="100%" height="218px" loading="lazy" />
                                           <Card.Body>
                                               <div className="d-flex py-1">
                                                   <div><HiLocationMarker className="fs-5 fw-light" /> <span style={{fontSize:"12px"}}>{array[3]} / {array[2]}</span></div>
