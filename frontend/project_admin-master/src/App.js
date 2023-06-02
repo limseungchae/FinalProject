@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       {path: "login", element: <Login />},
       {path: "join", element: <Join />},
       {path: "viewclass", element: <ViewClass />},
-      {path: "oauth/kakao", element: <Oauth />},
+      {path: "auth/kakao", element: <Oauth />},
     ]
   },
   {

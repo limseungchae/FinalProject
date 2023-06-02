@@ -1,6 +1,7 @@
 package com.example.finalproject.service;
 
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.ModifyRequest;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface FrontService {
     List<String> readImg(int link);
 
     List<Object[]> readModify(String kId);
+
 }

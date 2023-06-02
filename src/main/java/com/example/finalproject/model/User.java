@@ -13,14 +13,17 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-public class User {
+@Builder
+public class
+
+User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MID", insertable = false, updatable = false)
-    private Long mid;
+    @Column(name = "MBNO", insertable = false, updatable = false)
+    private Long mbno;
 
     @Column(name = "KAKAOID")
-    private String kakaoid;
+    private Long kakaoid;
 
     @Column(name = "NICKNAME")
     private String nickname;

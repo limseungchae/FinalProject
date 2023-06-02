@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MID", insertable = false, updatable = false)
-    private Long mid;
+    @Column(name = "MBNO", insertable = false, updatable = false)
+    private Long mbno;
 
     @Column(name = "KAKAOID")
     private String kakaoid;

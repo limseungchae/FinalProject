@@ -6,7 +6,7 @@ export default function Oauth() {
     const postData = {
         'grant_type':'authorization_code',
         'client_id':'5d1c1e7c981c84a329eb735d9ad56f88',
-        'redirect_uri':'http://localhost:3000/oauth/kakao',
+        'redirect_uri':'http://localhost:3000/auth/kakao',
         'code':code,
         'client_secret':'A02yOfXLP1tARjREXatbEAfP9w1WrDKX'
         // 본문 데이터
@@ -23,8 +23,15 @@ export default function Oauth() {
         .then(response => {
             // 성공적으로 요청을 보낸 경우의 처리
             console.log(response.data);
-            axios.get('http://localhost:8080/oauth/token?token=' + response.data.access_token)  // 토큰을 백으로 보낸다
-            window.location.href = "/"
+            axios.get('http://localhost:8080/auth/token?token=' + response.data.access_token)                .then((res)=> {
+                console.log("res ... => " + res);
+                alert("로그인 성공! 로그인 토큰은 ... => " + res.data.token);
+                if(res.data.token) {
+                    localStorage.setItem("ACCESS_TOKEN", res.data.token);
+                    // token이 존재하는 경우 메인페이지로 리디렉트
+                    window.location.href = '/';
+                }
+            })
         })
         .catch(error => {
             // 요청이 실패한 경우의 처리

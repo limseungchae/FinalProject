@@ -12,4 +12,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select nickname, birth, gender, phone, type, agree from Member where kakaoid = :kId")
     List<Object[]> findMemberByUserid(@Param("kId") String kId);
+
+
 }
