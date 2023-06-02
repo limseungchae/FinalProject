@@ -4,23 +4,20 @@ import com.example.finalproject.model.ClassMeta;
 import com.example.finalproject.service.FrontService;
 import com.example.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
 public class FrontController {
-    public String kId = "2813096715";
+    public String kId = "2813856259";
 
     @Autowired
     FrontService frtsrv;
 
     @Autowired
-    UserService userservice;
+    UserService ussrv;
 
     @GetMapping("/api/hello")
     public String test() {
@@ -36,7 +33,6 @@ public class FrontController {
     // search 페이지
     @GetMapping("/api/search")
     public List<Object[]> search(String search) {
-        System.out.println( userservice.kId + "여기서는?");
 
         return frtsrv.readSearch(search);
     }
@@ -54,6 +50,15 @@ public class FrontController {
 
         return frtsrv.readModify(kId);
     }
+
+    // modify페이지 2): update
+    /*@PostMapping("/api/modify")
+    public String modify(@RequestBody ModifyRequest request) {
+        frtsrv.updateUser(request);
+
+        return "";
+    }*/
+
 
 
     //---------------- 클래스 상세보기 - 김득열

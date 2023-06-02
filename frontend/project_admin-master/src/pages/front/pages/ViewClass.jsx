@@ -11,6 +11,9 @@ import 'react-calendar/dist/Calendar.css';
 
 
 export default function ViewClass () {
+    // 로컬 스토리지에서 ACCESS TOKEN 가져오기
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
+
     const location = useLocation(); // url값 가져오는 훅
     const [classInfo, setClassInfo] = useState({});
     const [completeImg, setCompleteImg] = useState([]);
@@ -44,8 +47,17 @@ export default function ViewClass () {
     const handleShow = () => setFavoriteShow(true);
     const handleClose = () => setFavoriteShow(false);
     const handleAddFavorite = () => {
-        setFavoriteShow(false)
-}
+        if (accessToken && accessToken !== "null") {
+            setFavoriteShow(false)
+        } else window.location.href = "/login";
+    }
+
+    // 예약하기 처리
+    const handleReservation = () => {
+        if (accessToken && accessToken !== "null") {
+            window.location.href = '/';     // 결제페이지 생기기전 임시 리디렉트
+        }else window.location.href = "/login";
+    };
 
 
     return (
@@ -140,7 +152,7 @@ export default function ViewClass () {
                             <Row className={'pay'}>
                                 <Col className={'offset-3 col-4'}><span className={'discount-price'}>{classInfo.sale}원</span></Col>
                                 <Col className={'col-5 res-btn-container'}>
-                                    <Button className={'text-white reservation-btn mb-2'}>
+                                    <Button className={'text-white reservation-btn mb-2'} onClick={handleReservation}>
                                         예약하기
                                     </Button>
                                 </Col>

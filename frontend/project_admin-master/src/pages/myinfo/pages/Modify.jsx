@@ -4,16 +4,12 @@ import {Col, Row} from "react-bootstrap";
 import axios from "axios";
 
 export default function Modify() {
-    const [name, setName] = useState("");
+    const [name, setName] = useState('');
     const [birth, setBirth] = useState('');
     const [gender, setGender] = useState('none');
     const [phone, setPhone] = useState('');
     const [userType, setUserType] = useState('user');
     const [isAgree, setIsAgree] = useState(false);
-
-    useEffect(() => {
-        if(userType === "user") setIsAgree(false);
-    },[userType])
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/readModify`)
@@ -30,6 +26,7 @@ export default function Modify() {
                setGender(gender);
                setPhone(phone);
                setUserType(type);
+               if(agree === "agree") setIsAgree(true);
 
                 console.log(agree);
 
@@ -49,6 +46,7 @@ export default function Modify() {
     };
     const handleUserType = (e) => {
         setUserType(e.target.value);
+        if(userType === "user") setIsAgree(false);
     };
     const handleAgree = (e) => {
         setIsAgree(e.target.checked);
@@ -66,6 +64,23 @@ export default function Modify() {
         } else if(userType === "tutor" && isAgree === false) {
             alert("이용약관에 동의해주세요")
         } else {
+            let agree = 'none';
+            if(isAgree === true) agree = 'agree';
+
+            axios.post('http://localhost:8080/api/modify', {
+                birth: birth,
+                gender: gender,
+                phone: phone,
+                type:userType,
+                agree:agree
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
             alert("submit 성공!")
         }
 
