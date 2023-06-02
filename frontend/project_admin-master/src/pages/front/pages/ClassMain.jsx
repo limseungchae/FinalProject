@@ -154,12 +154,12 @@ export default function ClassMain() {
                                   <Col className="col-xl-4 mt-4">
                                       <Link to={`/viewclass?link=${array[0]}`} style={{textDecoration:"none"}}>
                                       <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
-                                          <Card.Img variant="top" src={array[9]} width="100%" height="218px" loading="lazy" />
+                                          <Card.Img variant="top" src={array[9]} width="100%" height="218px" />
                                           <Card.Body>
                                               <div className="d-flex py-1">
                                                   <div><HiLocationMarker className="fs-5 fw-light" /> <span style={{fontSize:"12px"}}>{array[3]} / {array[2]}</span></div>
                                               </div>
-                                              <Card.Title className="fs-6 mb-0 fw-bold">{array[1]}</Card.Title>
+                                              <Card.Title className="fs-6 mb-0 fw-bold w-100" style={{whiteSpace: "nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{array[1]}</Card.Title>
                                               <Card.Text>
                                                   <p className="mb-0" ><span className="text-warning"><ImStarFull/> <ImStarFull/> <ImStarFull/> <ImStarHalf /> <ImStarEmpty /></span> <span className="fw-light" style={{fontSize:"12px"}}>({array[6]})</span></p>
                                                   <p className="fw-bold text-end"><span className="text-danger">{Math.floor(array[7]*100)}% </span >{array[8].toLocaleString()}원</p>
