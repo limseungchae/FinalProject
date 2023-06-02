@@ -24,13 +24,14 @@ export default function Modify() {
                let gender = userInfo[2];
                let phone = userInfo[3];
                let type = userInfo[4];
+               let agree = userInfo[5];
                setName(name);
                setBirth(birth);
                setGender(gender);
                setPhone(phone);
                setUserType(type);
 
-                console.log(type);
+                console.log(agree);
 
             })
             .catch(error => console.log(error))
