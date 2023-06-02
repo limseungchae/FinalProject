@@ -11,7 +11,7 @@ import { BsFillHeartFill } from "react-icons/bs";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 
-// logo 테스트
+// logo 테스트1
 export default function Header() {
     // 로컬 스토리지에서 ACCESS TOKEN 가져오기
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
