@@ -10,13 +10,11 @@ import Login from "./pages/front/pages/Login";
 import Modify from "./pages/myinfo/pages/Modify";
 import ClassMain from "./pages/front/pages/ClassMain";
 import ViewClass from "./pages/front/pages/ViewClass";
-import AddClass from "./pages/myinfo/pages/AddClass";
-import Modal from "./pages/myinfo/pages/Modal";
-import ListClass from "./pages/myinfo/pages/ListClass";
+import AddClass from "./pages/myinfo/pages/addclass";
 import Like from "./pages/myinfo/pages/Like";
 import Search from "./pages/search/Search";
 import Oauth from "./pages/front/pages/Oauth";
-
+import ClassList from "./pages/myinfo/pages/classlist";
 
 
 const router = createBrowserRouter([
@@ -49,9 +47,8 @@ const router = createBrowserRouter([
     children: [
       {path: "like", element: <Like />},
       {path: "modify", element: <Modify />},
-      {path: "listclass", element: <ListClass />},
-      {path: "modal", element: <Modal />},
       {path: "addclass", element: <AddClass />},
+      {path: "classlist", element: <ClassList />},
     ]
   }
 ]);
