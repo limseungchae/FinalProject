@@ -36,6 +36,11 @@ export default function Header() {
         window.location.href = "/login";
     }
 
+    const handleDropdown = () => {
+        if (localStorage.getItem("ACCESS_TOKEN") == null) {
+            window.location.href = "/login";
+        }
+    };
     return (
         <header className={'header-container'}>
             <Navbar className="headerNav" expand="lg">
@@ -71,19 +76,17 @@ export default function Header() {
                                 <Dropdown
                                     onMouseEnter={handleMyMenuToggle}
                                     onMouseLeave={closeMyMenu}
-                                    show={isMyMenuOpen}
-                                >
+                                    show={isMyMenuOpen}>
                                     <Dropdown.Toggle
                                         as={CustomToggle}
                                         id="dropdown-my-menu"
-                                        className="my-button"
-                                    >
+                                        className="my-button">
                                         <BsFillPersonFill className="my-icon" style={{color: 'white'}} />
                                         <span className="icon-text my-text" style={{color: 'white'}}>마이</span>
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item as={Link} to="/myinfo/like">찜목록</Dropdown.Item>
-                                        <Dropdown.Item as={Link} to="/myinfo/paylist">결재 내역</Dropdown.Item>
+                                        <Dropdown.Item onClick={handleDropdown} as={Link} to="/myinfo/like">찜목록</Dropdown.Item>
+                                        <Dropdown.Item onClick={handleDropdown} as={Link} to="/myinfo/paylist">결재 내역</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>
