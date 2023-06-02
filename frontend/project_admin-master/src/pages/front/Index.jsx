@@ -9,7 +9,9 @@ export default function Index() {
     <>
       {/*<h1 style={{border:"1px solid #3B4CA8",margin:"0", color:"#3B4CA8"}}>엄클래스!</h1>*/}
       <Header />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <Footer_2 />
     </>
   );

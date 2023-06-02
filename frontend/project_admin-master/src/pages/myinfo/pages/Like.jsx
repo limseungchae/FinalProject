@@ -21,9 +21,7 @@ export default function Like(){
     return(
         <Container>
             <Row>
-                <Col lg={2}>
-                </Col>
-                <Col lg={8}>
+                <Col lg={10}>
                     <div className={"my-4"}>
                         <h3><FaCarrot className={"mb-2"}/> abc123님의 찜목록</h3>
                         <hr />
