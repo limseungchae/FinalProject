@@ -15,6 +15,9 @@ import Like from "./pages/myinfo/pages/Like";
 import Search from "./pages/search/Search";
 import Oauth from "./pages/front/pages/Oauth";
 import ClassList from "./pages/myinfo/pages/classlist";
+import Paylist from "./pages/myinfo/pages/Paylist";
+import Payclass from "./pages/front/pages/Payclass";
+import Approval from "./pages/front/pages/Approval";
 
 
 const router = createBrowserRouter([
@@ -27,6 +30,8 @@ const router = createBrowserRouter([
       {path: "join", element: <Join />},
       {path: "viewclass", element: <ViewClass />},
       {path: "auth/kakao", element: <Oauth />},
+      {path: "payclass", element: <Payclass />},
+      {path: "approval", element: <Approval />}
     ]
   },
   {
@@ -49,6 +54,7 @@ const router = createBrowserRouter([
       {path: "modify", element: <Modify />},
       {path: "addclass", element: <AddClass />},
       {path: "classlist", element: <ClassList />},
+      {path: "paylist", element: <Paylist />},
     ]
   }
 ]);
