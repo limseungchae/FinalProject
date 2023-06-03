@@ -21,9 +21,7 @@ export default function Like(){
     return(
         <Container>
             <Row>
-                <Col lg={2}>
-                </Col>
-                <Col lg={8}>
+                <Col lg={10}>
                     <div className={"my-4"}>
                         <h3><FaCarrot className={"mb-2"}/> abc123님의 찜목록</h3>
                         <hr />
@@ -39,7 +37,7 @@ export default function Like(){
                                                 <div className="d-flex py-1">
                                                     <div><HiLocationMarker className="fs-5 fw-light" /> <span style={{fontSize:"12px"}}>{array[3]} / {array[2]}</span></div>
                                                 </div>
-                                                <Card.Title className="fs-6 mb-0 fw-bold" style={{whiteSpace: "nowrap",overflow: "hidden", textOverflow: "ellipsis"}}>{array[1]}</Card.Title>
+                                                <Card.Title className="fs-6 mb-0 fw-bold w-100" style={{whiteSpace: "nowrap",overflow: "hidden", textOverflow: "ellipsis"}}>{array[1]}</Card.Title>
                                                 <Card.Text>
                                                     <p className="mb-0" ><span className="text-warning"><ImStarFull/> <ImStarFull/> <ImStarFull/> <ImStarHalf /> <ImStarEmpty /></span> <span className="fw-light" style={{fontSize:"12px"}}>({array[6]})</span></p>
                                                     <p className="fw-bold text-end"><span className="text-danger">{Math.floor(array[7]*100)}% </span >{array[8].toLocaleString()}원</p>
