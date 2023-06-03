@@ -13,7 +13,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 
-export default function AddClass() {
+export default function Class() {
     const [title, setTitle] = useState("");
     const [activeItem, setActiveItem] = useState("");
     const [text1, setText1] = useState("");

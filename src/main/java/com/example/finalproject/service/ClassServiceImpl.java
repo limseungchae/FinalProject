@@ -20,13 +20,13 @@ import java.util.List;
 //    @Autowired
 //    private AddClassRepository addClassRepository;
 //
-//    public void saveClass(AddClass data) {
+//    public void saveClass(Class data) {
 //        addClassRepository.save(data);
 //    }
-//    public List<AddClass> getClassesByCno(Long cno) {
+//    public List<Class> getClassesByCno(Long cno) {
 //        return addClassRepository.findByCno(cno);
 //    }
-//    public List<AddClass> getClassesByTitleContainingIgnoreCase(String keyword) {
+//    public List<Class> getClassesByTitleContainingIgnoreCase(String keyword) {
 //        return addClassRepository.findByTitleContainingIgnoreCase(keyword);
 //    }
 //

@@ -11,7 +11,7 @@ public interface ClassService {
                   String rule, String notice, String addr, String durat, String sdate,
                   String edate, String ctime, String man, int price, List<String> hash);
 
-//    void saveClass(AddClass data);
-//    List<AddClass> getClassesByCno(Long cno);
-//    List<AddClass> getClassesByTitleContainingIgnoreCase(String keyword);
+//    void saveClass(Class data);
+//    List<Class> getClassesByCno(Long cno);
+//    List<Class> getClassesByTitleContainingIgnoreCase(String keyword);
 }

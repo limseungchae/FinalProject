@@ -22,7 +22,7 @@ public class ClassController {
     }
 
 //    @PostMapping("/addclass")
-//    public ResponseEntity<String> addClass(@RequestBody AddClass data) {
+//    public ResponseEntity<String> addClass(@RequestBody Class data) {
 //        try {
 //            myClassService.saveClass(data);
 //            return ResponseEntity.ok("Data saved successfully");
@@ -55,8 +55,8 @@ public class ClassController {
     }
 
 //    @GetMapping("/update/{cno}")
-//    public ResponseEntity<List<AddClass>> getClassesByCategory(@PathVariable Long cno) {
-//        List<AddClass> classes = classService.getClassesByCno(cno);
+//    public ResponseEntity<List<Class>> getClassesByCategory(@PathVariable Long cno) {
+//        List<Class> classes = classService.getClassesByCno(cno);
 //        if (classes.isEmpty()) {
 //            return ResponseEntity.noContent().build();
 //        }
@@ -64,8 +64,8 @@ public class ClassController {
 //    }
 //
 //    @GetMapping("/classlist")
-//    public ResponseEntity<List<AddClass>> getClassesByTitleContainingIgnoreCase(@PathVariable String keyword) {
-//        List<AddClass> classes = classService.getClassesByTitleContainingIgnoreCase(keyword);
+//    public ResponseEntity<List<Class>> getClassesByTitleContainingIgnoreCase(@PathVariable String keyword) {
+//        List<Class> classes = classService.getClassesByTitleContainingIgnoreCase(keyword);
 //        if (classes.isEmpty()) {
 //            return ResponseEntity.noContent().build();
 //        }
