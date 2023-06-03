@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {FaChalkboardTeacher} from "react-icons/fa";
 import Row from "react-bootstrap/Row";
@@ -12,14 +12,13 @@ import Container from "react-bootstrap/Container";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-
-export default function AddClass() {
-    const [title, setTitle] = useState("");
-    const [activeItem, setActiveItem] = useState("");
-    const [text1, setText1] = useState("");
-    const [text2, setText2] = useState("");
-    const [text3, setText3] = useState("");
-    const [text4, setText4] = useState("");
+export default function Already(){
+    const [title,setTitle] = useState('');
+    const [activeItem, setActiveItem] = useState('');
+    const [text1, setText1] = useState('');
+    const [text2, setText2] = useState('');
+    const [text3, setText3] = useState('');
+    const [text4, setText4] = useState('');
     const [toggleValue, setToggleValue] = useState(1);
     const [waringtext, setWarningText] = useState(false);
     const [address, setAddress] = useState({
@@ -29,38 +28,60 @@ export default function AddClass() {
     const [cimgFile, setCimgFile] = useState(null);
     const [thumbFile, setThumbFile] = useState(null);
     const [timgFile, setTimgFile] = useState(null);
+    const [selectItems,setSelectItems] = useState({
+        activeItem1:'',
+        activeItem2:'',
+        activeItem3:''
+    })
     const [selectedRange, setSelectedRange] = useState([]);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [text5, setText5] = useState('');
-    const [activeItems, setActiveItems] = useState({
-        activeItem1: '',
-        activeItem2: '',
-        activeItem3: ''
-    });
-    const [activeItems2, setActiveItems2] = useState({
-        activeItem4: '',
-        activeItem5: ''
-    });
+    const [selectItems2,setSelectItems2] = useState({
+        activeItem4:'',
+        activeItem5:''
+    })
     const [price, setPrice] = useState('');
     const [hash, setHash] = useState('');
 
+    const items = [{key: 1, label: '베이킹'}, {key: 2, label: '헬스'}, {key: 3, label: '엑티비티'}, {
+        key: 4,
+        label: '주조/칵테일'
+    }, {key: 5, label: '핸드드립'}, {key: 6, label: '미술'}, {key: 7, label: '음악'}, {key: 8, label: '요리'},];
+    const items1 = [{key: 1, label: '00시간'}, {key: 2, label: '01시간'}, {key: 3, label: '02시간'}, {
+        key: 4,
+        label: '03시간'
+    }, {key: 5, label: '04시간'}, {key: 6, label: '05시간'}, {key: 7, label: '06시간'}, {key: 8, label: '07시간'}, {
+        key: 9,
+        label: '08시간'
+    },];
+    const items2 = [{key: 1, label: '00분'}, {key: 2, label: '05분'}, {key: 3, label: '10분'}, {
+        key: 4,
+        label: '15분'
+    }, {key: 5, label: '20분'}, {key: 6, label: '25분'}, {key: 7, label: '30분'}, {key: 8, label: '35분'}, {
+        key: 9,
+        label: '40분'
+    }, {key: 10, label: '45분'}, {key: 11, label: '50분'}, {key: 12, label: '55분'},];
+    const items3 = [{key: 1, label: '1회'}, {key: 2, label: '2회'}, {key: 3, label: '3회'}, {key: 4, label: '4회'}, {
+        key: 5,
+        label: '5회'
+    }, {key: 6, label: '6회'}, {key: 7, label: '7회'},];
+    const items4 = [{key: 1, label: '1명'}, {key: 2, label: '5명'}, {key: 3, label: '10명'}, {
+        key: 4,
+        label: '15명'
+    }, {key: 5, label: '20명'}, {key: 6, label: '25명'}, {key: 7, label: '30명'}, {key: 8, label: '30명 이상'},];
+    const items5 = [{key: 1, label: '1명'}, {key: 2, label: '5명'}, {key: 3, label: '10명'}, {
+        key: 4,
+        label: '15명'
+    }, {key: 5, label: '20명'}, {key: 6, label: '25명'}, {key: 7, label: '30명'}, {key: 8, label: '30명 이상'},];
 
-    const items = [{ key: 1, label: '피트니스' }, { key: 2, label: '요리' }, { key: 3, label: '엑티비티' }, { key: 4, label: '공예' }, { key: 5, label: '음악' }, { key: 6, label: '미술' }, { key: 7, label: '엑티비티' }];
-    const items1 = [{ key: 1, label: '00시간' }, { key: 2, label: '01시간' }, { key: 3, label: '02시간' }, { key: 4, label: '03시간' }, { key: 5, label: '04시간' }, { key: 6, label: '05시간' }, { key: 7, label: '06시간' }, { key: 8, label: '07시간' }, { key: 9, label: '08시간' },];
-    const items2 = [{ key: 1, label: '00분' }, { key: 2, label: '05분' }, { key: 3, label: '10분' }, { key: 4, label: '15분' }, { key: 5, label: '20분' }, { key: 6, label: '25분' }, { key: 7, label: '30분' }, { key: 8, label: '35분' }, { key: 9, label: '40분' }, { key: 10, label: '45분' }, { key: 11, label: '50분' }, { key: 12, label: '55분' },];
-    const items3 = [{ key: 1, label: '1회' }, { key: 2, label: '2회' }, { key: 3, label: '3회' }, { key: 4, label: '4회' }, { key: 5, label: '5회' }, { key: 6, label: '6회' }, { key: 7, label: '7회' },];
-    const items4 = [{ key: 1, label: '1명' }, { key: 2, label: '5명' }, { key: 3, label: '10명' }, { key: 4, label: '15명' }, { key: 5, label: '20명' }, { key: 6, label: '25명' }, { key: 7, label: '30명' }, { key: 8, label: '30명 이상' },];
-    const items5 = [{ key: 1, label: '1명' }, { key: 2, label: '5명' }, { key: 3, label: '10명' }, { key: 4, label: '15명' }, { key: 5, label: '20명' }, { key: 6, label: '25명' }, { key: 7, label: '30명' }, { key: 8, label: '30명 이상' },];
+
     const handleTitle = (event) => {
         setTitle(event.target.value);
     };
 
     const handleClick = (eventKey) => {
-        const selectedItem = items.find((item) => item.key === parseInt(eventKey));
-        if (selectedItem) {
-            setActiveItem(selectedItem.label);
-        }
+        setActiveItem(eventKey);
     };
 
     const handleChange = (event) => {
@@ -109,6 +130,75 @@ export default function AddClass() {
         setTimgFile(file);
     };
 
+    const handleUpload = () => {
+        // cimgFile을 서버로 업로드하는 로직 작성
+        const formData = new FormData();
+        formData.append('cimg', cimgFile);
+
+        axios.post('/api/upload/cimg', formData)
+            .then(response => {
+                // 업로드 성공 시 처리 로직
+                console.log('이미지 업로드 완료:', response.data);
+            })
+            .catch(error => {
+                // 업로드 실패 시 처리 로직
+                console.error('이미지 업로드 실패:', error);
+            });
+    };
+
+    const handleUpload2 = () => {
+        // thumbFile을 서버로 업로드하는 로직 작성
+        const formData = new FormData();
+        formData.append('thumb', thumbFile);
+
+        axios.post('/api/upload/thumb', formData)
+            .then(response => {
+                // 업로드 성공 시 처리 로직
+                console.log('이미지 업로드 완료:', response.data);
+            })
+            .catch(error => {
+                // 업로드 실패 시 처리 로직
+                console.error('이미지 업로드 실패:', error);
+            });
+    };
+
+    const handleUpload3 = () => {
+        // timgFile을 서버로 업로드하는 로직 작성
+        const formData = new FormData();
+        formData.append('timg', timgFile);
+
+        axios.post('/api/upload/timg', formData)
+            .then(response => {
+                // 업로드 성공 시 처리 로직
+                console.log('이미지 업로드 완료:', response.data);
+            })
+            .catch(error => {
+                // 업로드 실패 시 처리 로직
+                console.error('이미지 업로드 실패:', error);
+            });
+    };
+
+    const handleClick1 = (eventKey1) => {
+        setSelectItems(prevState => ({
+            ...prevState,
+            activeItem1: eventKey1
+        }));
+    };
+
+    const handleClick2 = (eventKey2) => {
+        setSelectItems(prevState => ({
+            ...prevState,
+            activeItem2: eventKey2
+        }));
+    };
+
+    const handleClick3 = (eventKey3) => {
+        setSelectItems(prevState => ({
+            ...prevState,
+            activeItem3: eventKey3
+        }));
+    };
+
     const handleDateChange = (date) => {
         if (date.length === 1) {
             setStartDate(date[0]);
@@ -124,33 +214,15 @@ export default function AddClass() {
         setText5(e.target.value);
     };
 
-    const handleClick1 = (eventKey1) => {
-        setActiveItems(prevState => ({
-            ...prevState,
-            activeItem1: eventKey1
-        }));
-    };
-    const handleClick2 = (eventKey2) => {
-        setActiveItems(prevState => ({
-            ...prevState,
-            activeItem2: eventKey2
-        }));
-    };
-    const handleClick3 = (eventKey3) => {
-        setActiveItems(prevState => ({
-            ...prevState,
-            activeItem3: eventKey3
-        }));
-    };
     const handleClick4 = (eventKey4) => {
-        setActiveItems2(prevState => ({
+        setSelectItems2(prevState => ({
             ...prevState,
             activeItem4: eventKey4
         }));
     };
 
     const handleClick5 = (eventKey5) => {
-        setActiveItems2(prevState => ({
+        setSelectItems2(prevState => ({
             ...prevState,
             activeItem5: eventKey5
         }));
@@ -160,48 +232,42 @@ export default function AddClass() {
         setPrice(event.target.value);
     };
 
+
     const handleHash = (event) => {
         setHash(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+
+    const handleFormSubmit = (event) => {
         event.preventDefault();
+        // 폼 데이터를 Spring Boot로 전송하는 axios.post 요청 코드 작성
         const tags = hash.split(',');
-        const tag = tags.slice(0, 5)
-
-        const formData = new FormData();
-        formData.append('cimg', cimgFile);
-        formData.append('thumb', thumbFile);
-        formData.append('timg', timgFile);
-
-        // 나머지 데이터 추가
-        formData.append('title', title);
-        formData.append('category', activeItem);
-        formData.append('intro', text1);
-        formData.append('meterial', text2);
-        formData.append('rule', text3);
-        formData.append('notice', text4);
-        formData.append('addr', address);
-        formData.append('durat', activeItems);
-        formData.append('sdate', startDate);
-        formData.append('edate', endDate);
-        formData.append('ctime', text5);
-        formData.append('man', activeItems2);
-        formData.append('price', price);
-        formData.append('hash', tag);
-
-        console.log(formData)
-
-        axios.post('http://localhost:8080/api/addclass', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },})
-            .then((response) => {
-                console.log("전송 성공", response.data);
-            })
-            .catch((error) => {
-                console.log("전송 실패", error);
-            });
+        const tag = tags.slice(0, 5); // Take up to 5 tags
+        axios.post('/api/your-endpoint', {
+             title : title,
+             category : activeItem,
+             intro : text1,
+             meterial : text2,
+             rule : text3,
+             notice : text4,
+             addr : address,
+             cimg : cimgFile,
+             thumb : thumbFile,
+             timg : timgFile,
+             durat : selectItems,
+             sdate : startDate,
+             edate : endDate,
+             ctime : text5,
+             man : selectItems2,
+             price : price,
+             hash : tag
+        })
+          .then(response => {
+        console.log(response.data);
+          })
+          .catch(error => {
+        console.error(error);
+          });
     };
 
     const handleFormReset = () => {
@@ -212,34 +278,31 @@ export default function AddClass() {
         setText3("");
         setText4("");
         setToggleValue(1);
-        setWarningText(false);
-        setAddress({  addr1: '',
+        setAddress({addr1: '',
             addr2: ''});
         setCimgFile(null);
         setThumbFile(null);
         setTimgFile(null);
+        setSelectItems({activeItem1:'',
+            activeItem2:'',
+            activeItem3:''});
         setStartDate(null);
-        setSelectedRange([]);
         setEndDate(null);
-        setText5('');
-        setActiveItems({activeItem1: '',
-            activeItem2: '',
-            activeItem3: ''});
-        setActiveItems2({ activeItem4: '',
-            activeItem5: ''});
-        setPrice('');
-        setHash('');
+        setText5("");
+        setSelectItems2({ activeItem4:'',
+            activeItem5:''});
+        setPrice("");
+        setHash("");
         // 다른 상태 변수들도 초기화하는 로직을 추가하세요.
     };
 
-
-    return (
-        <div>
+    return(
+        <div className="container-fluid">
             <div id='adminHeader' className="mt-5"><h1><FaChalkboardTeacher/> 원데이 클래스</h1>
                 <hr/>
             </div>
             <div className="adminBody mt-5 mx-3"><Container>
-                <form name="acfrm" onSubmit={handleSubmit} onReset={handleFormReset}>
+                <form name="acfrm" onSubmit={handleFormSubmit} onReset={handleFormReset}>
                     <Row className="justify-content-start" style={{padding: '5px 0'}}><Col><Row style={{width: '85%'}}
                                                                                                 className="align-items-center"><Col
                         xs={12} md={3}><h3>클래스명</h3></Col><Col xs={12} md={9} className="align-items-center">
@@ -300,7 +363,7 @@ export default function AddClass() {
                         className={waringtext ? 'boom' : ''}>{text4.length < 100 ? '내용은 최소 100자 이상 작성' : ''}{text4.length > 1000 ? '최대 1000자까지 입력할 수 있습니다.' : ''}</span></Col>
                         <Col md={6}
                              className="d-flex justify-content-end"><span>{text4.length} / 1000</span></Col></Row>
-                    <br/>><Row>
+                    <br/> <Row>
                     <Col style={{ align: 'start' }} offset={5} xs={4}>
                         <div>
                             <h3>강의장 위치</h3>
@@ -336,120 +399,53 @@ export default function AddClass() {
                             />
                         </Col>
                     </Row>
-                    <Row>
-                        <div>
-                            <h3>클래스 강의 소개/과정 이미지 등록</h3>
-                            <Form.Control
-                                style={{ width: '50%' }}
-                                name="cimg"
-                                type="file"
-                                accept="image/*"
-                                id="cimg"
-                                onChange={handleImageChange}
-                            />
-                        </div>
-                    </Row>
-                    <br />
-                    <Row>
-                        <div>
-                            <h3>클래스 썸네일 이미지 등록</h3>
-                            <Form.Control
-                                style={{ width: '50%' }}
-                                name="thumb"
-                                type="file"
-                                id="thumb"
-                                accept="image/*"
-                                onChange={handleImageChange2}
-                            />
-                        </div>
-                    </Row>
-                    <br />
-                    <Row>
-                        <div>
-                            <h3>강사 얼굴 등록</h3>
-                            <Form.Control
-                                style={{ width: '50%' }}
-                                type="file"
-                                accept="image/*"
-                                id="timg"
-                                name="timg"
-                                onChange={handleImageChange3}
-                            />
-                        </div>
-                    </Row>
+                    <br/><Row>
+                    <div><h3>클래스 강의 소개/과정 이미지 등록</h3><Form.Control style={{width: '50%'}} name="cimg" type="file"
+                                                                   accept="image/*" id="cimg"
+                                                                   onChange={handleImageChange}/><Button
+                        variant="primary" onClick={handleUpload}>사진 등록</Button></div>
+                </Row>
+                    <br/><Row>
+                    <div><h3>클래스 썸네일 이미지 등록</h3><Form.Control style={{width: '50%'}} name="thumb" type="file" id="thumb"
+                                                              accept="image/*" onChange={handleImageChange2}/><Button
+                        variant="primary" onClick={handleUpload2}>사진 등록</Button></div>
+                </Row>
+                    <br/><Row>
+                    <div><h3>강사 얼굴 등록</h3><Form.Control style={{width: '50%'}} type="file" accept="image/*" id="timg" name="timg"
+                                                        onChange={handleImageChange3}/><Button variant="primary"
+                                                                                               onClick={handleUpload3}>사진 등록</Button></div>
+                </Row>
                     <br/><Row>
                     <div><h3>소요시간</h3><span style={{fontSize: '20px', color: 'red'}}>최소 강의 시간은 30분입니다.</span></div>
                 </Row>
                     <Row><Col offset={6} xs={1}>
-                        <div><DropdownButton
-                            key="end"
-                            id="dropdown-button-drop-end"
-                            drop="down"
-                            variant="secondary"
-                            title={activeItems.activeItem1 || "예상시간(시)"}
-                            onSelect={handleClick1}
-                        >
-                            <Dropdown.Item key="selectedItem" eventKey="" onSelect={() => setActiveItems(prevState => ({ ...prevState, activeItem1: "" }))}>
-                                {activeItems.activeItem1 || "시"}
-                            </Dropdown.Item>
-                            <Dropdown.Divider />
-                            {items1.map((item) => (
-                                <Dropdown.Item
-                                    key={item.key}
-                                    eventKey={item.label} // 변경된 부분: eventKey 값을 item.label로 설정
-                                    onSelect={handleClick1}
-                                >
-                                    {item.label}
-                                </Dropdown.Item>
-                            ))}
+                        <div><DropdownButton key="end" id="dropdown-button-drop-end" drop="down" variant="secondary"
+                                             title={selectItems.activeItem1 || "예상시간(시)"}
+                                             onSelect={(eventKey1) => handleClick1(eventKey1)}>
+                            <Dropdown.Item key="selectedItem" eventKey=""
+                                           onSelect={() => setSelectItems(prevState => ({ ...prevState, activeItem1: "시" }))}>{selectItems.activeItem1 || "시"}</Dropdown.Item><Dropdown.Divider/>{items1.map((item) => (
+                            <Dropdown.Item key={item.key} eventKey={item.key}
+                                           onSelect={(eventKey1) => handleClick1(eventKey1)}>{item.label}</Dropdown.Item>))}
                         </DropdownButton></div>
                     </Col>
                         <Col xs={1}>
-                            <div><DropdownButton
-                                key="end"
-                                id="dropdown-button-drop-end"
-                                drop="down"
-                                variant="secondary"
-                                title={activeItems.activeItem2 || "예상시간(분)"}
-                                onSelect={handleClick2}
-                            >
-                                <Dropdown.Item key="selectedItem" eventKey="" onSelect={() => setActiveItems(prevState => ({ ...prevState, activeItem2: "" }))}>
-                                    {activeItems.activeItem2 || "분"}
-                                </Dropdown.Item>
-                                <Dropdown.Divider />
-                                {items2.map((item) => (
-                                    <Dropdown.Item
-                                        key={item.key}
-                                        eventKey={item.label} // 변경된 부분: eventKey 값을 item.label로 설정
-                                        onSelect={handleClick2}
-                                    >
-                                        {item.label}
-                                    </Dropdown.Item>
-                                ))}
+                            <div><DropdownButton key="end" id="dropdown-button-drop-end" drop="down" variant="secondary"
+                                                 title={selectItems.activeItem2 || "예상시간(분)"}
+                                                 onSelect={(eventKey2) => handleClick2(eventKey2)}><Dropdown.Item
+                                key="selectedItem" eventKey=""
+                                onSelect={() => setSelectItems(prevState => ({ ...prevState, activeItem2: "분" }))}></Dropdown.Item><Dropdown.Divider/>{items2.map((item) => (
+                                <Dropdown.Item key={item.key} eventKey={item.key}
+                                               onSelect={(eventKey2) => handleClick2(eventKey2)}>{item.label}</Dropdown.Item>))}
                             </DropdownButton></div>
                         </Col>
                         <Col xs={1}>
-                            <div><DropdownButton
-                                key="end"
-                                id="dropdown-button-drop-end"
-                                drop="down"
-                                variant="secondary"
-                                title={activeItems.activeItem3 || "주간횟수"}
-                                onSelect={handleClick3}
-                            >
-                                <Dropdown.Item key="selectedItem" eventKey="" onSelect={() => setActiveItems(prevState => ({ ...prevState, activeItem3: "" }))}>
-                                    {activeItems.activeItem3 || "횟수"}
-                                </Dropdown.Item>
-                                <Dropdown.Divider />
-                                {items3.map((item) => (
-                                    <Dropdown.Item
-                                        key={item.key}
-                                        eventKey={item.label} // 변경된 부분: eventKey 값을 item.label로 설정
-                                        onSelect={handleClick3}
-                                    >
-                                        {item.label}
-                                    </Dropdown.Item>
-                                ))}
+                            <div><DropdownButton key="end" id="dropdown-button-drop-end" drop="down" variant="secondary"
+                                                 title={selectItems.activeItem3 || "주간횟수"}
+                                                 onSelect={(eventKey3) => handleClick3(eventKey3)}>
+                                <Dropdown.Item key="selectedItem" eventKey=""
+                                               onSelect={() => setSelectItems(prevState => ({ ...prevState, activeItem3: "횟수" }))}>{selectItems.activeItem3 || "주간횟수"}</Dropdown.Item><Dropdown.Divider/>{items3.map((item) => (
+                                <Dropdown.Item key={item.key} eventKey={item.key}
+                                               onSelect={(eventKey3) => handleClick3(eventKey3)}>{item.label}</Dropdown.Item>))}
                             </DropdownButton></div>
                         </Col></Row>
                     <br/><Row>
@@ -477,17 +473,17 @@ export default function AddClass() {
                                     id="dropdown-button-drop-end"
                                     drop="down"
                                     variant="secondary"
-                                    title={activeItems2.activeItem4 || "최소인원"}
+                                    title={selectItems2.activeItem4 || "최소인원"}
                                     onSelect={handleClick4}
                                 >
-                                    <Dropdown.Item key="selectedItem" eventKey="" onSelect={() => setActiveItems2(prevState => ({ ...prevState, activeItem4: "" }))}>
-                                        {activeItems2.activeItem4 || "인원수"}
+                                    <Dropdown.Item key="selectedItem" eventKey="" onSelect={() => selectItems2(prevState => ({ ...prevState, activeItem4: "" }))}>
+                                        {selectItems2.activeItem4 || "인원수"}
                                     </Dropdown.Item>
                                     <Dropdown.Divider />
                                     {items4.map((item) => (
                                         <Dropdown.Item
                                             key={item.key}
-                                            eventKey={item.label}
+                                            eventKey={item.key}
                                             onSelect={handleClick4}
                                         >
                                             {item.label}
@@ -503,17 +499,17 @@ export default function AddClass() {
                                     id="dropdown-button-drop-end"
                                     drop="down"
                                     variant="secondary"
-                                    title={activeItems2.activeItem5 || "최대인원"}
+                                    title={selectItems2.activeItem5 || "최대인원"}
                                     onSelect={handleClick5}
                                 >
-                                    <Dropdown.Item key="selectedItem" eventKey="" onSelect={() => setActiveItems2(prevState => ({ ...prevState, activeItem5: "" }))}>
-                                        {activeItems2.activeItem5 || "인원수"}
+                                    <Dropdown.Item key="selectedItem" eventKey="" onSelect={() => selectItems2(prevState => ({ ...prevState, activeItem5: "" }))}>
+                                        {selectItems2.activeItem5 || "인원수"}
                                     </Dropdown.Item>
                                     <Dropdown.Divider />
                                     {items5.map((item) => (
                                         <Dropdown.Item
                                             key={item.key}
-                                            eventKey={item.label}
+                                            eventKey={item.key}
                                             onSelect={handleClick5}
                                         >
                                             {item.label}
@@ -528,8 +524,15 @@ export default function AddClass() {
                                                                             placeholder="띄어쓰기 하지말고 적어주세요."
                                                                             style={{width: '100%'}}/></Col>
                         <Col md={1}><span>원</span></Col></Row><br/><h3>해시 태그</h3><span>단어로 입력해주세요 최대5개<br/>3개 이상 등록시 노출 빈도 증가</span>
-                    <Form.Control type="text" id="hash" name="hash" placeholder="띄어쓰기 하지말고 쉼표(,)사용해서 작성해 주세요."
-                                 value={hash} onChange={handleHash} style={{width: '100%'}}/>
+                    <Form.Control
+                        type="text"
+                        id="hash"
+                        name="hash"
+                        placeholder="띄어쓰기 하지말고 쉼표(,)사용해서 작성해 주세요."
+                        value={hash}
+                        onChange={handleHash}
+                        style={{ width: '100%' }}
+                    />
                     <hr/>
                     <Row className="justify-content-center ml-3"><Col xs={12}
                                                                       className="d-flex justify-content-center ">

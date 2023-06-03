@@ -10,7 +10,6 @@ import Login from "./pages/front/pages/Login";
 import Modify from "./pages/myinfo/pages/Modify";
 import ClassMain from "./pages/front/pages/ClassMain";
 import ViewClass from "./pages/front/pages/ViewClass";
-import AddClass from "./pages/myinfo/pages/addclass";
 import Like from "./pages/myinfo/pages/Like";
 import Search from "./pages/search/Search";
 import Oauth from "./pages/front/pages/Oauth";
@@ -18,6 +17,7 @@ import ClassList from "./pages/myinfo/pages/classlist";
 import Paylist from "./pages/myinfo/pages/Paylist";
 import Payclass from "./pages/front/pages/Payclass";
 import Approval from "./pages/front/pages/Approval";
+import AddClass from "./pages/myinfo/pages/addclass"
 
 
 const router = createBrowserRouter([

@@ -20,7 +20,7 @@ export default function Header() {
     const [isMyMenuOpen, setIsMyMenuOpen] = useState(false);
 
     const handleDropdown = () => {
-        if (localStorage.getItem("ACCESS_TOKEN") == null) {
+        if (localStorage.getItem("ACCESS_TOKEN") == "null") {
             window.location.href = "/login";
         }
     };
