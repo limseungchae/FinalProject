@@ -1,5 +1,5 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import React from "react";
+import React, {useEffect} from "react";
 import Admin from "./pages/admin/Admin";
 import Index from "./pages/front/Index";
 import UserInfo from "./pages/myinfo/UserInfo";
@@ -19,6 +19,10 @@ import Payclass from "./pages/front/pages/Payclass";
 import Approval from "./pages/front/pages/Approval";
 import Class from "./pages/myinfo/pages/class"
 
+function App() {
+  return <RouterProvider router={router} />;
+}
+export default App;
 
 const router = createBrowserRouter([
   {
@@ -58,9 +62,3 @@ const router = createBrowserRouter([
     ]
   }
 ]);
-
-function App() {
-  return <RouterProvider router={router} />;
-}
-
-export default App;

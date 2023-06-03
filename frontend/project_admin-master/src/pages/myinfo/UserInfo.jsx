@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {Col, Container, Nav, Row} from 'react-bootstrap';
-import {Link, Outlet} from 'react-router-dom';
+import {Link, Outlet, useNavigate} from 'react-router-dom';
 
 import Header from "../front/component/Header";
 import Footer from "../front/component/Footer";
@@ -14,6 +14,8 @@ export default function UserInfo() {
     const toggleSidebar = () => {
         setSidebarOpen(prevState => !prevState);
     };
+
+
 
     useEffect(() => {
         const handleWheelEvent = (event) => {
@@ -34,6 +36,7 @@ export default function UserInfo() {
         };
     }, [sidebarOpen]);
 
+
     return (
         <>
             <Header /> {/* 여기에 헤더 컴포넌트 추가 */}
@@ -45,8 +48,8 @@ export default function UserInfo() {
 
                             </div>
                             <ul className="border border-1">
-                                <li className="border-bottom py-2 ps-2"><Link to="/myinfo/modify">마이페이지 수정</Link></li>
-                                <li className="border-bottom py-2 ps-2"><Link to="/myinfo/like">찜 목록</Link></li>
+                                <li className="border-bottom py-2 ps-2" value="modify"><Link to="/myinfo/modify">마이페이지 수정</Link></li>
+                                <li className="border-bottom py-2 ps-2" value="like"><Link to="/myinfo/like">찜 목록</Link></li>
                                 <li className="py-2 ps-2"><Link to="/myinfo/paylist">결재내역</Link></li>
                             </ul>
                         </Col>
