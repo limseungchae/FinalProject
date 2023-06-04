@@ -1,14 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import "./Header.css"
-import {Button, Col, Container, Form, Navbar, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
-import InputGroup from 'react-bootstrap/InputGroup';
-import logo4 from "../img/logo4.png";
-import logo5 from "../img/SkillRabbit.png"
-
 
 import {Link, useNavigate} from "react-router-dom";
-import { BsFillHeartFill } from "react-icons/bs";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 
