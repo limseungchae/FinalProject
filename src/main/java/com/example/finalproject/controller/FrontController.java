@@ -1,9 +1,12 @@
 package com.example.finalproject.controller;
 
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.User;
 import com.example.finalproject.service.FrontService;
 import com.example.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +21,14 @@ public class FrontController {
 
     @Autowired
     UserService ussrv;
+
+    @GetMapping("/test/user")
+    public ResponseEntity<?> readUserInfo(@AuthenticationPrincipal String mbno){
+        User user = ussrv.readUser(mbno);
+        System.out.println(user);
+
+        return ResponseEntity.ok().body(user);
+    }
 
     @GetMapping("/api/hello")
     public String test() {

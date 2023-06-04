@@ -5,4 +5,6 @@ import com.example.finalproject.model.User;
 public interface UserService {
 
     User joinOrAuthenticate(String token);
+
+    User readUser(String mbno);
 }
