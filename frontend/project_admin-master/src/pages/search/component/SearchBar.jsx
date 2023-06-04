@@ -59,67 +59,65 @@ export default function SearchBar({search, setSearch, processSearch}) {
 
     return (
       <header className={'header-container'}>
-          <Navbar className="headerNav" expand="lg">
-              <Container>
-                  <Row className="w-100 align-items-center" style={{boxShadow:"rgba(0, 0, 0, 0.07) 0px 2px 0px 0px"}}>
-                      <Col lg={1} className="offset-2">
-                          <div className="logo-container d-flex justify-content-between" style={{marginLeft:"-10px"}}>
-                              <Link href to="/" className='navbar-brand text-white logo' ><span style={{color:"#F7B400"}}>S</span><span style={{color:"#00C2AC"}}>R</span></Link>
+          <Container>
+              <Row className="w-100 align-items-center" style={{boxShadow:"rgba(0, 0, 0, 0.07) 0px 2px 0px 0px"}}>
+                  <Col lg={1} className="offset-2">
+                      <div className="logo-container d-flex justify-content-between" style={{marginLeft:"-10px"}}>
+                          <Link href to="/" className='navbar-brand text-white logo' ><span style={{color:"#F7B400"}}>S</span><span style={{color:"#00C2AC"}}>R</span></Link>
+                      </div>
+                  </Col>
+
+                  <Col lg={6}>
+                      <div id="searchBar" style={{position:"relative", border:"1px solid red"}}>
+                          <input type="text" className="w-100 ps-2" placeholder="지역/클래스 이름으로 검색할 수 있습니다" style={{height:"48px", borderRadius:"8px", border:"none", outline: "none"}} value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                  processSearch();
+                              }
+                          }}/>
+                          <Button className="searchBtn btn-outline-light" onClick={processSearch} style={{position:"absolute", top:"4px", right:"5px"}}>
+                              <BsSearch className="searchIcon"/>
+                          </Button>
+                      </div>
+                  </Col>
+
+                  <Col lg={1} className="d-flex justify-content-end">
+                      <div className="d-ex headerLink mt-2fl">
+                          <Dropdown
+                              onMouseEnter={handleMyMenuToggle}
+                              onMouseLeave={closeMyMenu}
+                              show={isMyMenuOpen}>
+                              <Dropdown.Toggle
+                                  as={CustomToggle}
+                                  id="dropdown-my-menu"
+                                  className="my-button">
+                                  <BsFillPersonFill className="my-icon" />
+                                  <span className="icon-text my-text" >마이</span>
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                  <Dropdown.Item onClick={handleLike}>찜목록</Dropdown.Item>
+                                  <Dropdown.Item onClick={handlePayList}>결재 내역</Dropdown.Item>
+                              </Dropdown.Menu>
+                          </Dropdown>
+                      </div>
+                  </Col>
+
+                  {(token !== "null")
+                      ?
+                      <Col lg={2} className={'d-flex justify-content-end'}>
+                          <div className={'d-flex mt-2'}>
+                              <Button className={'btn btn-dark'} onClick={logout}>로그아웃</Button>
                           </div>
                       </Col>
-
-                      <Col lg={6}>
-                          <div id="searchBar" style={{position:"relative"}}>
-                              <input type="text" className="w-100 ps-2" placeholder="지역/클래스 이름으로 검색할 수 있습니다" style={{height:"48px", borderRadius:"8px", border:"none", outline: "none"}} value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => {
-                                  if (e.key === 'Enter') {
-                                      processSearch();
-                                  }
-                              }}/>
-                              <Button className="searchBtn btn-outline-light" onClick={processSearch} style={{position:"absolute", top:"4px", right:"5px"}}>
-                                  <BsSearch className="searchIcon"/>
-                              </Button>
+                      :
+                      <Col lg={2} className={'d-flex justify-content-end'}>
+                          <div className={'d-flex mt-2'}>
+                              <Button className={'btn btn-secondary'} onClick={login}>로그인</Button>
                           </div>
                       </Col>
+                  }
 
-                      <Col lg={1} className="d-flex justify-content-end">
-                          <div className="d-ex headerLink mt-2fl">
-                              <Dropdown
-                                  onMouseEnter={handleMyMenuToggle}
-                                  onMouseLeave={closeMyMenu}
-                                  show={isMyMenuOpen}>
-                                  <Dropdown.Toggle
-                                      as={CustomToggle}
-                                      id="dropdown-my-menu"
-                                      className="my-button">
-                                      <BsFillPersonFill className="my-icon" />
-                                      <span className="icon-text my-text" >마이</span>
-                                  </Dropdown.Toggle>
-                                  <Dropdown.Menu>
-                                      <Dropdown.Item onClick={handleLike}>찜목록</Dropdown.Item>
-                                      <Dropdown.Item onClick={handlePayList}>결재 내역</Dropdown.Item>
-                                  </Dropdown.Menu>
-                              </Dropdown>
-                          </div>
-                      </Col>
-
-                      {(token !== "null")
-                          ?
-                          <Col lg={2} className={'d-flex justify-content-end'}>
-                              <div className={'d-flex mt-2'}>
-                                  <Button className={'btn btn-dark'} onClick={logout}>로그아웃</Button>
-                              </div>
-                          </Col>
-                          :
-                          <Col lg={2} className={'d-flex justify-content-end'}>
-                              <div className={'d-flex mt-2'}>
-                                  <Button className={'btn btn-secondary'} onClick={login}>로그인</Button>
-                              </div>
-                          </Col>
-                      }
-
-                  </Row>
-              </Container>
-          </Navbar>
+              </Row>
+          </Container>
       </header>
   );
 }

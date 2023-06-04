@@ -14,7 +14,6 @@ export default function Modify() {
     const [isAgree, setIsAgree] = useState(false);
     const userInfo = useOutletContext();
     console.log(userInfo)
-    const nickname = userInfo.nickname;
     const kId = userInfo.kakaoid;
 
     useEffect(() => {
@@ -34,8 +33,6 @@ export default function Modify() {
                setPhone(phone);
                setUserType(type);
                if(agree === "agree") setIsAgree(true);
-
-                console.log(agree);
 
             })
             .catch(error => console.log(error))
