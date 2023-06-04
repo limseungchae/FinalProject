@@ -1,6 +1,7 @@
 package com.example.finalproject.controller;
 
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.ModifyBody;
 import com.example.finalproject.model.User;
 import com.example.finalproject.service.FrontService;
 import com.example.finalproject.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class FrontController {
@@ -62,12 +64,12 @@ public class FrontController {
     }
 
     // modify페이지 2): update
-    /*@PostMapping("/api/modify")
-    public String modify(@RequestBody ModifyRequest request) {
-        frtsrv.updateUser(request);
+    @PostMapping("/api/modify")
+    public String modify(@RequestBody ModifyBody request) {
+        frtsrv.modify(request);
 
         return "";
-    }*/
+    }
 
 
 

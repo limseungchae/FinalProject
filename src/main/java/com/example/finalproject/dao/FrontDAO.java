@@ -2,6 +2,7 @@ package com.example.finalproject.dao;
 
 
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.ModifyBody;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface FrontDAO {
     int selectLink(int link);
 
     List<Object[]> selectMember(String kId);
+
+    void modifyMember(ModifyBody request);
 }

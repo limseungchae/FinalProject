@@ -1,7 +1,7 @@
 package com.example.finalproject.service;
 
 import com.example.finalproject.model.ClassMeta;
-import com.example.finalproject.model.ModifyRequest;
+import com.example.finalproject.model.ModifyBody;
 
 import java.util.List;
 
@@ -20,4 +20,5 @@ public interface FrontService {
 
     List<Object[]> readModify(String kId);
 
+    void modify(ModifyBody request);
 }
