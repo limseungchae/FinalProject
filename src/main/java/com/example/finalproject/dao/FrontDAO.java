@@ -27,4 +27,6 @@ public interface FrontDAO {
     int selectLink(int link);
 
     List<Object[]> selectMember(String kId);
+
+    void insertFavorite(Long kakaoid, int link);
 }

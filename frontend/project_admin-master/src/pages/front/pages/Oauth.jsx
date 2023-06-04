@@ -23,9 +23,8 @@ export default function Oauth() {
         .then(response => {
             // 성공적으로 요청을 보낸 경우의 처리
             console.log(response.data);
-            axios.get('http://localhost:8080/auth/token?token=' + response.data.access_token)                .then((res)=> {
-                console.log("res ... => " + res);
-                alert("로그인 성공! 로그인 토큰은 ... => " + res.data.token);
+            axios.get('http://localhost:8080/auth/token?token=' + response.data.access_token)
+                .then((res)=> {
                 if(res.data.token) {
                     localStorage.setItem("ACCESS_TOKEN", res.data.token);
                     // token이 존재하는 경우 메인페이지로 리디렉트

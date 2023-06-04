@@ -20,4 +20,5 @@ public interface FrontService {
 
     List<Object[]> readModify(String kId);
 
+    void newFavorite(Long kakaoid, int link);
 }

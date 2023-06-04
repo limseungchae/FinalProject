@@ -56,7 +56,6 @@ public class FrontServiceImpl implements FrontService{
         return frtdao.selectMember(kId);
     }
 
-    // 득열이 추가분
     @Override
     public ClassMeta readOne(int link) {
         return frtdao.selectOne(link);
@@ -70,6 +69,10 @@ public class FrontServiceImpl implements FrontService{
         return imgs;
     }
 
-
+    // 찜하기 로직
+    @Override
+    public void newFavorite(Long kakaoid, int link) {
+        frtdao.insertFavorite(kakaoid, link);
+    }
 
 }

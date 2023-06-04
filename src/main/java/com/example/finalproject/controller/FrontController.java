@@ -5,7 +5,6 @@ import com.example.finalproject.model.User;
 import com.example.finalproject.service.FrontService;
 import com.example.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,20 +13,13 @@ import java.util.List;
 
 @RestController
 public class FrontController {
+    public String kId = "2813856259";
 
     @Autowired
-    FrontService frtsrv;
+    private FrontService frtsrv;
 
     @Autowired
-    UserService ussrv;
-
-    @GetMapping("/test/user")
-    public ResponseEntity<?> readUserInfo(@AuthenticationPrincipal String mbno){
-        User user = ussrv.readUser(mbno);
-        System.out.println(user);
-
-        return ResponseEntity.ok().body(user);
-    }
+    private UserService ussrv;
 
     @GetMapping("/api/hello")
     public String test() {
@@ -70,8 +62,6 @@ public class FrontController {
     }*/
 
 
-
-    //---------------- 클래스 상세보기 - 김득열
     // 클래스 정보
     @GetMapping("/viewclass")
     public ClassMeta viewclass(int link){
@@ -86,7 +76,10 @@ public class FrontController {
 
     // 찜하기
     @GetMapping("/viewclass/addfavorite")
-    public void addFavorite(HttpSession session, int link){
+    public void addFavorite(int link, @AuthenticationPrincipal String mbno){
+        // 토큰의 payload 에서 mbno를 추출하고 그것으로 유저의 kakaoid 값을 조회
+        User user =  ussrv.readUser(mbno);
+        frtsrv.newFavorite(user.getKakaoid(), link);
     }
 
 
