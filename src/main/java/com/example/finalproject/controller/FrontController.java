@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 public class FrontController {
-    public String kId = "2813856259";
 
     @Autowired
     FrontService frtsrv;
@@ -50,14 +49,14 @@ public class FrontController {
 
     // like 페이지
     @GetMapping("/api/likey")
-    public List<Object[]> searchLikey() {
+    public List<Object[]> searchLikey(@RequestParam String kId) {
 
         return frtsrv.readLikey(kId);
     }
 
     // modify페이지 1): read
     @GetMapping("/api/readModify")
-    public List<Object[]> readModify() {
+    public List<Object[]> readModify(@RequestParam String kId) {
 
         return frtsrv.readModify(kId);
     }

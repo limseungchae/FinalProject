@@ -3,6 +3,7 @@ import "./Modify.css"
 import {Col, Row} from "react-bootstrap";
 import axios from "axios";
 import {FaCarrot} from "react-icons/fa";
+import {useOutletContext} from "react-router-dom";
 
 export default function Modify() {
     const [name, setName] = useState('');
@@ -11,9 +12,14 @@ export default function Modify() {
     const [phone, setPhone] = useState('');
     const [userType, setUserType] = useState('user');
     const [isAgree, setIsAgree] = useState(false);
+    const userInfo = useOutletContext();
+    console.log(userInfo)
+    const nickname = userInfo.nickname;
+    const kId = userInfo.kakaoid;
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/readModify`)
+        let param = `?kId=${kId}`
+        axios.get(`http://localhost:8080/api/readModify${param}`)
             .then(response => {
                let userInfo = response.data[0];
                let name = userInfo[0].replaceAll("\"","");
@@ -33,7 +39,7 @@ export default function Modify() {
 
             })
             .catch(error => console.log(error))
-    }, []);
+    }, [kId]);
 
     const handleBirth = (e) => {
         setBirth(e.target.value);
