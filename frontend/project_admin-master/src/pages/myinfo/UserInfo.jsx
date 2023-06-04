@@ -19,13 +19,11 @@ export default function UserInfo() {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                console.log(token)
                 const response = await axios.get("http://localhost:8080/test/user", {
                     headers: {
                         Authorization: `Bearer ${token}` // 토큰을 요청 헤더에 첨부합니다.
                     }
                 });
-                console.log(response.data)
                 const userData = response.data;  // 응답에서 유저 정보 추출
                 setUserInfo(userData);           // 유저 정보를 userInfo에 저장
             } catch (error) {
@@ -35,8 +33,6 @@ export default function UserInfo() {
 
         fetchUserInfo().then(r => r);
     }, [token]);
-
-    console.log(userInfo);
 
 
     const toggleSidebar = () => {
@@ -79,7 +75,7 @@ export default function UserInfo() {
                             </ul>
                         </Col>
                         <Col lg={10}>
-                            <Outlet />
+                            <Outlet context={userInfo} />
                         </Col>
                     </Row>
                 </Container>

@@ -1,9 +1,12 @@
 package com.example.finalproject.controller;
 
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.User;
 import com.example.finalproject.service.FrontService;
 import com.example.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -11,13 +14,20 @@ import java.util.List;
 
 @RestController
 public class FrontController {
-    public String kId = "2813856259";
 
     @Autowired
     FrontService frtsrv;
 
     @Autowired
     UserService ussrv;
+
+    @GetMapping("/test/user")
+    public ResponseEntity<?> readUserInfo(@AuthenticationPrincipal String mbno){
+        User user = ussrv.readUser(mbno);
+        System.out.println(user);
+
+        return ResponseEntity.ok().body(user);
+    }
 
     @GetMapping("/api/hello")
     public String test() {
@@ -39,14 +49,14 @@ public class FrontController {
 
     // like 페이지
     @GetMapping("/api/likey")
-    public List<Object[]> searchLikey() {
+    public List<Object[]> searchLikey(@RequestParam String kId) {
 
         return frtsrv.readLikey(kId);
     }
 
     // modify페이지 1): read
     @GetMapping("/api/readModify")
-    public List<Object[]> readModify() {
+    public List<Object[]> readModify(@RequestParam String kId) {
 
         return frtsrv.readModify(kId);
     }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Col, Container, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useOutletContext} from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import {HiLocationMarker} from "react-icons/hi";
 import {ImStarEmpty, ImStarFull, ImStarHalf} from "react-icons/im";
@@ -9,21 +9,27 @@ import axios from "axios";
 import {MdOutlineSearchOff} from "react-icons/md";
 
 export default function Like(){
+    const userInfo = useOutletContext();
+    console.log(userInfo)
+    const nickname = userInfo.nickname;
+    const kId = userInfo.kakaoid;
     const [likeList, setLikeList] = useState([]);
 
+
     useEffect(() => {
-        let param = ``;
-        axios.get(`http://localhost:8080/api/likey`)
+        console.log(kId);
+        let param = `?kId=${kId}`;
+        axios.get(`http://localhost:8080/api/likey${param}`)
             .then(response => setLikeList(response.data))
             .catch(error => console.log(error))
-    }, []);
+    }, [kId]);
 
     return(
         <Container>
             <Row>
                 <Col lg={10}>
                     <div className={"my-4"}>
-                        <h3><FaCarrot className={"mb-2"}/> abc123님의 찜목록</h3>
+                        <h3><FaCarrot className={"mb-2"}/> {nickname}님의 찜목록</h3>
                         <hr />
                     </div>
                     <Row>

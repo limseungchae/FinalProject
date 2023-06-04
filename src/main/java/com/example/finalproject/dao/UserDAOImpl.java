@@ -22,4 +22,9 @@ public class UserDAOImpl implements UserDAO {
                 + userRepository.findByKakaoid(id));
         return userRepository.findByKakaoid(id);
     }
+
+    @Override
+    public User selectAuthenticatedUser(String mbno) {
+        return userRepository.findByMbno(Long.valueOf(mbno));
+    }
 }
