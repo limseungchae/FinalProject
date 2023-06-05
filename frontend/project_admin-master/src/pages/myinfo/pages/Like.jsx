@@ -33,9 +33,9 @@ export default function Like(){
                         <hr />
                     </div>
                     <Row>
-                        { (likeList.length > 0) ? likeList.map((array) => {
+                        { (likeList.length > 0) ? likeList.map((array, index) => {
                             return(
-                                <Col className="col-xl-4 mt-4">
+                                <Col className="col-xl-4 mt-4" key={index}>
                                     <Link to={`/viewclass?link=${array[0]}`} style={{textDecoration:"none"}}>
                                         <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
                                             <Card.Img variant="top" src={array[9]} width="100%" height="218px" />
@@ -45,8 +45,8 @@ export default function Like(){
                                                 </div>
                                                 <Card.Title className="fs-6 mb-0 fw-bold w-100" style={{whiteSpace: "nowrap",overflow: "hidden", textOverflow: "ellipsis"}}>{array[1]}</Card.Title>
                                                 <Card.Text>
-                                                    <p className="mb-0" ><span className="text-warning"><ImStarFull/> <ImStarFull/> <ImStarFull/> <ImStarHalf /> <ImStarEmpty /></span> <span className="fw-light" style={{fontSize:"12px"}}>({array[6]})</span></p>
-                                                    <p className="fw-bold text-end"><span className="text-danger">{Math.floor(array[7]*100)}% </span >{array[8].toLocaleString()}원</p>
+                                                    <span className="mb-0" style={{display:"block"}}><span className="text-warning"><ImStarFull/> <ImStarFull/> <ImStarFull/> <ImStarHalf /> <ImStarEmpty /></span> <span className="fw-light" style={{fontSize:"12px"}}>({array[6]})</span></span>
+                                                    <span className="fw-bold text-end" style={{display:"block"}}><span className="text-danger">{Math.floor(array[7]*100)}% </span >{array[8].toLocaleString()}원</span>
                                                 </Card.Text>
                                             </Card.Body>
                                         </Card>

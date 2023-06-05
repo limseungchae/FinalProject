@@ -13,9 +13,8 @@ export default function Modify() {
     const [userType, setUserType] = useState('user');
     const [isAgree, setIsAgree] = useState(false);
     const userInfo = useOutletContext();
-    console.log(userInfo)
-    const nickname = userInfo.nickname;
     const kId = userInfo.kakaoid;
+    console.log(isAgree);
 
     useEffect(() => {
         let param = `?kId=${kId}`
@@ -35,8 +34,6 @@ export default function Modify() {
                setUserType(type);
                if(agree === "agree") setIsAgree(true);
 
-                console.log(agree);
-
             })
             .catch(error => console.log(error))
     }, [kId]);
@@ -52,8 +49,9 @@ export default function Modify() {
         setPhone(e.target.value);
     };
     const handleUserType = (e) => {
-        setUserType(e.target.value);
-        if(userType === "user") setIsAgree(false);
+        const type = e.target.value;
+        setUserType(type);
+        if(type === "user") setIsAgree(false);
     };
     const handleAgree = (e) => {
         setIsAgree(e.target.checked);
@@ -73,13 +71,15 @@ export default function Modify() {
         } else {
             let agree = 'none';
             if(isAgree === true) agree = 'agree';
+            console.log(agree)
 
             axios.post('http://localhost:8080/api/modify', {
+                kakaoid: kId,
                 birth: birth,
                 gender: gender,
                 phone: phone,
-                type:userType,
-                agree:agree
+                userType: userType,
+                agree: agree
             })
                 .then(function (response) {
                     console.log(response);

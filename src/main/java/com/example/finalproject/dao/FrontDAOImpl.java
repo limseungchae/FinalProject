@@ -2,6 +2,7 @@ package com.example.finalproject.dao;
 
 import com.example.finalproject.model.ClassMeta;
 import com.example.finalproject.model.Likey;
+import com.example.finalproject.model.ModifyBody;
 import com.example.finalproject.repository.ClassImgRepository;
 import com.example.finalproject.repository.FrontRepository;
 import com.example.finalproject.repository.LikeyRepository;
@@ -67,6 +68,19 @@ public class FrontDAOImpl implements FrontDAO{
         return memberRepository.findMemberByUserid(kId);
     }
 
+    @Override
+    public void modifyMember(ModifyBody request) {
+        String kId = request.getKakaoid();
+        String birth = request.getBirth();
+        String gender = request.getGender();
+        String phone = request.getPhone();
+        String type = request.getUserType();
+        String agree = request.getAgree();
+
+        memberRepository.modifyMemberBykId(kId, birth, gender, phone, type, agree);
+    }
+
+    // 득열이 추가분
     // 클래스 상세보기 클래스 정보
     @Override
     public ClassMeta selectOne(int link) {
