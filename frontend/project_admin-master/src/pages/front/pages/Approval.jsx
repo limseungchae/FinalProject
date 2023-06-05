@@ -26,7 +26,7 @@ const Approval = () => {
                     setResponse(response.data);
                 }
             });
-    }, [])
+    }, []);
 
     return (
         <div>
