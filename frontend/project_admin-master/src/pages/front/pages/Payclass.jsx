@@ -3,7 +3,7 @@ import './Payclass.css';
 import axios from 'axios';
 import qs from 'qs';
 
-export const Payclass = () => {
+const Payclass = () => {
     const [orderInfoAgreed, setOrderInfoAgreed] = useState(false);
     const [personalInfoAgreed, setPersonalInfoAgreed] = useState(false);
     const [ono, setOno] = useState("");
@@ -11,7 +11,7 @@ export const Payclass = () => {
 
     const param = `?ono=${ono}`
     console.log(param)
-    axios.get(`http://localhost:8080/api/pay${param}`)
+    axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/pay${param}`)
         .then((res)=>{setPayList(res.data);console.log("성공")})
         .catch((Error)=>{console.log(Error)})
     const test = () =>{
@@ -59,13 +59,25 @@ export const Payclass = () => {
                 {
                     headers: {
                         Authorization: 'KakaoAK f57ea5bc4f7c552c7541e7a194783d59',
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
                     },
                 }
             );
 
+            console.log(response);
+
             const box = response.data.next_redirect_pc_url;
             window.open(box);
+
+            const {
+                data: { next_redirect_pc_url, tid },
+            } = response;
+
+            console.log(next_redirect_pc_url);
+            console.log(tid);
+            // localstorage에 tid 저장
+            window.localStorage.setItem("tid", tid);
+
         } catch (error) {
             alert(error.message);
         }
