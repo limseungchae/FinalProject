@@ -7,7 +7,7 @@ import {Link, useNavigate} from "react-router-dom";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 
-// logo 테스트
+// logo 테스트1
 export default function Header() {
     const navigate = useNavigate();
     const [token, setToken] = useState("null");

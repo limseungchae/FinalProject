@@ -10,10 +10,10 @@ import axios from "axios";
 
 export default function UserInfo() {
     const token = localStorage.getItem("ACCESS_TOKEN");
-
     const [userInfo, setUserInfo] = useState({});
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const sidebarRef = useRef(null);
+
 
 // 유저 정보 요청
     useEffect(() => {
