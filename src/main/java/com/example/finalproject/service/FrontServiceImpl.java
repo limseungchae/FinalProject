@@ -2,6 +2,7 @@ package com.example.finalproject.service;
 
 import com.example.finalproject.dao.FrontDAO;
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.ModifyBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,11 @@ public class FrontServiceImpl implements FrontService{
         return frtdao.selectMember(kId);
     }
 
+    @Override
+    public void modify(ModifyBody request) {
+        frtdao.modifyMember(request);
+    }
+
     // 득열이 추가분
     @Override
     public ClassMeta readOne(int link) {
@@ -70,6 +76,10 @@ public class FrontServiceImpl implements FrontService{
         return imgs;
     }
 
-
+    // 찜하기 로직
+    @Override
+    public void newFavorite(Long kakaoid, int link) {
+        frtdao.insertFavorite(kakaoid, link);
+    }
 
 }

@@ -16,7 +16,7 @@ export default function ViewClass () {
 
     const location = useLocation(); // url값 가져오는 훅
     const [classInfo, setClassInfo] = useState({});
-    const [completeImg, setCompleteImg] = useState([]);
+    const [completeImg, setCompleteImg] = useState({});
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [date, setDate] = useState(null);
@@ -33,7 +33,9 @@ export default function ViewClass () {
     // 클래스 완성작 이미지
     useEffect(() => {
         axios.get(`http://localhost:8080/viewclass/completeimg${location.search}`)
-            .then(response => setCompleteImg(response.data))
+            .then(response => {
+                setCompleteImg(response.data);
+            })
             .catch(error => console.log(error))
     }, []);
 
@@ -48,7 +50,12 @@ export default function ViewClass () {
     const handleClose = () => setFavoriteShow(false);
     const handleAddFavorite = () => {
         if (accessToken && accessToken !== "null") {
-            setFavoriteShow(false)
+            axios.get(`http://localhost:8080/viewclass/addfavorite${location.search}`,
+                {
+                headers: {Authorization: `Bearer ${accessToken}`},
+            })
+                .then(res => setFavoriteShow(false))
+                .catch(e => console.log(e));
         } else window.location.href = "/login";
     }
 

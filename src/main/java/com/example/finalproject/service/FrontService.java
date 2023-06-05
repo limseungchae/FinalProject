@@ -1,7 +1,7 @@
 package com.example.finalproject.service;
 
 import com.example.finalproject.model.ClassMeta;
-import com.example.finalproject.model.ModifyRequest;
+import com.example.finalproject.model.ModifyBody;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ public interface FrontService {
     List<Object[]> readSearch(String search);
     // 라이크페이지
     List<Object[]> readLikey(String kId);
+    void modify(ModifyBody request);
 
     // 득열이 추가분
     ClassMeta readOne(int link);
@@ -19,5 +20,9 @@ public interface FrontService {
     List<String> readImg(int link);
 
     List<Object[]> readModify(String kId);
+
+    void newFavorite(Long kakaoid, int link);
+
+
 
 }

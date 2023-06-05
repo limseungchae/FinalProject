@@ -2,6 +2,7 @@ package com.example.finalproject.dao;
 
 
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.ModifyBody;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public interface FrontDAO {
     List<Object[]> selectSearch(String search);
     // 찜페이지
     List<Object[]> selectLikey(String kId);
+    void modifyMember(ModifyBody request);
 
     // 득열이 추가분
     ClassMeta selectOne(int link);
@@ -27,4 +29,7 @@ public interface FrontDAO {
     int selectLink(int link);
 
     List<Object[]> selectMember(String kId);
+
+    void insertFavorite(Long kakaoid, int link);
+   
 }
