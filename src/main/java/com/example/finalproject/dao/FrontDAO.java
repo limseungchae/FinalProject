@@ -19,6 +19,7 @@ public interface FrontDAO {
     List<Object[]> selectSearch(String search);
     // 찜페이지
     List<Object[]> selectLikey(String kId);
+    void modifyMember(ModifyBody request);
 
     // 득열이 추가분
     ClassMeta selectOne(int link);
@@ -29,5 +30,6 @@ public interface FrontDAO {
 
     List<Object[]> selectMember(String kId);
 
-    void modifyMember(ModifyBody request);
+    void insertFavorite(Long kakaoid, int link);
+   
 }

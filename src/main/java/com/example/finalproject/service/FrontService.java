@@ -12,6 +12,7 @@ public interface FrontService {
     List<Object[]> readSearch(String search);
     // 라이크페이지
     List<Object[]> readLikey(String kId);
+    void modify(ModifyBody request);
 
     // 득열이 추가분
     ClassMeta readOne(int link);
@@ -20,5 +21,8 @@ public interface FrontService {
 
     List<Object[]> readModify(String kId);
 
-    void modify(ModifyBody request);
+    void newFavorite(Long kakaoid, int link);
+
+
+
 }
