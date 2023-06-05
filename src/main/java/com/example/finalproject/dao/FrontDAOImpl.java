@@ -1,9 +1,11 @@
 package com.example.finalproject.dao;
 
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.Likey;
 import com.example.finalproject.model.ModifyBody;
 import com.example.finalproject.repository.ClassImgRepository;
 import com.example.finalproject.repository.FrontRepository;
+import com.example.finalproject.repository.LikeyRepository;
 import com.example.finalproject.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,14 +15,17 @@ import java.util.List;
 @Repository("frtdao")
 public class FrontDAOImpl implements FrontDAO{
     @Autowired
-    FrontRepository frontRepository;
+    private FrontRepository frontRepository;
 
     @Autowired
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     //득열이 추가분
     @Autowired
-    ClassImgRepository classImgRepository;
+    private ClassImgRepository classImgRepository;
+
+    @Autowired
+    private LikeyRepository likeyRepository;
 
     @Override
     public List<Object[]> selectMain() {
@@ -95,6 +100,15 @@ public class FrontDAOImpl implements FrontDAO{
     @Override
     public List<String> selectImgs(int link) {
         return classImgRepository.findCimgById(link);
+    }
+
+    // 찜하기 로직
+    @Override
+    public void insertFavorite(Long kakaoid, int link) {
+        Likey likey = new Likey();
+        likey.setKakaoid(String.valueOf(kakaoid));
+        likey.setLink(link);
+        likeyRepository.save(likey);
     }
 
 
