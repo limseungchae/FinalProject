@@ -30,7 +30,7 @@ export default function ClassMain() {
 
     useEffect(() => {
         let param = `?category=${category}&sido=${area}`
-        axios.get(`http://localhost:8080/api/main${param}`)
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/main${param}`)
             .then(response => setClassList(response.data))
             .catch(error => console.log(error))
     }, [category, area]);
