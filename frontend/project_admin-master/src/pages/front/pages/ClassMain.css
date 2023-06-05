@@ -83,25 +83,16 @@
     background: #F2F2F2;
 }
 
-
-
-
 .mainCardContainer .card
 {
     cursor: pointer;
 }
 
-.mainCardContainer .card .card-body
+.mainCardContainer .card-body
 {
     padding:0;
 }
 
-.mainCardContainer .card .card-title
-{
-    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
-    overflow: hidden; /* 넘칠 때 숨김 처리 */
-    text-overflow: ellipsis; /* '...'으로 표시 */
-}
 
 .mainNavContainer ul
 {

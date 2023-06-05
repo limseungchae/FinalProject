@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import "./Modify.css"
 import {Col, Row} from "react-bootstrap";
 import axios from "axios";
+import {FaCarrot} from "react-icons/fa";
+import {useOutletContext} from "react-router-dom";
 
 export default function Modify() {
     const [name, setName] = useState('');
@@ -10,9 +12,13 @@ export default function Modify() {
     const [phone, setPhone] = useState('');
     const [userType, setUserType] = useState('user');
     const [isAgree, setIsAgree] = useState(false);
+    const userInfo = useOutletContext();
+    const kId = userInfo.kakaoid;
+    console.log(isAgree);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/readModify`)
+        let param = `?kId=${kId}`
+        axios.get(`http://localhost:8080/api/readModify${param}`)
             .then(response => {
                let userInfo = response.data[0];
                let name = userInfo[0].replaceAll("\"","");
@@ -28,11 +34,9 @@ export default function Modify() {
                setUserType(type);
                if(agree === "agree") setIsAgree(true);
 
-                console.log(agree);
-
             })
             .catch(error => console.log(error))
-    }, []);
+    }, [kId]);
 
     const handleBirth = (e) => {
         setBirth(e.target.value);
@@ -45,8 +49,9 @@ export default function Modify() {
         setPhone(e.target.value);
     };
     const handleUserType = (e) => {
-        setUserType(e.target.value);
-        if(userType === "user") setIsAgree(false);
+        const type = e.target.value;
+        setUserType(type);
+        if(type === "user") setIsAgree(false);
     };
     const handleAgree = (e) => {
         setIsAgree(e.target.checked);
@@ -66,13 +71,15 @@ export default function Modify() {
         } else {
             let agree = 'none';
             if(isAgree === true) agree = 'agree';
+            console.log(agree)
 
             axios.post('http://localhost:8080/api/modify', {
+                kakaoid: kId,
                 birth: birth,
                 gender: gender,
                 phone: phone,
-                type:userType,
-                agree:agree
+                userType: userType,
+                agree: agree
             })
                 .then(function (response) {
                     console.log(response);
@@ -86,11 +93,14 @@ export default function Modify() {
 
     };
     return(
-        <div className="modifyMain mt-5">
+        <div className="modifyMain">
             <Row>
-                <Col className={"offset-xl-4 col-xl-4 modifyContainer"}>
-                    <h3 className={"text-start ps-4 registerHeader"} style={{marginBottom:"32px"}}>개인 정보 수정</h3>
-                    <div id="modifyForm" className="ps-3 border-top border-2 border-dark">
+                <Col lg={10} className={"modifyContainer"}>
+                    <div className={"my-4"}>
+                        <h3 className={"text-start ps-4 registerHeader"} ><FaCarrot className={"mb-2"}/> 개인 정보 수정</h3>
+                        <hr />
+                    </div>
+                    <div id="modifyForm" className="ps-3 border-dark">
                         <Row className={"mb-4 mt-3"}>
                             <Col className={"col-3 align-self-center"}>
                                 <label htmlFor="name"><p style={{margin:"0"}}>이름</p></label>
@@ -102,19 +112,19 @@ export default function Modify() {
 
                         <Row className={"mb-4"}>
                             <Col className={"col-3 align-self-center"}>
-                                <p style={{margin:"0"}}>생년월일</p>
+                                <label htmlFor="birth"><p style={{margin:"0"}}>생년월일</p></label>
                             </Col>
                             <Col className={"col-6"}>
-                                <input type="text" style={{width:"100%",height:"40px"}} placeholder='ex)20130527' onChange={handleBirth} value={birth}  />
+                                <input type="text" id="birth" style={{width:"100%",height:"40px"}} placeholder='ex)20130527' onChange={handleBirth} value={birth}  />
                             </Col>
                         </Row>
                         <Row className={"mb-4"}>
                             <Col className={"col-3 align-self-center"}>
-                                <p style={{margin:"0"}}>성별</p>
+                                <label htmlFor="gender"><p style={{margin:"0"}}>성별</p></label>
                             </Col>
                             <Col className={"col-6"}>
                                 <div className="registerGenderInputContainer d-flex justify-content-between px-2">
-                                    <label><input type="radio" name='gender' value="male" checked={gender === 'male'} onChange={handleGender}/><span>&nbsp;&nbsp; 남</span></label>
+                                    <label><input type="radio" id="gender" name='gender' value="male" checked={gender === 'male'} onChange={handleGender}/><span>&nbsp;&nbsp; 남</span></label>
                                     <label><input type="radio" name='gender' value="female" checked={gender === 'female'} onChange={handleGender} /><span>&nbsp;&nbsp; 여</span></label>
                                     <label><input type="radio" name='gender' value="none" checked={gender === 'none'} onChange={handleGender} /><span>&nbsp;&nbsp; 선택안함</span></label>
                                 </div>
@@ -122,10 +132,10 @@ export default function Modify() {
                         </Row>
                         <Row className={"mb-4"}>
                             <Col className={"col-3 align-self-center"}>
-                                <p style={{margin:"0"}}>휴대폰 번호</p>
+                                <label htmlFor="phone"><p style={{margin:"0"}}>휴대폰 번호</p></label>
                             </Col>
                             <Col className={"col-6"}>
-                                <input type="text" style={{width:"100%",height:"40px"}} placeholder='ex)01012341234' onChange={handlePhone} value={phone}/>
+                                <input type="text" id="phone" style={{width:"100%",height:"40px"}} placeholder='ex)01012341234' onChange={handlePhone} value={phone}/>
                             </Col>
                         </Row>
                         <Row className={"mb-5"}>
