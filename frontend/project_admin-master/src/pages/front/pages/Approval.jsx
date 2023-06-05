@@ -20,8 +20,7 @@ const Approval = () => {
                     Authorization: "KakaoAK f57ea5bc4f7c552c7541e7a194783d59",
                 },
                 params: params,
-            }).catch(console.log).then((response) => {
-                console.log(response);
+            }).catch().then((response) => {
                 if(response?.data !== undefined) {
                     setResponse(response.data);
                 }
