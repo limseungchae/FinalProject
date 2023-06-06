@@ -37,7 +37,6 @@ export default function SearchBar({search, setSearch, processSearch}) {
         setIsMyMenuOpen(false);
     };
 
-
     const logout = () => {
         localStorage.setItem("ACCESS_TOKEN", null);
         setToken("null")
@@ -124,6 +123,7 @@ export default function SearchBar({search, setSearch, processSearch}) {
               </Row>
           </Container>
       </header>
+
   );
 }
 

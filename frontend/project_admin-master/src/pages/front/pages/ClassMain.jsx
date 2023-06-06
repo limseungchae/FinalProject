@@ -26,7 +26,21 @@ export default function ClassMain() {
     const [classList, setClassList] = useState([]);
     const [category, setCategory] = useState("all");
     const [selectMenuActive, setSelectMenuActive] = useState("");
-    const [area, setArea] = useState("지역선택")
+    const [area, setArea] = useState("지역선택");
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = document.documentElement.scrollTop;
+            setIsVisible(scrollPosition > 250);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         let param = `?category=${category}&sido=${area}`
@@ -59,6 +73,7 @@ export default function ClassMain() {
     const handleScroll = () => {
         window.scrollTo(0, 0);
     };
+
     return(
         <>
             <Carousel className=" mt-4 mb-5 ">
@@ -179,10 +194,8 @@ export default function ClassMain() {
                     </Col>
                 </Row>
             </Container>
-
-
             {/*최상단으로 이동*/}
-            <div className="SettingView-module__layer_setting___JwfQs">
+            <div className="SettingView-module__layer_setting___JwfQs" style={isVisible ? {display:"block"} : {display: "none"} } id="topBar">
                 <a href="#" role="button" className="SettingView-module__btn_setting___Z_3Uu SettingView-module__type_top___GkN8V" aria-pressed="false">
                     <span className="blind">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" className="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
