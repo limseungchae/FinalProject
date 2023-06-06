@@ -14,7 +14,7 @@ export default function Modify() {
     const [isAgree, setIsAgree] = useState(false);
     const userInfo = useOutletContext();
     const kId = userInfo.kakaoid;
-    console.log(isAgree);
+
 
     useEffect(() => {
         let param = `?kId=${kId}`
@@ -87,8 +87,8 @@ export default function Modify() {
                 .catch(function (error) {
                     console.log(error);
                 });
-
-            alert("submit 성공!")
+            alert("수정되었습니다")
+            window.location.href = "/myinfo/modify"
         }
 
     };
@@ -100,7 +100,7 @@ export default function Modify() {
                         <h3 className={"text-start ps-4 registerHeader"} ><FaCarrot className={"mb-2"}/> 개인 정보 수정</h3>
                         <hr />
                     </div>
-                    <div id="modifyForm" className="ps-3 border-dark">
+                    <div id="modifyForm" className="px-5 border-dark">
                         <Row className={"mb-4 mt-3"}>
                             <Col className={"col-3 align-self-center"}>
                                 <label htmlFor="name"><p style={{margin:"0"}}>이름</p></label>

@@ -6,6 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import {Link, useNavigate} from "react-router-dom";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
+import {SlLogin} from "react-icons/sl";
 
 // logo 테스트1
 export default function Header() {
@@ -78,7 +79,37 @@ export default function Header() {
                         </Link>
                     </Col>
 
-                    <Col lg={1} className="d-flex justify-content-end">
+                    {(token !== "null")
+                        ?
+                        <Col lg={1} className="d-flex justify-content-end">
+                            <div className="d-ex headerLink mt-2fl">
+                                <Dropdown
+                                    onMouseEnter={handleMyMenuToggle}
+                                    onMouseLeave={closeMyMenu}
+                                    show={isMyMenuOpen}>
+                                    <Dropdown.Toggle
+                                        as={CustomToggle}
+                                        id="dropdown-my-menu"
+                                        className="my-button">
+                                        <BsFillPersonFill className="my-icon" />
+                                        <span className="icon-text my-text" >마이</span>
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item onClick={handleLike}>찜목록</Dropdown.Item>
+                                        <Dropdown.Item onClick={handlePayList}>결재 내역</Dropdown.Item>
+                                        <Dropdown.Item onClick={logout} style={{color:"red"}}>로그아웃</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
+                        </Col>
+                        :
+                        <Col lg={2}>
+                            <div className="ps-2 border" style={{position:"relative",left:"15px", width:"103px", height:"40px", borderRadius:"30px"}} onClick={login} id="headerBox">
+                                <SlLogin className="fs-5 " style={{position:"absolute", top:"9px", color:"#00C2AC"}} /> <span style={{position:"absolute", top:"9px", left:"38px", fontFamily:"'KOHIBaeumOTF', serif"}}>LOGIN</span>
+                            </div>
+                        </Col>
+                    }
+                    {/*<Col lg={1} className="d-flex justify-content-end">
                         <div className="d-ex headerLink mt-2fl">
                             <Dropdown
                                 onMouseEnter={handleMyMenuToggle}
@@ -97,9 +128,9 @@ export default function Header() {
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>
-                    </Col>
+                    </Col>*/}
 
-                    {(token !== "null")
+                    {/*{(token !== "null")
                         ?
                         <Col lg={2} className={'d-flex justify-content-end'}>
                             <div className={'d-flex mt-2'}>
@@ -112,7 +143,7 @@ export default function Header() {
                                 <Button className={'btn btn-secondary'} onClick={login}>로그인</Button>
                             </div>
                         </Col>
-                    }
+                    }*/}
                 </Row>
             </Container>
         </header>

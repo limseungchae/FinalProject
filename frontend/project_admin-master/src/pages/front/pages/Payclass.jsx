@@ -40,7 +40,6 @@ const Payclass = () => {
         //
 
         try {
-
             const response = await axios.post(
                 'https://kapi.kakao.com/v1/payment/ready',
                 qs.stringify({
