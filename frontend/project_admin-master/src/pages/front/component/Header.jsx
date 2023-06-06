@@ -66,7 +66,7 @@ export default function Header() {
     return (
         <header className={'header-container'}>
             <Container>
-                <Row className="w-100 align-items-center" style={{boxShadow:"rgba(0, 0, 0, 0.07) 0px 2px 0px 0px"}}>
+                <Row className="w-100 align-items-center">
                     <Col lg={3} className="offset-2">
                         <div className="logo-container d-flex justify-content-between" style={{marginLeft:"-10px"}}>
                             <Link href to="/" className='navbar-brand text-white logo' ><span style={{color:"#F7B400"}}>Skill</span><span style={{color:"#00C2AC"}}>Rabbit</span></Link>
@@ -153,6 +153,9 @@ export default function Header() {
                         </Col>
                     }*/}
                 </Row>
+                {/*<Row>
+                    <hr style={{width:"68.5%", marginLeft:"15%"}} />
+                </Row>*/}
             </Container>
         </header>
     );
