@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import "./Modify.css"
-import {Col, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import axios from "axios";
 import {FaCarrot} from "react-icons/fa";
 import {useOutletContext} from "react-router-dom";
@@ -18,7 +17,7 @@ export default function Modify() {
 
     useEffect(() => {
         let param = `?kId=${kId}`
-        axios.get(`http://localhost:8080/api/readModify${param}`)
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/readModify${param}`)
             .then(response => {
                let userInfo = response.data[0];
                let name = userInfo[0].replaceAll("\"","");
@@ -71,9 +70,8 @@ export default function Modify() {
         } else {
             let agree = 'none';
             if(isAgree === true) agree = 'agree';
-            console.log(agree)
 
-            axios.post('http://localhost:8080/api/modify', {
+            axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/modify`, {
                 kakaoid: kId,
                 birth: birth,
                 gender: gender,
@@ -93,16 +91,16 @@ export default function Modify() {
 
     };
     return(
-        <div className="modifyMain">
+        <Container>
             <Row>
                 <Col lg={10} className={"modifyContainer"}>
                     <div className={"my-4"}>
-                        <h3 className={"text-start ps-4 registerHeader"} ><FaCarrot className={"mb-2"}/> 개인 정보 수정</h3>
+                        <h3 className={"text-start registerHeader"} ><FaCarrot className={"mb-2"} style={{color:"#fd7e14"}}/> 개인 정보 수정</h3>
                         <hr />
                     </div>
                     <div id="modifyForm" className="px-5 border-dark">
                         <Row className={"mb-4 mt-3"}>
-                            <Col className={"col-3 align-self-center"}>
+                            <Col className={"col-3 offset-1 align-self-center"}>
                                 <label htmlFor="name"><p style={{margin:"0"}}>이름</p></label>
                             </Col>
                             <Col className={"col-6"}>
@@ -111,7 +109,7 @@ export default function Modify() {
                         </Row>
 
                         <Row className={"mb-4"}>
-                            <Col className={"col-3 align-self-center"}>
+                            <Col className={"col-3 offset-1 align-self-center"}>
                                 <label htmlFor="birth"><p style={{margin:"0"}}>생년월일</p></label>
                             </Col>
                             <Col className={"col-6"}>
@@ -119,7 +117,7 @@ export default function Modify() {
                             </Col>
                         </Row>
                         <Row className={"mb-4"}>
-                            <Col className={"col-3 align-self-center"}>
+                            <Col className={"col-3 offset-1 align-self-center"}>
                                 <label htmlFor="gender"><p style={{margin:"0"}}>성별</p></label>
                             </Col>
                             <Col className={"col-6"}>
@@ -131,7 +129,7 @@ export default function Modify() {
                             </Col>
                         </Row>
                         <Row className={"mb-4"}>
-                            <Col className={"col-3 align-self-center"}>
+                            <Col className={"col-3 offset-1 align-self-center"}>
                                 <label htmlFor="phone"><p style={{margin:"0"}}>휴대폰 번호</p></label>
                             </Col>
                             <Col className={"col-6"}>
@@ -139,7 +137,7 @@ export default function Modify() {
                             </Col>
                         </Row>
                         <Row className={"mb-5"}>
-                            <Col className={"col-3 align-self-center"}>
+                            <Col className={"col-3 offset-1 align-self-center"}>
                                 <label htmlFor="userType"><p style={{margin:"0"}}>구분</p></label>
                             </Col>
                             <Col className={"col-6"}>
@@ -465,6 +463,6 @@ export default function Modify() {
 
                 </Col>
             </Row>
-        </div>
+        </Container>
     )
 }

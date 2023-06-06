@@ -33,7 +33,7 @@ const Payclass = () => {
         // useEffect(() => {
         //     let param = `?ono=${ono}`
         //     console.log(param)
-        //     axios.get(`http://localhost:8080/api/pay${param}`)
+        //     axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/pay${param}`)
         //         .then(response => setPayList(response.data))
         //         .catch(error => console.log(error))
         // }, [ono]);

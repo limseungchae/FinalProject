@@ -65,13 +65,11 @@ export default function UserInfo() {
                 <Container>
                     <Row>
                         <Col lg={2} className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-                            <div style={{height:"77px"}}>
-
-                            </div>
-                            <ul className="border border-1">
-                                <li className="border-bottom py-2 ps-2" value="modify"><Link to="/myinfo/modify">마이페이지 수정</Link></li>
-                                <li className="border-bottom py-2 ps-2" value="like"><Link to="/myinfo/like">찜 목록</Link></li>
-                                <li className="py-2 ps-2"><Link to="/myinfo/paylist">결재내역</Link></li>
+                            <div style={{height:"77px"}}></div>
+                            <ul className="border border-1" id="infoSideBar">
+                                <Link to="/myinfo/modify" style={{textDecoration:"none", color:"black"}}><li className="border-bottom py-2 ps-2" value="modify">내 정보 수정</li></Link>
+                                <Link to="/myinfo/like" style={{textDecoration:"none", color:"black"}}><li className="border-bottom py-2 ps-2" value="like">찜 목록</li></Link>
+                                <Link to="/myinfo/paylist" style={{textDecoration:"none", color:"black"}}><li className="py-2 ps-2">결재내역</li></Link>
                             </ul>
                         </Col>
                         <Col lg={10}>

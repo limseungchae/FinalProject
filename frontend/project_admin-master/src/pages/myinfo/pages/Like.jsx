@@ -19,7 +19,7 @@ export default function Like(){
     useEffect(() => {
         console.log(kId);
         let param = `?kId=${kId}`;
-        axios.get(`http://localhost:8080/api/likey${param}`)
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/likey${param}`)
             .then(response => setLikeList(response.data))
             .catch(error => console.log(error))
     }, [kId]);
@@ -33,13 +33,13 @@ export default function Like(){
             <Row>
                 <Col lg={10}>
                     <div className={"my-4"}>
-                        <h3><FaCarrot className={"mb-2"}/> {nickname}님의 찜목록</h3>
+                        <h3><FaCarrot className={"mb-2"} style={{color:"#F7B400"}}/> {nickname}님의 찜목록</h3>
                         <hr />
                     </div>
                     <Row>
                         { (likeList.length > 0) ? likeList.map((array, index) => {
                             return(
-                                <Col className="col-xl-4 mt-4" key={index}>
+                                <Col className="col-xl-4" key={index}>
                                     <Link to={`/viewclass?link=${array[0]}`} onClick={handleScroll} style={{textDecoration:"none"}}>
                                         <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
                                             <Card.Img variant="top" src={array[9]} width="100%" height="218px" />

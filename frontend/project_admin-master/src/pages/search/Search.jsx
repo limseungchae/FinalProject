@@ -31,7 +31,7 @@ export default function Search() {
     const processSearch = () => {
         let param = `?search=${search}`
         console.log(param)
-        axios.get(`http://localhost:8080/api/search${param}`)
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/search${param}`)
             .then(response => setClassList(response.data))
             .catch(error => console.log(error))
     }
