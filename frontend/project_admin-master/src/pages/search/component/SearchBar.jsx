@@ -99,7 +99,7 @@ export default function SearchBar({search, setSearch, processSearch}) {
                                       id="dropdown-my-menu"
                                       className="my-button ">
                                       <div className="ps-2 border" style={{position:"relative",left:"15px", width:"80px", height:"40px", borderRadius:"30px"}} onClick={login} id="headerBox">
-                                          <BsFillPersonFill className="my-icon fs-5" style={{position:"absolute", top:"9px", color:"#00C2AC"}} />
+                                          <BsFillPersonFill className="my-icon fs-5" style={{position:"absolute", top:"9px", color:"#F7B400"}} />
                                           <span className="icon-text my-text fw-bold" style={{position:"absolute", top:"3px", left:"38px"}}>My</span>
                                       </div>
                                   </Dropdown.Toggle>
