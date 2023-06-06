@@ -24,6 +24,10 @@ export default function Like(){
             .catch(error => console.log(error))
     }, [kId]);
 
+    const handleScroll = () => {
+        window.scrollTo(0, 0);
+    };
+
     return(
         <Container>
             <Row>
@@ -36,7 +40,7 @@ export default function Like(){
                         { (likeList.length > 0) ? likeList.map((array, index) => {
                             return(
                                 <Col className="col-xl-4 mt-4" key={index}>
-                                    <Link to={`/viewclass?link=${array[0]}`} style={{textDecoration:"none"}}>
+                                    <Link to={`/viewclass?link=${array[0]}`} onClick={handleScroll} style={{textDecoration:"none"}}>
                                         <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
                                             <Card.Img variant="top" src={array[9]} width="100%" height="218px" />
                                             <Card.Body>

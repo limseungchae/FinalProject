@@ -23,6 +23,10 @@ export default function Search() {
             .catch(error => console.log(error))
     }
 
+    const handleScroll = () => {
+        window.scrollTo(0, 0);
+    };
+
     return(
         <main>
             <SearchBar search={search} setSearch={setSearch} processSearch={processSearch}/>
@@ -33,7 +37,7 @@ export default function Search() {
                             { (classList.length > 0) ? classList.map((array, index) => {
                                 return(
                                     <Col className="col-xl-4 mt-4" key={index}>
-                                        <Link to={array[0]} style={{textDecoration:"none"}}>
+                                        <Link to={`/viewclass?link=${array[0]}`} onClick={handleScroll} style={{textDecoration:"none"}}>
                                             <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
                                                 <Card.Img variant="top" src={array[9]} width="100%" height="218px" />
                                                 <Card.Body>
