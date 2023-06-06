@@ -66,7 +66,8 @@ export default function SearchBar({search, setSearch, processSearch}) {
     return (
       <header className={'header-container'}>
           <Container>
-              <Row className="w-100 align-items-center" style={{boxShadow:"rgba(0, 0, 0, 0.07) 0px 2px 0px 0px"}}>
+             {/* <Row className="w-100 align-items-center" style={{boxShadow:"rgba(0, 0, 0, 0.07) 0px 2px 0px 0px"}}>*/}
+              <Row className="w-100 align-items-center">
                   <Col lg={1} className="offset-2">
                       <div className="logo-container d-flex justify-content-between" style={{marginLeft:"-10px"}}>
                           <Link href to="/" className='navbar-brand text-white logo' ><span style={{color:"#F7B400"}}>S</span><span style={{color:"#00C2AC"}}>R</span></Link>
