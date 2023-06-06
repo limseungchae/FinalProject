@@ -48,6 +48,11 @@ export default function Header() {
         window.location.href = "/login";
     }
 
+    const handleInfo = () => {
+        const tokenExists = (token !== "null");
+        (!tokenExists) ? navigate('/login') : navigate("/myinfo/modify");
+    };
+
     const handleLike = () => {
         const tokenExists = (token !== "null");
         (!tokenExists) ? navigate('/login') : navigate("/myinfo/like");
@@ -91,10 +96,13 @@ export default function Header() {
                                         as={CustomToggle}
                                         id="dropdown-my-menu"
                                         className="my-button">
-                                        <BsFillPersonFill className="my-icon" />
-                                        <span className="icon-text my-text" >마이</span>
+                                        <div className="ps-2 border" style={{position:"relative",left:"15px", width:"80px", height:"40px", borderRadius:"30px"}} onClick={login} id="headerBox">
+                                            <BsFillPersonFill className="my-icon fs-5" style={{position:"absolute", top:"9px", color:"#00C2AC"}} />
+                                            <span className="icon-text my-text fw-bold" style={{position:"absolute", top:"3px", left:"38px"}}>My</span>
+                                        </div>
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
+                                        <Dropdown.Item onClick={handleInfo}>내 정보 수정</Dropdown.Item>
                                         <Dropdown.Item onClick={handleLike}>찜목록</Dropdown.Item>
                                         <Dropdown.Item onClick={handlePayList}>결재 내역</Dropdown.Item>
                                         <Dropdown.Item onClick={logout} style={{color:"red"}}>로그아웃</Dropdown.Item>
@@ -105,7 +113,7 @@ export default function Header() {
                         :
                         <Col lg={2}>
                             <div className="ps-2 border" style={{position:"relative",left:"15px", width:"103px", height:"40px", borderRadius:"30px"}} onClick={login} id="headerBox">
-                                <SlLogin className="fs-5 " style={{position:"absolute", top:"9px", color:"#00C2AC"}} /> <span style={{position:"absolute", top:"9px", left:"38px", fontFamily:"'KOHIBaeumOTF', serif"}}>LOGIN</span>
+                                <SlLogin className="fs-5 " style={{position:"absolute", top:"9px", color:"#00C2AC"}} /> <span className="fw-bold" style={{position:"absolute", top:"7px", left:"38px"}}>LOGIN</span>
                             </div>
                         </Col>
                     }
