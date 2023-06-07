@@ -89,7 +89,7 @@ public class FrontController {
 
     // 에약하기
     @PostMapping("/viewclass/reservation")
-    public void reservation(@RequestBody ReservationDTO rDTO, @AuthenticationPrincipal String mbno){
-        frtsrv.newReservation(rDTO, mbno);
+    public ResponseEntity<?> reservation(@RequestBody ReservationDTO rDTO, @AuthenticationPrincipal String mbno){
+        return ResponseEntity.ok().body(frtsrv.newReservation(rDTO, mbno));
     }
 }

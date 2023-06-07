@@ -89,15 +89,19 @@ public class FrontServiceImpl implements FrontService{
 
     // 예약하기 로직
     @Override
-    public int newReservation(ReservationDTO rDTO, String mbno) {
-        int result = 0;
-
-        frtdao.insertReservation(
-                new Pay(
-                        null, Integer.parseInt(mbno), rDTO.getCname(), rDTO.getQuantity(), rDTO.getTotprice()
-                        , rDTO.getActdate(), null, null
-                ));
-        return 0;
+    public boolean newReservation(ReservationDTO rDTO, String mbno) {
+        boolean isExist = false;
+        if(frtdao.isExistReservation(rDTO.getCname(),  rDTO.getActdate(), Integer.parseInt(mbno)) != null){
+            isExist = true;
+        }else{
+            frtdao.insertReservation(
+                    new Pay(
+                            null, Integer.parseInt(mbno), rDTO.getCname(), rDTO.getQuantity(), rDTO.getTotprice()
+                            , rDTO.getActdate(), null, null
+                    ));
+            isExist = false;
+        }
+        return isExist;
     }
 
 }
