@@ -20,8 +20,6 @@ import {Link} from "react-router-dom";
 import {AiFillCaretDown} from "react-icons/ai";
 import {MdOutlineSearchOff} from "react-icons/md";
 
-
-
 export default function ClassMain() {
     const [classList, setClassList] = useState([]);
     const [category, setCategory] = useState("all");
@@ -161,7 +159,6 @@ export default function ClassMain() {
                     </Col>
                 </Row>
             </Container>
-
 
             <Container className="mainCardContainer">
                 <Row>
