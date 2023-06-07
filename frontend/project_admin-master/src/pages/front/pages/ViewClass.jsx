@@ -124,7 +124,11 @@ export default function ViewClass () {
                 {
                 headers: {Authorization: `Bearer ${accessToken}`},
             })
-                .then(res => setFavoriteShow(false))
+                .then(res => {
+                    setFavoriteShow(false)
+                    if(res.data === true) alert("이미 '찜!' 하셨네요!")
+                    else alert("'찜!' 목록에 추가했습니다!")
+                })
                 .catch(e => console.log(e));
         } else window.location.href = "/login";
     }
@@ -146,7 +150,10 @@ export default function ViewClass () {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 },
-            }).then(r => r)
+            }).then(res => {
+                if(res.data === true) alert("해당일에 이미 예약한 내역이 있습니다!")
+                else alert("성공적으로 예약했습니다!")
+            })
         }else {
             window.location.href = "/login";
         }

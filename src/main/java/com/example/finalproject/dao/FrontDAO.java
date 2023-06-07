@@ -2,6 +2,7 @@ package com.example.finalproject.dao;
 
 
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.Likey;
 import com.example.finalproject.model.ModifyBody;
 import com.example.finalproject.model.Pay;
 
@@ -21,6 +22,9 @@ public interface FrontDAO {
     // 찜페이지
     List<Object[]> selectLikey(String kId);
     void modifyMember(ModifyBody request);
+    void insertFavorite(Pay pay);
+
+    List<Pay> searchPayList(String kId);
 
     // 득열이 추가분
     ClassMeta selectOne(int link);
@@ -31,11 +35,12 @@ public interface FrontDAO {
 
     List<Object[]> selectMember(String kId);
 
+    Likey isExistLikey(String kakaoid, int link);
+
     void insertFavorite(Long kakaoid, int link);
 
-    boolean selectReservation(int mbno);    // 예약 중복 방지용 미리 만들어둠
+    Pay isExistReservation(String cname, String actdate, int mbno);
 
-    void insertFavorite(Pay pay);
+    void insertReservation(Pay pay);
 
-    List<Pay> searchPayList(String kId);
 }

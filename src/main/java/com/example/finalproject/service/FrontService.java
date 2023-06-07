@@ -15,6 +15,7 @@ public interface FrontService {
     // 라이크페이지
     List<Object[]> readLikey(String kId);
     void modify(ModifyBody request);
+    List<Pay> readPayList(String kId);
 
     // 득열이 추가분
     ClassMeta readOne(int link);
@@ -23,9 +24,8 @@ public interface FrontService {
 
     List<Object[]> readModify(String kId);
 
-    void newFavorite(Long kakaoid, int link);
+    boolean newFavorite(Long kakaoid, int link);
 
     int newReservation(ReservationDTO rDTO, String mbno);
 
-    List<Pay> readPayList(String kId);
 }
