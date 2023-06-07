@@ -20,4 +20,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Transactional
     @Query("UPDATE Member SET birth = :birth, gender = :gender, phone = :phone, type = :type, agree = :agree WHERE kakaoid = :kId")
     void modifyMemberBykId(@Param("kId") String kId,@Param("birth") String birth, @Param("gender") String gender,@Param("phone") String phone,@Param("type") String type,@Param("agree") String agree);
+
+    @Query("select mbno from Member where kakaoid = :kId")
+    Long findMbnoBykId(@Param("kId") String kId);
 }

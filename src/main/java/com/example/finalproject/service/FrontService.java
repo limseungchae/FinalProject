@@ -3,6 +3,7 @@ package com.example.finalproject.service;
 import com.example.finalproject.dto.ReservationDTO;
 import com.example.finalproject.model.ClassMeta;
 import com.example.finalproject.model.ModifyBody;
+import com.example.finalproject.model.Pay;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface FrontService {
     void newFavorite(Long kakaoid, int link);
 
     int newReservation(ReservationDTO rDTO, String mbno);
+
+    List<Pay> readPayList(String kId);
 }

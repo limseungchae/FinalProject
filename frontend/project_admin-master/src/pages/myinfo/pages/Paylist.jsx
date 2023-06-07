@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './Paylist.css';
 import Table from 'react-bootstrap/Table';
 import * as classmeta from "react-bootstrap/ElementChildren";
 import axios from "axios";
 import {FaCarrot} from "react-icons/fa";
+import {useOutletContext} from "react-router-dom";
 
 export default function Paylist() {
-    const [status, setStatus] = useState('');
+    /*const [status, setStatus] = useState('');*/
+    const userInfo = useOutletContext();
+    const [payList, setPayList] = useState([]);
+    const kId = userInfo.kakaoid;
 
-    const handleCancel = () => {
+
+    // kId 서버 전송 => (서버) kId -> mbno 매핑 => 해당 mbno의 PAY데이터 get.
+    // 경로: /api/paylist.
+    useEffect(() => {
+        const param = `?kId=${kId}`;
+        axios
+            .get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/paylist${param}`)
+            .catch(console.log)
+            .then(response => {
+                console.log(response?.data);
+                setPayList(response?.data);
+            });
+    }, [kId])
+
+    /*const handleCancel = () => {
         setStatus('예약취소');
-    };
+    };*/
 
 
     return (
@@ -32,7 +50,25 @@ export default function Paylist() {
                 </tr>
                 </thead>
                 <tbody>
-                {(cla => (
+                {
+                    (payList.length > 0) ?
+                        payList.map(list => {
+                            return (
+                               <tr>
+                                   <td>{list.cname}</td>
+                                   <td></td>
+                                   <td>{list.actdate}</td>
+                                   <td>{list.quantity}</td>
+                                   <td>{list.totprice}</td>
+                                   {(list.paydate !== null) ? <td>{list.paydate}</td> : <td></td>}
+                                   {(list.tid !== null) ? <td>결제완료</td> : <td>예약완료</td> }
+                               </tr>
+                            )
+                        }) : <tr></tr>
+                }
+
+
+                {/*{(cla => (
                     <tr>
                         <td>1111</td>
                         <td>1111</td>
@@ -48,7 +84,7 @@ export default function Paylist() {
                             )}
                         </td>
                     </tr>
-                ))}
+                ))}*/}
                 </tbody>
             </Table>
         </div>

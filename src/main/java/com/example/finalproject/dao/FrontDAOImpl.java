@@ -8,7 +8,9 @@ import com.example.finalproject.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Repository("frtdao")
 public class FrontDAOImpl implements FrontDAO{
@@ -81,6 +83,12 @@ public class FrontDAOImpl implements FrontDAO{
         memberRepository.modifyMemberBykId(kId, birth, gender, phone, type, agree);
     }
 
+    @Override
+    public List<Pay> searchPayList(String kId) {
+        int mbno = memberRepository.findMbnoBykId(kId).intValue();;
+        return payRepository.findAllByMbno(mbno);
+    }
+
     // 득열이 추가분
     // 클래스 상세보기 클래스 정보
     @Override
@@ -127,4 +135,6 @@ public class FrontDAOImpl implements FrontDAO{
     public void insertFavorite(Pay pay) {
         payRepository.save(pay);
     }
+
+
 }
