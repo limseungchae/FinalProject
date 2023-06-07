@@ -14,4 +14,10 @@ public interface PayRepository extends JpaRepository<Pay, Long> {
 
     @Query("from Pay where mbno = :mbno")
     List<Pay> findAllByMbno(@Param("mbno") int mbno);
+
+    @Query("select cname from Pay where rno = :rno")
+    String findCnameByRno(@Param("rno") Long rno);
+
+    @Query("from Pay where rno = :rno")
+    Pay findAllByRno(@Param("rno") Long rno);
 }

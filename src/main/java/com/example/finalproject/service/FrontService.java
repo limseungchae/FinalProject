@@ -1,9 +1,7 @@
 package com.example.finalproject.service;
 
 import com.example.finalproject.dto.ReservationDTO;
-import com.example.finalproject.model.ClassMeta;
-import com.example.finalproject.model.ModifyBody;
-import com.example.finalproject.model.Pay;
+import com.example.finalproject.model.*;
 
 import java.util.List;
 
@@ -28,4 +26,10 @@ public interface FrontService {
     int newReservation(ReservationDTO rDTO, String mbno);
 
     List<Pay> readPayList(String kId);
+
+    String readPayImg(int rno);
+
+    Pay readPayInfo(int rno);
+
+    Member readMember(int mbno);
 }

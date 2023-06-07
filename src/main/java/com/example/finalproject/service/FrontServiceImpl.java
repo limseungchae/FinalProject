@@ -2,9 +2,7 @@ package com.example.finalproject.service;
 
 import com.example.finalproject.dao.FrontDAO;
 import com.example.finalproject.dto.ReservationDTO;
-import com.example.finalproject.model.ClassMeta;
-import com.example.finalproject.model.ModifyBody;
-import com.example.finalproject.model.Pay;
+import com.example.finalproject.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +61,21 @@ public class FrontServiceImpl implements FrontService{
     @Override
     public List<Pay> readPayList(String kId) {
         return frtdao.searchPayList(kId);
+    }
+
+    @Override
+    public String readPayImg(int rno) {
+        return frtdao.selectPayImg(rno);
+    }
+
+    @Override
+    public Pay readPayInfo(int rno) {
+        return frtdao.selectInfo(rno);
+    }
+
+    @Override
+    public Member readMember(int mbno) {
+        return frtdao.selectMemberByMbno(mbno);
     }
 
 
