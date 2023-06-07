@@ -14,17 +14,6 @@ public interface FrontService {
     List<Object[]> readLikey(String kId);
     void modify(ModifyBody request);
 
-    // 득열이 추가분
-    ClassMeta readOne(int link);
-
-    List<String> readImg(int link);
-
-    List<Object[]> readModify(String kId);
-
-    void newFavorite(Long kakaoid, int link);
-
-    int newReservation(ReservationDTO rDTO, String mbno);
-
     List<Pay> readPayList(String kId);
 
     String readPayImg(int rno);
@@ -32,4 +21,16 @@ public interface FrontService {
     Pay readPayInfo(int rno);
 
     Member readMember(int mbno);
+
+    // 득열이 추가분
+    ClassMeta readOne(int link);
+
+    List<String> readImg(int link);
+
+    List<Object[]> readModify(String kId);
+
+    boolean newFavorite(Long kakaoid, int link);
+
+    int newReservation(ReservationDTO rDTO, String mbno);
+
 }
