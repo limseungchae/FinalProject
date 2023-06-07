@@ -15,12 +15,14 @@ public class Pay {
     @Column(insertable = false, updatable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ono;       // 주문번호
+    // 김충일
+    // ono => rno
+    private Long rno;
     private int mbno;
     private String cname;
     private int quantity;
     private int totprice;
     private String actdate;
-    private String tid;     // 결제번호
+    private String tid;
     private LocalDateTime paydate;
 }

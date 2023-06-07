@@ -3,6 +3,7 @@ package com.example.finalproject.controller;
 import com.example.finalproject.dto.ReservationDTO;
 import com.example.finalproject.model.ClassMeta;
 import com.example.finalproject.model.ModifyBody;
+import com.example.finalproject.model.Pay;
 import com.example.finalproject.model.User;
 import com.example.finalproject.service.FrontService;
 import com.example.finalproject.service.UserService;
@@ -64,6 +65,12 @@ public class FrontController {
         frtsrv.modify(request);
 
         return "";
+    }
+
+    // /paylist 의 get 요청
+    @GetMapping("/api/paylist")
+    public List<Pay> payList(@RequestParam String kId) {
+        return frtsrv.readPayList(kId);
     }
 
 

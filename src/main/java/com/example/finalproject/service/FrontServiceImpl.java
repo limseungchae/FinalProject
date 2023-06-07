@@ -60,6 +60,12 @@ public class FrontServiceImpl implements FrontService{
         frtdao.modifyMember(request);
     }
 
+    @Override
+    public List<Pay> readPayList(String kId) {
+        return frtdao.searchPayList(kId);
+    }
+
+
     // 득열이 추가분
     @Override
     public ClassMeta readOne(int link) {

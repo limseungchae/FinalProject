@@ -22,6 +22,9 @@ public interface FrontDAO {
     // 찜페이지
     List<Object[]> selectLikey(String kId);
     void modifyMember(ModifyBody request);
+    void insertFavorite(Pay pay);
+
+    List<Pay> searchPayList(String kId);
 
     // 득열이 추가분
     ClassMeta selectOne(int link);
@@ -39,4 +42,5 @@ public interface FrontDAO {
     Pay isExistReservation(String cname, String actdate, int mbno);
 
     void insertReservation(Pay pay);
+
 }
