@@ -1,3 +1,5 @@
+/*global kakao*/
+// 카카오맵 사용할때 global kakao 라고 컴포넌트 최상위에 적어야함
 import React, {useEffect, useState} from 'react';
 import {Col, Row, Image, Container, Button} from "react-bootstrap";
 import "./ViewClass.css"
@@ -9,19 +11,18 @@ import Modal from "react-bootstrap/Modal";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-
 export default function ViewClass () {
     // 로컬 스토리지에서 ACCESS TOKEN 가져오기
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
 
-    const curDate = new Date(); // 현재 날짜
-
     const location = useLocation(); // url값 가져오는 훅
+
     const [classInfo, setClassInfo] = useState({});
     const [completeImg, setCompleteImg] = useState({});
 
-    const [quantity, setQuantity] = useState(1);
-    const [dateValue, setDateValue] = useState(curDate);    // 날짜를 선택할때마다 값 바뀜, 초기값은 현재 날짜
+    const [quantity, setQuantity] = useState(1);    // 인원
+    const curDate = new Date(); // 현재 날짜
+    const [dateValue, setDateValue] = useState(curDate);       // 날짜를 선택할때마다 값 바뀜, 초기값은 현재 날짜
 
     // 일정의 달력에서 선택돼있는 date 형태의 날짜를 YYYY-MM-DD 로 포맷
     const year = dateValue.getFullYear();
@@ -32,7 +33,7 @@ export default function ViewClass () {
     const [originPrice, setOriginPrice] = useState(0);  // 원가
     const [price, setPrice] = useState(0);              // 총금액
 
-    // 1 ~ 5까지 수량 선택할 옵션태그 반복문으로 생성
+    // 1 ~ 5까지 인원수 선택할 옵션태그 반복문으로 생성
     const options = [];
 
     for (let i = 1; i <= 5; i++) {
@@ -46,7 +47,57 @@ export default function ViewClass () {
                 setClassInfo(res.data);
                 setPrice(res.data.sale)
                 setOriginPrice(res.data.sale)
-                console.log(res.data);
+
+                // 카카오 지도 표시
+                const addr = res.data.addr;
+
+                const patterns = [
+                    /(.+로 \d+)/,
+                    /(.+동 \d+)/,
+                    /(.+길 \d+)/
+                ];
+
+                let extractedAddr = "";
+
+                for (const pattern of patterns) {
+                    const match = addr.match(pattern);
+                    if (match) {
+                        extractedAddr = match[1];
+                        break;
+                    }
+                }
+
+                const mapContainer = document.getElementById('map'),
+                    mapOption = {
+                        center: new kakao.maps.LatLng(0, 0),    // 초기 지도 중심좌표 - 필수
+                        level: 3 // 지도의 확대 레벨
+                    };
+
+                // 지도 생성
+                const map = new kakao.maps.Map(mapContainer, mapOption);
+
+                // 주소를 좌표로 변환하는 객체
+                const geocoder = new kakao.maps.services.Geocoder();
+
+                // 주소로 좌표를 검색
+                geocoder.addressSearch(extractedAddr, function(result, status) {
+
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === kakao.maps.services.Status.OK) {
+
+                        const coords = new kakao.maps.LatLng(result[0].y, result[0].x); // 결과 좌표값
+
+                        // 결과 좌표 위치에 마커 표시
+                        const marker = new kakao.maps.Marker({
+                            map: map,
+                            position: coords
+                        });
+
+                        // 결과 좌표 위치로 지도 이동
+                        map.setCenter(coords);
+                    }
+                })
+
             })
             .catch(error => console.log(error))
     }, []);
@@ -106,7 +157,6 @@ export default function ViewClass () {
         setQuantity(e.target.value);
     };
 
-    console.log(price);
     return (
 
         <Container className="viewClassContainer">
@@ -279,18 +329,11 @@ export default function ViewClass () {
                         <Row>
                             <div><span className="class-info-title">장소</span></div>
                             <Col className={'col mt-3'}>
-                                <Col className={'col-8'}><div className={'bg-dark bg-opacity-25 map'}></div></Col>
+                                <Col className={'col-10'}>
+                                    <div id="map" className={'map'}></div>
+                                </Col>
                             </Col>
                             <div className={'addr-container mt-3'}><span>{classInfo.addr}</span></div>
-                        </Row>
-
-                        <Row>
-                            <Col className={'col-6'}>
-                                <Row className={'mt-3'}>
-                                    <Col className={'col-4'}><Button className={'map-btn'}>지도보기</Button></Col>
-                                    <Col className={'col-4'}><Button className={'map-btn'}>주소복사</Button></Col>
-                                </Row>
-                            </Col>
                         </Row>
                     </div>
                 </section>
