@@ -92,7 +92,7 @@ public class FrontServiceImpl implements FrontService{
     public int newReservation(ReservationDTO rDTO, String mbno) {
         int result = 0;
 
-        frtdao.insertFavorite(
+        frtdao.insertReservation(
                 new Pay(
                         null, Integer.parseInt(mbno), rDTO.getCname(), rDTO.getQuantity(), rDTO.getTotprice()
                         , rDTO.getActdate(), null, null

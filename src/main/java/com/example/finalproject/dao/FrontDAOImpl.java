@@ -129,7 +129,7 @@ public class FrontDAOImpl implements FrontDAO{
 
     // 예약하기 로직
     @Override
-    public void insertFavorite(Pay pay) {
+    public void insertReservation(Pay pay) {
         payRepository.save(pay);
     }
 
