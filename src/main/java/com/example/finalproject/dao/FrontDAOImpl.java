@@ -105,6 +105,11 @@ public class FrontDAOImpl implements FrontDAO{
 
     // 찜하기 로직
     @Override
+    public Likey isExistLikey(String kakaoid, int link) {
+        return likeyRepository.findByKakaoidAndLink(kakaoid, link);
+    }
+
+    @Override
     public void insertFavorite(Long kakaoid, int link) {
         Likey likey = new Likey();
         likey.setKakaoid(String.valueOf(kakaoid));
@@ -124,7 +129,9 @@ public class FrontDAOImpl implements FrontDAO{
 
     // 예약하기 로직
     @Override
-    public void insertFavorite(Pay pay) {
+    public void insertReservation(Pay pay) {
         payRepository.save(pay);
     }
+
+
 }
