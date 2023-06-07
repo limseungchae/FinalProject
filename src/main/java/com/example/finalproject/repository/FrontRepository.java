@@ -31,4 +31,9 @@ public interface FrontRepository extends JpaRepository<ClassMeta, Long> {
             "WHERE lk.kakaoid = :kId")
     List<Object[]> findLikeyByUserid(@Param("kId") String kId);
 
+    @Query("select link from ClassMeta where cname = :cname")
+    Long findLinkByCname(@Param("cname") String cname);
+
+    @Query("select thumbnail from ClassMeta where link = :link")
+    String findThumbnailByLink(@Param("link") Long link);
 }

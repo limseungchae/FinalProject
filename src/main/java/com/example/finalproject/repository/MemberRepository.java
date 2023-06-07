@@ -23,4 +23,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select mbno from Member where kakaoid = :kId")
     Long findMbnoBykId(@Param("kId") String kId);
+
+    @Query("from Member where mbno = :mbno")
+    Member findMemberByMbno(@Param("mbno") Long mbno);
 }

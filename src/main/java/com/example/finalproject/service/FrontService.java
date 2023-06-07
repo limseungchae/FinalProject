@@ -1,9 +1,7 @@
 package com.example.finalproject.service;
 
 import com.example.finalproject.dto.ReservationDTO;
-import com.example.finalproject.model.ClassMeta;
-import com.example.finalproject.model.ModifyBody;
-import com.example.finalproject.model.Pay;
+import com.example.finalproject.model.*;
 
 import java.util.List;
 
@@ -15,7 +13,14 @@ public interface FrontService {
     // 라이크페이지
     List<Object[]> readLikey(String kId);
     void modify(ModifyBody request);
+
     List<Pay> readPayList(String kId);
+
+    String readPayImg(int rno);
+
+    Pay readPayInfo(int rno);
+
+    Member readMember(int mbno);
 
     // 득열이 추가분
     ClassMeta readOne(int link);

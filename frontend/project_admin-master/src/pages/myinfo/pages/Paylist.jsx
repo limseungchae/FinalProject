@@ -4,8 +4,8 @@ import Table from 'react-bootstrap/Table';
 import * as classmeta from "react-bootstrap/ElementChildren";
 import axios from "axios";
 import {FaCarrot} from "react-icons/fa";
-import {useOutletContext} from "react-router-dom";
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import {useNavigate, useOutletContext} from "react-router-dom";
+import { DataGrid } from '@mui/x-data-grid';
 
 export default function Paylist() {
     /*const [status, setStatus] = useState('');*/
@@ -14,6 +14,7 @@ export default function Paylist() {
         id:0
     }]);
     const kId = userInfo.kakaoid;
+    const navigate = useNavigate();
 
 
     // kId 서버 전송 => (서버) kId -> mbno 매핑 => 해당 mbno의 PAY데이터 get.
@@ -33,13 +34,14 @@ export default function Paylist() {
                     for(let i = 0; data?.length > i; i++) {
                         let row = {
                             id: data[i].rno,
+                            mbno: data[i].mbno,
                             cname: data[i].cname,
                             tuter: "없음",
                             actdate: data[i].actdate,
                             quantity: data[i].quantity,
                             totprice: data[i].totprice,
                             paydate: data[i].paydate?.split('T')[0],
-                            tid: (data[i].tid !== null) ? "결제성공" : "예약확인",
+                            tid: (data[i].tid !== null) ? "결제완료" : "결제하기",
                         }
                         rows.push(row)
                     }
@@ -53,7 +55,16 @@ export default function Paylist() {
     };*/
 
     const columns = [
-        { field: 'cname', headerName: '클래스', width: 420, headerAlign: 'center' },
+        {
+            field: 'cname',
+            headerName: '클래스',
+            width: 420,
+            headerAlign: 'center',
+            renderCell: (params) => {
+                const cname = params.value;
+                return <div className="fw-bold">{cname}</div>
+            },
+        },
         { field: 'tuter', headerName: '강사명', width: 100 },
         { field: 'actdate', headerName: '일정', width: 100 },
         {
@@ -81,19 +92,19 @@ export default function Paylist() {
         },
         {
             field: 'tid',
-            headerName: '결제상태',
+            headerName: '상태',
             width: 80,
             renderCell: (params) => {
                 const tid = params.value;
-                let cellStyle = {};
-
-                if (tid === '결제성공') {
-                    cellStyle = { backgroundColor: 'blue', color: 'white' };
-                } else if (tid === '예약확인') {
-                    cellStyle = { backgroundColor: 'red', color: 'white', cursor:"pointer" };
+                const rno = params.id;
+                const mbno = params.row.mbno;
+                if (tid === '결제완료') {
+                    return <div style={{color:"#18298c"}}>{tid}</div>;
+                } else if (tid === '결제하기') {
+                    return <div style={{  color: '#f29f05', cursor:"pointer" }} onClick={() => {
+                        navigate(`/payclass?rno=${rno}&mbno=${mbno}`)
+                    }}>{tid}</div>;
                 }
-
-                return <div style={cellStyle}>{tid}</div>;
             },
         }
     ];
@@ -102,7 +113,7 @@ export default function Paylist() {
     return (
         <div className="container-fluid">
             <div className={"my-4"}>
-                <h3><FaCarrot className={"mb-2"} style={{color:"#00C2AC"}}/> 결재내역</h3>
+                <h3><FaCarrot className={"mb-2"} style={{color:"#00C2AC"}}/> 예약내역</h3>
                 <hr />
             </div>
             <div style={{ height: "100%", width: '100%' }}>

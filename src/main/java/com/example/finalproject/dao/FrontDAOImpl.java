@@ -1,9 +1,6 @@
 package com.example.finalproject.dao;
 
-import com.example.finalproject.model.ClassMeta;
-import com.example.finalproject.model.Likey;
-import com.example.finalproject.model.ModifyBody;
-import com.example.finalproject.model.Pay;
+import com.example.finalproject.model.*;
 import com.example.finalproject.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -87,6 +84,30 @@ public class FrontDAOImpl implements FrontDAO{
     public List<Pay> searchPayList(String kId) {
         int mbno = memberRepository.findMbnoBykId(kId).intValue();;
         return payRepository.findAllByMbno(mbno);
+    }
+
+    @Override
+    public String selectPayImg(int rno) {
+        Long longRno = Long.valueOf(rno);
+        String cname = payRepository.findCnameByRno(longRno);
+        // cname => Link
+        Long link = frontRepository.findLinkByCname(cname);
+        // link => thumbnail
+        String payImg = frontRepository.findThumbnailByLink(link);
+
+        return payImg;
+    }
+
+    @Override
+    public Pay selectInfo(int rno) {
+        Long longRno = Long.valueOf(rno);
+        return payRepository.findAllByRno(longRno);
+    }
+
+    @Override
+    public Member selectMemberByMbno(int mbno) {
+        Long longMbno = Long.valueOf(mbno);
+        return memberRepository.findMemberByMbno(longMbno);
     }
 
     // 득열이 추가분
