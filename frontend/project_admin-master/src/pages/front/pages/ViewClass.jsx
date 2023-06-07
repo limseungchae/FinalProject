@@ -52,9 +52,9 @@ export default function ViewClass () {
                 const addr = res.data.addr;
 
                 const patterns = [
-                    /(.+로 \d+)/,
-                    /(.+동 \d+)/,
-                    /(.+길 \d+)/
+                    /(.+로 \d+[-\d]*)/,
+                    /(.+동 \d+[-\d]*)/,
+                    /(.+길 \d+[-\d]*)/
                 ];
 
                 let extractedAddr = "";
@@ -63,6 +63,7 @@ export default function ViewClass () {
                     const match = addr.match(pattern);
                     if (match) {
                         extractedAddr = match[1];
+                        console.log(extractedAddr);
                         break;
                     }
                 }
@@ -87,6 +88,7 @@ export default function ViewClass () {
 
                         const coords = new kakao.maps.LatLng(result[0].y, result[0].x); // 결과 좌표값
 
+                        console.log(coords + " 좌표는 ");
                         // 결과 좌표 위치에 마커 표시
                         const marker = new kakao.maps.Marker({
                             map: map,
