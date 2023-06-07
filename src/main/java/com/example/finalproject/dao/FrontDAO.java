@@ -36,7 +36,7 @@ public interface FrontDAO {
 
     void insertFavorite(Long kakaoid, int link);
 
-    boolean selectReservation(int mbno);    // 예약 중복 방지용 미리 만들어둠
+    Pay isExistReservation(String cname, String actdate, int mbno);
 
     void insertReservation(Pay pay);
 }

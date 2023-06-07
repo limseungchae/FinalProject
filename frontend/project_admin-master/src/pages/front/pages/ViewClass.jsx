@@ -150,7 +150,10 @@ export default function ViewClass () {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 },
-            }).then(r => r)
+            }).then(res => {
+                if(res.data === true) alert("해당일에 이미 예약한 내역이 있습니다!")
+                else alert("성공적으로 예약했습니다!")
+            })
         }else {
             window.location.href = "/login";
         }

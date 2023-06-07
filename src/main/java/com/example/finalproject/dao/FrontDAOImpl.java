@@ -117,21 +117,13 @@ public class FrontDAOImpl implements FrontDAO{
         likeyRepository.save(likey);
     }
 
-    // 예약 중복 방지용 미리 만들어둠
-    @Override
-    public boolean selectReservation(int mbno) {
-        boolean isExist = false;
-        if(payRepository.findCnameByMbno(mbno) != null){
-            isExist = true;
-        }
-        return isExist;
-    }
-
     // 예약하기 로직
+    @Override
+    public Pay isExistReservation(String cname, String actdate, int mbno) {
+        return payRepository.findByCnameAndActdateAndMbno(cname, actdate, mbno);
+    }
     @Override
     public void insertReservation(Pay pay) {
         payRepository.save(pay);
     }
-
-
 }

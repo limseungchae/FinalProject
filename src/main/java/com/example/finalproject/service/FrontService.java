@@ -24,5 +24,5 @@ public interface FrontService {
 
     boolean newFavorite(Long kakaoid, int link);
 
-    int newReservation(ReservationDTO rDTO, String mbno);
+    boolean newReservation(ReservationDTO rDTO, String mbno);
 }
