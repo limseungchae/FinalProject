@@ -3,10 +3,8 @@ package com.example.finalproject.dao;
 import com.example.finalproject.model.ClassMeta;
 import com.example.finalproject.model.Likey;
 import com.example.finalproject.model.ModifyBody;
-import com.example.finalproject.repository.ClassImgRepository;
-import com.example.finalproject.repository.FrontRepository;
-import com.example.finalproject.repository.LikeyRepository;
-import com.example.finalproject.repository.MemberRepository;
+import com.example.finalproject.model.Pay;
+import com.example.finalproject.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +24,9 @@ public class FrontDAOImpl implements FrontDAO{
 
     @Autowired
     private LikeyRepository likeyRepository;
+
+    @Autowired
+    private PayRepository payRepository;
 
     @Override
     public List<Object[]> selectMain() {
@@ -111,5 +112,19 @@ public class FrontDAOImpl implements FrontDAO{
         likeyRepository.save(likey);
     }
 
+    // 예약 중복 방지용 미리 만들어둠
+    @Override
+    public boolean selectReservation(int mbno) {
+        boolean isExist = false;
+        if(payRepository.findCnameByMbno(mbno) != null){
+            isExist = true;
+        }
+        return isExist;
+    }
 
+    // 예약하기 로직
+    @Override
+    public void insertFavorite(Pay pay) {
+        payRepository.save(pay);
+    }
 }

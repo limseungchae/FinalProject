@@ -1,5 +1,6 @@
 package com.example.finalproject.controller;
 
+import com.example.finalproject.dto.ReservationDTO;
 import com.example.finalproject.model.ClassMeta;
 import com.example.finalproject.model.ModifyBody;
 import com.example.finalproject.model.User;
@@ -10,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 public class FrontController {
@@ -86,6 +85,13 @@ public class FrontController {
         // 토큰의 payload 에서 mbno를 추출하고 그것으로 유저의 kakaoid 값을 조회
         User user =  ussrv.readUser(mbno);
         frtsrv.newFavorite(user.getKakaoid(), link);
+    }
+
+    // 에약하기
+    @PostMapping("/viewclass/reservation")
+    public void reservation(@RequestBody ReservationDTO rDTO, @AuthenticationPrincipal String mbno){
+        System.out.println(rDTO);
+        frtsrv.newReservation(rDTO, mbno);
     }
 
 
