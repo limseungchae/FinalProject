@@ -90,7 +90,7 @@ export default function Paylist() {
                 if (tid === '결제성공') {
                     cellStyle = { backgroundColor: 'blue', color: 'white' };
                 } else if (tid === '예약확인') {
-                    cellStyle = { backgroundColor: 'red', color: 'white' };
+                    cellStyle = { backgroundColor: 'red', color: 'white', cursor:"pointer" };
                 }
 
                 return <div style={cellStyle}>{tid}</div>;
