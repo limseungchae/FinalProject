@@ -59,3 +59,10 @@ main
 {
     min-height: 700px;
 }
+
+#topBar {
+    position: fixed; /* 포지션 고정 */
+    right: 2%; /* 오른쪽에서 2% - %도 할수 있음*/
+    bottom: 5px; /* 밑에서 5px */
+    z-index: 9999; /* 포지션을 먼저 지정후 z-좌표(레이어) : 9999입니다. */
+}

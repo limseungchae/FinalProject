@@ -11,12 +11,7 @@ import {SlLogin} from "react-icons/sl";
 // logo 테스트
 export default function SearchBar({search, setSearch, processSearch}) {
     const navigate = useNavigate();
-    const [token, setToken] = useState("null");
-
-    useEffect(()=> {
-        setToken(localStorage.getItem("ACCESS_TOKEN"));
-    }, [])
-
+    const [isLogin, setIsLogin] = useState(localStorage.getItem("ACCESS_TOKEN") !== "null");
 
     /* // 로컬 스토리지에서 ACCESS TOKEN 가져오기
      const accessToken = localStorage.getItem("ACCESS_TOKEN");*/
@@ -37,10 +32,8 @@ export default function SearchBar({search, setSearch, processSearch}) {
         setIsMyMenuOpen(false);
     };
 
-
     const logout = () => {
         localStorage.setItem("ACCESS_TOKEN", null);
-        setToken("null")
         window.location.href = "/";
     }
 
@@ -49,24 +42,22 @@ export default function SearchBar({search, setSearch, processSearch}) {
     }
 
     const handleInfo = () => {
-        const tokenExists = (token !== "null");
-        (!tokenExists) ? navigate('/login') : navigate("/myinfo/modify");
+        navigate("/myinfo/modify");
     };
 
     const handleLike = () => {
-        const tokenExists = (token !== "null");
-        (!tokenExists) ? navigate('/login') : navigate("/myinfo/like");
+        navigate("/myinfo/like");
     };
 
     const handlePayList = () => {
-        const tokenExists = (token !== "null");
-        (!tokenExists) ? navigate('/login') : navigate("/myinfo/paylist");
+        navigate("/myinfo/paylist");
     };
 
     return (
       <header className={'header-container'}>
           <Container>
-              <Row className="w-100 align-items-center" style={{boxShadow:"rgba(0, 0, 0, 0.07) 0px 2px 0px 0px"}}>
+             {/* <Row className="w-100 align-items-center" style={{boxShadow:"rgba(0, 0, 0, 0.07) 0px 2px 0px 0px"}}>*/}
+              <Row className="w-100 align-items-center">
                   <Col lg={1} className="offset-2">
                       <div className="logo-container d-flex justify-content-between" style={{marginLeft:"-10px"}}>
                           <Link href to="/" className='navbar-brand text-white logo' ><span style={{color:"#F7B400"}}>S</span><span style={{color:"#00C2AC"}}>R</span></Link>
@@ -74,7 +65,7 @@ export default function SearchBar({search, setSearch, processSearch}) {
                   </Col>
 
                   <Col lg={6}>
-                      <div id="searchBar" style={{position:"relative", border:"1px solid red"}}>
+                      <div id="searchBar" className="border-bottom border-danger" style={{position:"relative"}}>
                           <input type="text" className="w-100 ps-2" placeholder="지역/클래스 이름으로 검색할 수 있습니다" style={{height:"48px", borderRadius:"8px", border:"none", outline: "none"}} value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => {
                               if (e.key === 'Enter') {
                                   processSearch();
@@ -86,7 +77,7 @@ export default function SearchBar({search, setSearch, processSearch}) {
                       </div>
                   </Col>
 
-                  {(token !== "null")
+                  {(isLogin)
                       ?
                       <Col lg={1} className="d-flex justify-content-end">
                           <div className="d-ex headerLink mt-2fl">
@@ -103,7 +94,7 @@ export default function SearchBar({search, setSearch, processSearch}) {
                                           <span className="icon-text my-text fw-bold" style={{position:"absolute", top:"3px", left:"38px"}}>My</span>
                                       </div>
                                   </Dropdown.Toggle>
-                                  <Dropdown.Menu>
+                                  <Dropdown.Menu style={{marginTop:"-1px"}}>
                                       <Dropdown.Item onClick={handleInfo}>내 정보 수정</Dropdown.Item>
                                       <Dropdown.Item onClick={handleLike}>찜목록</Dropdown.Item>
                                       <Dropdown.Item onClick={handlePayList}>결재 내역</Dropdown.Item>
@@ -123,6 +114,7 @@ export default function SearchBar({search, setSearch, processSearch}) {
               </Row>
           </Container>
       </header>
+
   );
 }
 

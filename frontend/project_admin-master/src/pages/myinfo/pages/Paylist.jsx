@@ -3,6 +3,7 @@ import './Paylist.css';
 import Table from 'react-bootstrap/Table';
 import * as classmeta from "react-bootstrap/ElementChildren";
 import axios from "axios";
+import {FaCarrot} from "react-icons/fa";
 
 export default function Paylist() {
     const [status, setStatus] = useState('');
@@ -14,6 +15,10 @@ export default function Paylist() {
 
     return (
         <div className="container-fluid">
+            <div className={"my-4"}>
+                <h3><FaCarrot className={"mb-2"} style={{color:"#00C2AC"}}/> 결재내역</h3>
+                <hr />
+            </div>
             <Table striped bordered hover responsive variant="primary">
                 <thead>
                 <tr>

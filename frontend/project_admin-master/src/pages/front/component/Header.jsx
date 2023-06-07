@@ -12,16 +12,14 @@ import {SlLogin} from "react-icons/sl";
 export default function Header() {
     const navigate = useNavigate();
     const [token, setToken] = useState("null");
+    const [isMyMenuOpen, setIsMyMenuOpen] = useState(false);
 
     useEffect(()=> {
         setToken(localStorage.getItem("ACCESS_TOKEN"));
     }, [])
 
-
    /* // 로컬 스토리지에서 ACCESS TOKEN 가져오기
     const accessToken = localStorage.getItem("ACCESS_TOKEN");*/
-
-    const [isMyMenuOpen, setIsMyMenuOpen] = useState(false);
 
 /*    const handleDropdown = () => {
         if (localStorage.getItem("ACCESS_TOKEN") == null) {
@@ -36,7 +34,6 @@ export default function Header() {
     const closeMyMenu = () => {
         setIsMyMenuOpen(false);
     };
-
 
     const logout = () => {
         localStorage.setItem("ACCESS_TOKEN", null);
@@ -66,7 +63,7 @@ export default function Header() {
     return (
         <header className={'header-container'}>
             <Container>
-                <Row className="w-100 align-items-center" style={{boxShadow:"rgba(0, 0, 0, 0.07) 0px 2px 0px 0px"}}>
+                <Row className="w-100 align-items-center">
                     <Col lg={3} className="offset-2">
                         <div className="logo-container d-flex justify-content-between" style={{marginLeft:"-10px"}}>
                             <Link href to="/" className='navbar-brand text-white logo' ><span style={{color:"#F7B400"}}>Skill</span><span style={{color:"#00C2AC"}}>Rabbit</span></Link>
@@ -75,8 +72,8 @@ export default function Header() {
 
                     <Col lg={4}>
                         <Link to={"/search"}>
-                            <div id="searchBar" style={{position:"relative", border:"1px solid red"}}>
-                                <input type="text" className="w-100 ps-2" placeholder="새로운 취미를 찾아보세요!" readOnly={true} style={{height:"48px", borderRadius:"8px", border:"none", outline: "none"}} />
+                            <div id="searchBar" className="border-bottom border-danger" style={{position:"relative"}}>
+                                <input type="text" className="w-100 ps-2" placeholder="새로운 취미를 찾아보세요!" readOnly={true} style={{height:"48px", borderRadius:"8px", border:"none", outline: "none",cursor:"pointer"}} />
                                 <Button className="searchBtn btn-outline-light" style={{position:"absolute", top:"4px", right:"5px"}}>
                                     <BsSearch className="searchIcon"/>
                                 </Button>
@@ -96,16 +93,16 @@ export default function Header() {
                                         as={CustomToggle}
                                         id="dropdown-my-menu"
                                         className="my-button">
-                                        <div className="ps-2 border" style={{position:"relative",left:"15px", width:"80px", height:"40px", borderRadius:"30px"}} onClick={login} id="headerBox">
+                                        <div className="ps-2 border" style={{position:"relative",left:"15px", width:"80px", height:"40px", borderRadius:"30px"}} id="headerBox">
                                             <BsFillPersonFill className="my-icon fs-5" style={{position:"absolute", top:"9px", color:"#F7B400"}} />
                                             <span className="icon-text my-text fw-bold" style={{position:"absolute", top:"3px", left:"38px"}}>My</span>
                                         </div>
                                     </Dropdown.Toggle>
-                                    <Dropdown.Menu>
+                                    <Dropdown.Menu style={{marginTop:"-1px"}}>
                                         <Dropdown.Item onClick={handleInfo}>내 정보 수정</Dropdown.Item>
                                         <Dropdown.Item onClick={handleLike}>찜목록</Dropdown.Item>
                                         <Dropdown.Item onClick={handlePayList}>결재 내역</Dropdown.Item>
-                                        <Dropdown.Item onClick={logout} style={{color:"red"}}>로그아웃</Dropdown.Item>
+                                        <Dropdown.Item onClick={logout} ><span className="text-danger">로그아웃</span></Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>
@@ -153,6 +150,9 @@ export default function Header() {
                         </Col>
                     }*/}
                 </Row>
+                {/*<Row>
+                    <hr style={{width:"68.5%", marginLeft:"15%"}} />
+                </Row>*/}
             </Container>
         </header>
     );
