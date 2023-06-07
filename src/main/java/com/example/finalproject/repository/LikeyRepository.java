@@ -4,4 +4,5 @@ import com.example.finalproject.model.Likey;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LikeyRepository extends JpaRepository<Likey, Long> {
+    Likey findByKakaoidAndLink(String kakaoid, int link);
 }

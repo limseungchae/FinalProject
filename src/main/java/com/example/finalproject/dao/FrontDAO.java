@@ -2,6 +2,7 @@ package com.example.finalproject.dao;
 
 
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.Likey;
 import com.example.finalproject.model.ModifyBody;
 import com.example.finalproject.model.Pay;
 
@@ -30,6 +31,8 @@ public interface FrontDAO {
     int selectLink(int link);
 
     List<Object[]> selectMember(String kId);
+
+    Likey isExistLikey(String kakaoid, int link);
 
     void insertFavorite(Long kakaoid, int link);
 

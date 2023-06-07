@@ -124,7 +124,11 @@ export default function ViewClass () {
                 {
                 headers: {Authorization: `Bearer ${accessToken}`},
             })
-                .then(res => setFavoriteShow(false))
+                .then(res => {
+                    setFavoriteShow(false)
+                    if(res.data === true) alert("이미 '찜!' 하셨네요!")
+                    else alert("'찜!' 목록에 추가했습니다!")
+                })
                 .catch(e => console.log(e));
         } else window.location.href = "/login";
     }

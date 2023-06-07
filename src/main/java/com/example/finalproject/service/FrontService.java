@@ -22,7 +22,7 @@ public interface FrontService {
 
     List<Object[]> readModify(String kId);
 
-    void newFavorite(Long kakaoid, int link);
+    boolean newFavorite(Long kakaoid, int link);
 
     int newReservation(ReservationDTO rDTO, String mbno);
 }
