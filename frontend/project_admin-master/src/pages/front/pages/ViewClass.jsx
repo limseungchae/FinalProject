@@ -14,18 +14,40 @@ export default function ViewClass () {
     // 로컬 스토리지에서 ACCESS TOKEN 가져오기
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
 
+    const curDate = new Date(); // 현재 날짜
+
     const location = useLocation(); // url값 가져오는 훅
     const [classInfo, setClassInfo] = useState({});
     const [completeImg, setCompleteImg] = useState({});
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [date, setDate] = useState(null);
 
+    const [quantity, setQuantity] = useState(1);
+    const [dateValue, setDateValue] = useState(curDate);    // 날짜를 선택할때마다 값 바뀜, 초기값은 현재 날짜
+
+    // 일정의 달력에서 선택돼있는 date 형태의 날짜를 YYYY-MM-DD 로 포맷
+    const year = dateValue.getFullYear();
+    const month = String(dateValue.getMonth() + 1).padStart(2, '0');
+    const day = String(dateValue.getDate()).padStart(2, '0');
+    const formatedDate = `${year}-${month}-${day}`;
+
+    const [originPrice, setOriginPrice] = useState(0);  // 원가
+    const [price, setPrice] = useState(0);              // 총금액
+
+    // 1 ~ 5까지 수량 선택할 옵션태그 반복문으로 생성
+    const options = [];
+
+    for (let i = 1; i <= 5; i++) {
+        options.push(<option key={i} value={i}>{i}</option>);
+    }
 
     // 클래스 정보
     useEffect(() => {
         axios.get(`http://localhost:8080/viewclass${location.search}`)
-            .then(response => setClassInfo(response.data))
+            .then(res => {
+                setClassInfo(res.data);
+                setPrice(res.data.sale)
+                setOriginPrice(res.data.sale)
+                console.log(res.data);
+            })
             .catch(error => console.log(error))
     }, []);
 
@@ -33,16 +55,11 @@ export default function ViewClass () {
     // 클래스 완성작 이미지
     useEffect(() => {
         axios.get(`http://localhost:8080/viewclass/completeimg${location.search}`)
-            .then(response => {
-                setCompleteImg(response.data);
+            .then(res => {
+                setCompleteImg(res.data);
             })
             .catch(error => console.log(error))
     }, []);
-
-    // 리액트 달력
-    const handleDateChange = (date) => {
-
-    };
 
     // 찜하기 처리
     const [favoriteShow, setFavoriteShow] = useState(false);
@@ -50,7 +67,7 @@ export default function ViewClass () {
     const handleClose = () => setFavoriteShow(false);
     const handleAddFavorite = () => {
         if (accessToken && accessToken !== "null") {
-            axios.get(`http://localhost:8080/viewclass/addfavorite${location.search}`,
+            axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/viewclass/addfavorite${location.search}`,
                 {
                 headers: {Authorization: `Bearer ${accessToken}`},
             })
@@ -59,14 +76,37 @@ export default function ViewClass () {
         } else window.location.href = "/login";
     }
 
+    // 예약하기 처리시 요청 본문에 담을 클래스
+    class ReservationDTO{
+        cname = classInfo.cname;
+        quantity = quantity;
+        totprice = price;
+        actdate = formatedDate
+    }
+
     // 예약하기 처리
     const handleReservation = () => {
         if (accessToken && accessToken !== "null") {
-            window.location.href = '/';     // 결제페이지 생기기전 임시 리디렉트
-        }else window.location.href = "/login";
+            const rDTO = new ReservationDTO();
+
+            axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/viewclass/reservation`, rDTO, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                },
+            }).then(r => r)
+        }else {
+            window.location.href = "/login";
+        }
     };
 
 
+    // 인원 선택시 인원, 총금액 변경
+    const handleAmount = (e) => {
+        setPrice(e.target.value * originPrice);
+        setQuantity(e.target.value);
+    };
+
+    console.log(price);
     return (
 
         <Container className="viewClassContainer">
@@ -144,28 +184,34 @@ export default function ViewClass () {
 
                 <Row className={'payboard'}>
                     <h5 className={'schedule-title'}>일정</h5>
-                    <div className='rap'>
-                        <div>
-                            <Calendar
-                                onChange={handleDateChange}
-                                value={[startDate, endDate]}
-                                className="calendar"
-                            />
+                    <Col className={'offset-2 col-5'}>
+                        <div className='rap'>
+                            <div>
+                                <Calendar
+                                    onChange={setDateValue}
+                                    value={dateValue}
+                                    className="calendar"
+                                />
+                            </div>
                         </div>
-                    </div>
+                    </Col>
 
-                    <Row className={'mt-3'}>
-                        <Col className={'offset-2 col-8'}>
-                            <Row className={'pay'}>
-                                <Col className={'offset-3 col-4'}><span className={'discount-price'}>{classInfo.sale}원</span></Col>
-                                <Col className={'col-5 res-btn-container'}>
-                                    <Button className={'text-white reservation-btn mb-2'} onClick={handleReservation}>
-                                        예약하기
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
+                    <Col className={'col-5'}>
+                        <div>
+                            <select onChange={handleAmount}>
+                                {options}
+                            </select>
+                        </div>
+                        <Row className={'pay'}>
+                            <Col className={'offset-3 col-4'}><span className={'discount-price'}>{price}원</span></Col>
+                            <Col className={'col-5 res-btn-container'}>
+                                <Button className={'text-white reservation-btn mb-2'} onClick={handleReservation}>
+                                    예약하기
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Col>
+
                 </Row>
 
                 <section className={'text-start'}>
