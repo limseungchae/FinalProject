@@ -1,8 +1,11 @@
 package com.example.finalproject.service;
 
 import com.example.finalproject.dao.FrontDAO;
+import com.example.finalproject.dto.ReservationDTO;
 import com.example.finalproject.model.ClassMeta;
+import com.example.finalproject.model.Member;
 import com.example.finalproject.model.ModifyBody;
+import com.example.finalproject.model.Pay;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +22,6 @@ public class FrontServiceImpl implements FrontService{
 
     @Autowired
     FrontDAO frtdao;
-
 
     @Override
     public List<Object[]> readMain(String category, String sido) {
@@ -52,6 +54,11 @@ public class FrontServiceImpl implements FrontService{
     }
 
     @Override
+    public void removeLikey(String kId, int link) {
+        frtdao.deleteLikey(kId, link);
+    }
+
+    @Override
     public List<Object[]> readModify(String kId) {
 
         return frtdao.selectMember(kId);
@@ -60,6 +67,26 @@ public class FrontServiceImpl implements FrontService{
     @Override
     public void modify(ModifyBody request) {
         frtdao.modifyMember(request);
+    }
+
+    @Override
+    public List<Pay> readPayList(String kId) {
+        return frtdao.searchPayList(kId);
+    }
+
+    @Override
+    public String readPayImg(int rno) {
+        return frtdao.selectPayImg(rno);
+    }
+
+    @Override
+    public Pay readPayInfo(int rno) {
+        return frtdao.selectInfo(rno);
+    }
+
+    @Override
+    public Member readMember(int mbno) {
+        return frtdao.selectMemberByMbno(mbno);
     }
 
     // 득열이 추가분
@@ -80,6 +107,23 @@ public class FrontServiceImpl implements FrontService{
     @Override
     public void newFavorite(Long kakaoid, int link) {
         frtdao.insertFavorite(kakaoid, link);
+    }
+
+    // 예약하기 로직
+    @Override
+    public boolean newReservation(ReservationDTO rDTO, String mbno) {
+        boolean isExist = false;
+        if(frtdao.isExistReservation(rDTO.getCname(),  rDTO.getActdate(), Integer.parseInt(mbno)) != null){
+            isExist = true;
+        }else{
+            frtdao.insertReservation(
+                    new Pay(
+                            null, Integer.parseInt(mbno), rDTO.getCname(), rDTO.getQuantity(), rDTO.getTotprice()
+                            , rDTO.getActdate(), null, null
+                    ));
+            isExist = false;
+        }
+        return isExist;
     }
 
 }

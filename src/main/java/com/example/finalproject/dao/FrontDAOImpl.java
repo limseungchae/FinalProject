@@ -1,12 +1,7 @@
 package com.example.finalproject.dao;
 
-import com.example.finalproject.model.ClassMeta;
-import com.example.finalproject.model.Likey;
-import com.example.finalproject.model.ModifyBody;
-import com.example.finalproject.repository.ClassImgRepository;
-import com.example.finalproject.repository.FrontRepository;
-import com.example.finalproject.repository.LikeyRepository;
-import com.example.finalproject.repository.MemberRepository;
+import com.example.finalproject.model.*;
+import com.example.finalproject.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +21,9 @@ public class FrontDAOImpl implements FrontDAO{
 
     @Autowired
     private LikeyRepository likeyRepository;
+
+    @Autowired
+    private PayRepository payRepository;
 
     @Override
     public List<Object[]> selectMain() {
@@ -63,6 +61,11 @@ public class FrontDAOImpl implements FrontDAO{
     }
 
     @Override
+    public void deleteLikey(String kId, int link) {
+        likeyRepository.deleteLikey(kId, link);
+    }
+
+    @Override
     public List<Object[]> selectMember(String kId) {
 
         return memberRepository.findMemberByUserid(kId);
@@ -78,6 +81,36 @@ public class FrontDAOImpl implements FrontDAO{
         String agree = request.getAgree();
 
         memberRepository.modifyMemberBykId(kId, birth, gender, phone, type, agree);
+    }
+
+    @Override
+    public List<Pay> searchPayList(String kId) {
+        int mbno = memberRepository.findMbnoBykId(kId).intValue();;
+        return payRepository.findAllByMbno(mbno);
+    }
+
+    @Override
+    public String selectPayImg(int rno) {
+        Long longRno = Long.valueOf(rno);
+        String cname = payRepository.findCnameByRno(longRno);
+        // cname => Link
+        Long link = frontRepository.findLinkByCname(cname);
+        // link => thumbnail
+        String payImg = frontRepository.findThumbnailByLink(link);
+
+        return payImg;
+    }
+
+    @Override
+    public Pay selectInfo(int rno) {
+        Long longRno = Long.valueOf(rno);
+        return payRepository.findAllByRno(longRno);
+    }
+
+    @Override
+    public Member selectMemberByMbno(int mbno) {
+        Long longMbno = Long.valueOf(mbno);
+        return memberRepository.findMemberByMbno(longMbno);
     }
 
     // 득열이 추가분
@@ -104,6 +137,11 @@ public class FrontDAOImpl implements FrontDAO{
 
     // 찜하기 로직
     @Override
+    public Likey isExistLikey(String kakaoid, int link) {
+        return likeyRepository.findByKakaoidAndLink(kakaoid, link);
+    }
+
+    @Override
     public void insertFavorite(Long kakaoid, int link) {
         Likey likey = new Likey();
         likey.setKakaoid(String.valueOf(kakaoid));
@@ -111,5 +149,14 @@ public class FrontDAOImpl implements FrontDAO{
         likeyRepository.save(likey);
     }
 
+    // 예약하기 로직
+    @Override
+    public Pay isExistReservation(String cname, String actdate, int mbno) {
+        return payRepository.findByCnameAndActdateAndMbno(cname, actdate, mbno);
+    }
+    @Override
+    public void insertReservation(Pay pay) {
+        payRepository.save(pay);
+    }
 
 }

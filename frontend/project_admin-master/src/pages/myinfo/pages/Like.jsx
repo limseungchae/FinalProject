@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./Like.css"
 import {Col, Container, Row} from "react-bootstrap";
 import {Link, useOutletContext} from "react-router-dom";
 import Card from "react-bootstrap/Card";
@@ -7,17 +8,15 @@ import {ImStarEmpty, ImStarFull, ImStarHalf} from "react-icons/im";
 import {FaCarrot} from "react-icons/fa";
 import axios from "axios";
 import {MdOutlineSearchOff} from "react-icons/md";
+import {BsHeartFill} from "react-icons/bs";
 
 export default function Like(){
     const userInfo = useOutletContext();
-    console.log(userInfo)
     const nickname = userInfo.nickname;
     const kId = userInfo.kakaoid;
     const [likeList, setLikeList] = useState([]);
 
-
     useEffect(() => {
-        console.log(kId);
         let param = `?kId=${kId}`;
         axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/likey${param}`)
             .then(response => setLikeList(response.data))
@@ -28,6 +27,13 @@ export default function Like(){
         window.scrollTo(0, 0);
     };
 
+    const handleUnlike = (link) => {
+        let param = `?link=${link}&kId=${kId}`;
+        axios
+            .post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/unlikey${param}`)
+            .catch(console.log);
+        window.location.href = "/myinfo/like"
+    };
     return(
         <Container>
             <Row>
@@ -39,7 +45,7 @@ export default function Like(){
                     <Row>
                         { (likeList.length > 0) ? likeList.map((array, index) => {
                             return(
-                                <Col className="col-xl-4" key={index}>
+                                <Col className="col-xl-4" key={index} style={{position:"relative"}}>
                                     <Link to={`/viewclass?link=${array[0]}`} onClick={handleScroll} style={{textDecoration:"none"}}>
                                         <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
                                             <Card.Img variant="top" src={array[9]} width="100%" height="218px" />
@@ -55,6 +61,11 @@ export default function Like(){
                                             </Card.Body>
                                         </Card>
                                     </Link>
+                                    <div style={{position:"absolute", top:"4px", right:"8px"}} onClick={e => {
+                                        handleUnlike(array[0])
+                                    }} className="likeIcon">
+                                        <BsHeartFill className="fs-2 text-danger" />
+                                    </div>
                                 </Col>
                             )
                         }) : <Col className="col-xl-12 mt-4 text-center"><MdOutlineSearchOff style={{fontSize:"200px",color:"grey"}} /><p className="fw-bold h4">찜 목록이 없습니다</p></Col>
