@@ -28,6 +28,12 @@ const Payclass = () => {
                 const payInfo = body.info;
                 const userInfo = body.member;
 
+                window.localStorage.setItem("orderid", String(payInfo.rno) + new Date(payInfo.actdate).getTime());
+                window.localStorage.setItem("userid", userInfo.kakaoid);
+
+                console.log(payInfo);
+                console.log(userInfo);
+
                 setImg(img);
                 setPayInfo(payInfo);
                 setUserInfo(userInfo);
@@ -64,13 +70,23 @@ const Payclass = () => {
         // }, [ono]);
         //
 
+        // params
+        // 주문ID(orderId)*, 사용자ID(userId)*, 구매ID(tid)*, 상품명(cname), 구매 수량(quantity), 총 결제 금액(totPrice);
+        // 주문ID 만들기
+
+
+
+
         try {
+            console.log(window.localStorage.getItem("tid"));
+            console.log(window.localStorage.getItem("orderid"));
+            console.log(window.localStorage.getItem("userid"));
             const response = await axios.post(
                 'https://kapi.kakao.com/v1/payment/ready',
                 qs.stringify({
                     cid: 'TC0ONETIME',
-                    partner_order_id: 'YOUR_PARTNER_ORDER_ID', // 여기에 고유한 주문 ID를 넣으세요
-                    partner_user_id: 'YOUR_PARTNER_USER_ID', // 여기에 고유한 사용자 ID를 넣으세요
+                    partner_order_id: String(payInfo.rno) + new Date(payInfo.actdate).getTime(), // 여기에 고유한 주문 ID를 넣으세요
+                    partner_user_id: userInfo.kakaoid, // 여기에 고유한 사용자 ID를 넣으세요
                     item_name: '초코파이', // 여기에 상품명을 넣으세요
                     quantity: 1, // 여기에 구매 수량을 넣으세요
                     total_amount: 2200, // 여기에 총 결제 금액을 넣으세요
@@ -99,6 +115,7 @@ const Payclass = () => {
 
             console.log(next_redirect_pc_url);
             console.log(tid);
+
             // localstorage에 tid 저장
             window.localStorage.setItem("tid", tid);
 

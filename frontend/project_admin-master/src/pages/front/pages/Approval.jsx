@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Approval = () => {
-    const [params, setParams] = useState({
+        const [response, setResponse] = useState();
+    console.log(window.localStorage.getItem("tid"));
+    console.log(window.localStorage.getItem("orderid"));
+    console.log(window.localStorage.getItem("userid"));
+    const params = {
         cid: "TC0ONETIME",
         tid: window.localStorage.getItem("tid"),
-        partner_order_id: 'YOUR_PARTNER_ORDER_ID',
-        partner_user_id: 'YOUR_PARTNER_USER_ID',
+        partner_order_id: window.localStorage.getItem("orderid"),
+        partner_user_id: window.localStorage.getItem("userid"),
         approved_at: new Date().toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' }),
         pg_token: new URLSearchParams(window.location.search).get('pg_token'),
-    });
-    const [response, setResponse] = useState();
+    }
 
     useEffect(() => {
+
         axios({
             url: "https://kapi.kakao.com/v1/payment/approve",
             method: "POST",
