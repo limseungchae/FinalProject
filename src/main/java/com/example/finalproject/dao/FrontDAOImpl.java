@@ -159,8 +159,8 @@ public class FrontDAOImpl implements FrontDAO{
     }
 
     @Override
-    public void updateReservation(int mbno, String tid, String paydate) {
-        frontRepository.updateReservation(tid, paydate, mbno);
+    public void updateReservation(int mbno, String tid, String paydate, String cname) {
+        frontRepository.updateReservation(tid, paydate, mbno, cname);
     }
 
 
