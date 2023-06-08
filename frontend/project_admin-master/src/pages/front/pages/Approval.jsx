@@ -13,18 +13,18 @@ const Approval = () => {
     const [response, setResponse] = useState();
 
     useEffect(() => {
-            axios({
-                url: "https://kapi.kakao.com/v1/payment/approve",
-                method: "POST",
-                headers: {
-                    Authorization: "KakaoAK f57ea5bc4f7c552c7541e7a194783d59",
-                },
-                params: params,
-            }).catch(console.log).then((response) => {
-                if(response?.data !== undefined) {
-                    setResponse(response.data);
-                }
-            });
+        axios({
+            url: "https://kapi.kakao.com/v1/payment/approve",
+            method: "POST",
+            headers: {
+                Authorization: "KakaoAK f57ea5bc4f7c552c7541e7a194783d59",
+            },
+            params: params,
+        }).catch(console.log).then((response) => {
+            if(response?.data !== undefined) {
+                setResponse(response.data);
+            }
+        });
     }, []);
 
     return (
