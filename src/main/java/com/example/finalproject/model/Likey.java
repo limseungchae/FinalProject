@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "LIKEY")
+@Table(name = "likey")
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class Likey {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(insertable = false, updatable = false)
-    private Long likey;
+    private Long lkno;
     private String kakaoid;
     @Column(name = "link")
     private int link;
