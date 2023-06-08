@@ -156,5 +156,8 @@ public class FrontDAOImpl implements FrontDAO{
         payRepository.save(pay);
     }
 
-
+    @Override
+    public boolean selectReservation(int mbno) {
+        return false;
+    }
 }

@@ -45,8 +45,6 @@ public interface FrontDAO {
 
     boolean selectReservation(int mbno);    // 예약 중복 방지용 미리 만들어둠
 
-    void insertFavorite(Pay pay);
-
     void insertReservation(Pay pay);
 
 
