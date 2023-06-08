@@ -114,10 +114,10 @@ public class FrontController {
 
     // 찜하기
     @GetMapping("/viewclass/addfavorite")
-    public void addFavorite(int link, @AuthenticationPrincipal String mbno){
+    public ResponseEntity<?> addFavorite(int link, @AuthenticationPrincipal String mbno){
         // 토큰의 payload 에서 mbno를 추출하고 그것으로 유저의 kakaoid 값을 조회
         User user =  ussrv.readUser(mbno);
-        frtsrv.newFavorite(user.getKakaoid(), link);
+        return ResponseEntity.ok().body(frtsrv.newFavorite(user.getKakaoid(), link));
     }
 
     // 에약하기

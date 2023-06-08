@@ -34,7 +34,7 @@ public interface FrontService {
 
     List<Object[]> readModify(String kId);
 
-    void newFavorite(Long kakaoid, int link);
+    boolean newFavorite(Long kakaoid, int link);
 
     boolean newReservation(ReservationDTO rDTO, String mbno);
 }
