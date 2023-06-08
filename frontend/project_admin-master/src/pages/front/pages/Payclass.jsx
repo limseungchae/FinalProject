@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './Payclass.css';
 import axios from 'axios';
 import qs from 'qs';
-import {useLocation, useParams} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 const Payclass = () => {
     const location = useLocation();

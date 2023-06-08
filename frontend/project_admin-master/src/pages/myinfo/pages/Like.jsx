@@ -61,7 +61,7 @@ export default function Like(){
                                             </Card.Body>
                                         </Card>
                                     </Link>
-                                    <div style={{position:"absolute", top:"4px", right:"8px"}} onClick={e => {
+                                    <div style={{position:"absolute", top:"4px", right:"20px"}} onClick={e => {
                                         handleUnlike(array[0])
                                     }} className="likeIcon">
                                         <BsHeartFill className="fs-2 text-danger" />
