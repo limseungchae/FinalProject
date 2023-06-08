@@ -49,13 +49,13 @@ public class FrontTest {
             System.out.println(lk);
     }
 
-    @Test
-    @DisplayName("test")
-    public void chk() {
-        User chk = userRepository.findUserByKakaoid("2813856259");
-
-        System.out.println(chk);
-    }
+//    @Test
+//    @DisplayName("test")
+//    public void chk() {
+//        User chk = userRepository.findUserByKakaoid("2813856259");
+//
+//        System.out.println(chk);
+//    }
 
 
 }

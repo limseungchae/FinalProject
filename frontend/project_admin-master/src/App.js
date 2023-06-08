@@ -18,7 +18,7 @@ import Paylist from "./pages/myinfo/pages/Paylist";
 import Payclass from "./pages/front/pages/Payclass";
 import Approval from "./pages/front/pages/Approval";
 import Class from "./pages/myinfo/pages/class"
-
+import Update from "./pages/myinfo/pages/update"
 
 const router = createBrowserRouter([
   {
@@ -54,6 +54,7 @@ const router = createBrowserRouter([
       {path: "modify", element: <Modify />},
       {path: "addclass", element: <Class />},
       {path: "classlist", element: <ClassList />},
+      {path: "update", element: <Update />},
       {path: "paylist", element: <Paylist />},
     ]
   }

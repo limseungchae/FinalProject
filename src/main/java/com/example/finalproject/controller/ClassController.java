@@ -21,16 +21,6 @@ public class ClassController {
         this.classService = classService;
     }
 
-//    @PostMapping("/addclass")
-//    public ResponseEntity<String> addClass(@RequestBody Class data) {
-//        try {
-//            myClassService.saveClass(data);
-//            return ResponseEntity.ok("Data saved successfully");
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save data");
-//        }
-//    }
-
     @PostMapping(value = "/addclass", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> addClass(@RequestParam("cimg") MultipartFile cimg,
                                            @RequestParam("thumb") MultipartFile thumb,
@@ -39,7 +29,7 @@ public class ClassController {
                                            @RequestParam("category") String category,
                                            @RequestParam("intro") String intro,
                                            @RequestParam("meterial") String meterial,
-                                           @RequestParam("rule") String rule,
+                                           @RequestParam("rules") String rules,
                                            @RequestParam("notice") String notice,
                                            @RequestParam("addr") String addr,
                                            @RequestParam("durat") String durat,
@@ -47,28 +37,24 @@ public class ClassController {
                                            @RequestParam("edate") String edate,
                                            @RequestParam("ctime") String ctime,
                                            @RequestParam("man") String man,
-                                           @RequestParam("price") int price,
-                                           @RequestParam("hash") List<String> hash) {
-        classService.addClass(cimg, thumb, timg, title, category, intro, meterial, rule, notice, addr, durat,
+                                           @RequestParam("price") String price,
+                                           @RequestParam("hash") String hash) {
+        classService.addClass(cimg, thumb, timg, title, category, intro, meterial, rules, notice, addr, durat,
                 sdate, edate, ctime, man, price, hash);
         return ResponseEntity.ok("Class added successfully");
     }
 
-//    @GetMapping("/update/{cno}")
-//    public ResponseEntity<List<Class>> getClassesByCategory(@PathVariable Long cno) {
-//        List<Class> classes = classService.getClassesByCno(cno);
-//        if (classes.isEmpty()) {
-//            return ResponseEntity.noContent().build();
-//        }
-//        return ResponseEntity.ok(classes);
-//    }
-//
-//    @GetMapping("/classlist")
-//    public ResponseEntity<List<Class>> getClassesByTitleContainingIgnoreCase(@PathVariable String keyword) {
-//        List<Class> classes = classService.getClassesByTitleContainingIgnoreCase(keyword);
-//        if (classes.isEmpty()) {
-//            return ResponseEntity.noContent().build();
-//        }
-//        return ResponseEntity.ok(classes);
-//    }
+    @GetMapping("/data")
+    public List<AddClass> getData(@RequestParam("title")String title) {
+        return classService.getData(title);
+    }
+    @GetMapping("/update")
+    public List<AddClass> getData(@RequestParam("cno") Long cno) {
+        return classService.getData1(cno);
+    }
+    @DeleteMapping("/delete/{cno}")
+    public void deleteData(@PathVariable Long cno) {
+        // cno를 기반으로 데이터 삭제 로직 수행
+        classService.deleteDataByCno(cno);
+    }
 }

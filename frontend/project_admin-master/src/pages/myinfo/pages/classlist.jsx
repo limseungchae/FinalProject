@@ -1,122 +1,180 @@
-import { useOutletContext } from 'react-router-dom';
-import "../../admin/pages/adminPage.css"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from 'react-router-dom';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import React,{useState} from "react";
-// import Button from 'react-bootstrap/Button';
 import DataTable from "react-data-table-component";
-import  {Accordion, Card } from "react-bootstrap";
-import Img from '../../../assets/classimg2.png';
+import { Accordion, Button, Card } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
+
+
 
 
 export default function ClassList() {
-  const isActive = useOutletContext();
+    const [activeIndex, setActiveIndex] = useState(null);
+    const [data1, setData1] = useState([]);
+    const [title, setTitle] = useState('');
 
-    const [activeIndex, setActiveIndex] = useState("0");
 
     const handleAccordionToggle = (index) => {
-        setActiveIndex(index);
+        setActiveIndex(index === activeIndex ? null : index);
     };
 
   const columns = [
       {  name: 'NO.', selector: 'cno', sortable: true},
-      {  name: '클래스명', selector: 'cname', sortable: true},
-      {  name: '일정', selector: 'duration', sortable: true},
-      {  name: '장소', selector: 'addr', sortable: true},
-      {  name: '인원', selector: 'man', sortable: true},
+      {  name: '클래스명', selector: 'title', sortable: true},
+      // {  name: '일정', selector: 'durat', sortable: true},
+      // {  name: '장소', selector: 'ADDR', sortable: true},
+      // {  name: '인원', selector: 'man', sortable: true},
       {  name: '가격', selector: 'price', sortable: true},
   ];
 
-    const data = [
-        {id:1, cno:1, cname:'뜨개뜨개 뜨개공방', duration:'5/24 ~ 6/24 주 1회 3시간', addr:'신도림', man:'3명', price:'50,000원' },
-        {id:2, cno:2, cname:'뚝딱뚝딱 가구공방', duration:'5/24 8시간', addr:'신촌 Gongbang', man:'4명', price:'60,000원' },
-    ];
 
     const columns1 = [
-        {  name: '클래스 소개사진', selector: 'cimg1', sortable: true},
-        {  name: '클래스 완성작', selector: 'cimg2', sortable: true},
-        {  name: '커리큘럼', selector: 'cc', sortable: true},
+        // {  name: '소개사진', selector: 'cimg', sortable: true},
+        // {  name: '썸네일', selector: 'thumb', sortable: true},
+        {  name: '클래스명', selector: 'title', sortable: true},
         {  name: '카테고리', selector: 'category', sortable: true},
-        {  name: '클래스명', selector: 'cname', sortable: true},
-        {  name: '일정', selector: 'duration', sortable: true},
+        {  name: '해시태그', selector: 'hash', sortable: true},
+        {  name: '소개글', selector: 'intro', sortable: true},
+        {  name: '준비물', selector: 'meterial', sortable: true},
+        {  name: '사전공지', selector: 'rules', sortable: true},
+        {  name: '이용규칙', selector: 'notice', sortable: true},
+        {  name: '시작일', selector: 'sdate', sortable: true},
+        {  name: '종료일', selector: 'edate', sortable: true},
+        {  name: '일정', selector: 'durat', sortable: true},
+        {  name: '시작시간', selector: 'ctime', sortable: true},
         {  name: '장소', selector: 'addr', sortable: true},
         {  name: '인원', selector: 'man', sortable: true},
         {  name: '가격', selector: 'price', sortable: true},
     ];
 
-    const data1 = [
-        {id:1, cimg1:1, cimg2:11, cc:'뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개뜨개', category:'공예', cname:'뜨개뜨개 뜨개공방', duration:'5/24 ~ 6/24 주 1회 3시간', addr:'신도림', man:'3명', price:'50,000원' },
-        {id:2, cimg1:2, cimg2:12, cc:'뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱뚝딱', category:'공예', cname:'뚝딱뚝딱 가구공방', duration:'5/24 8시간', addr:'신촌 Gongbang', man:'4명', price:'60,000원' },
-    ];
 
-    const columns2 = [
-        {  name: '강사 사진', selector: 'timg', sortable: true},
-        {  name: '강사 이름', selector: 'tname', sortable: true},
-        {  name: '강사 나이', selector: 'age', sortable: true},
-        {  name: '전공', selector: 'main', sortable: true},
-        {  name: '연락처', selector: 'phone', sortable: true},
-    ];
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const url = `http://localhost:8080/api/data?title=${title}`;
+                const response1 = await axios.get(url);
+                const responseData1 = response1.data;
+                const updatedData1 = responseData1.map((item) => {
+                    const fileName = item.cimg.split('/').pop(); // cimg 파일 이름 추출
+                    const thumbName = item.thumb.split('/').pop(); // thumb 파일 이름 추출
+                    const timgName = item.timg.split('/').pop(); // timg 파일 이름 추출
 
-    const data2 = [
-        {id:1, timg:'1', tname:'최춘자', age:'35', main:'퀼트', phone:'010-123-4567' },
-        {id:2, timg:'2', tname:'최춘백', age:'28', main:'목공', phone:'010-123-4567' },
-    ];
+                    return {
+                        cno: item.cno,
+                        cimg: fileName,
+                        thumb: thumbName,
+                        timg: timgName,
+                        title: item.title,
+                        category: item.category,
+                        hash: item.hash,
+                        intro: item.intro,
+                        meterial: item.meterial,
+                        rules: item.rules,
+                        notice: item.notice,
+                        sdate: item.sdate,
+                        edate: item.edate,
+                        durat: item.durat,
+                        ctime: item.ctime,
+                        addr: item.addr,
+                        man: item.man,
+                        price: item.price,
+                    };
+                });
+                setData1(updatedData1);
+            } catch (error) {
+                console.error('데이터를 가져오는 중 오류가 발생했습니다.', error);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const handleDelete = (cno) => {
+        axios.delete(`http://localhost:8080/api/delete/${cno}`)
+            .then(response => {
+                console.log('Data deleted successfully');
+                // 추가적인 처리나 화면 갱신 등 필요한 작업 수행
+            })
+            .catch(error => {
+                console.error('Error deleting data:', error);
+                // 에러 처리 로직
+            });
+    };
+
+    const handleClick = (cno) => {
+        // 페이지 이동을 수행하는 로직
+        // 예시: '/classes/${cno}/edit' 경로로 이동
+        window.location.href = `/myinfo/update?cno=${cno}`;
+    };
 
 
 
-  return (
-        <div className={`adminMain px-5 ${isActive}`}>
 
-
+    return (
+        <div>
+                <input type="hidden" value={title} onChange={(e)=>setTitle(e.target.value)} />
             <div className="adminBody mt-5 mx-3" >
                 <Container>
                     <Row className="justify-content-start"  style={{padding:'5px 0' }}>
-                        <Col style={{ }}>
+                        <Col>
                             <Row style={{width:'85%'}} className="align-items-center">
                                 <h3>클래스 목록</h3>
                             </Row>
                         </Col>
                     </Row>
                     <br/>
-                    <table style={{ width: '100%', textAlign: 'center' }}>
-                        <thead>
-                        <tr>
-                            <th style={{ width: '5%' }}>NO.</th>
-                            <th style={{ width: '29%' }}>클래스명</th>
-                            <th style={{ width: '13%' }}>일정</th>
-                            <th style={{ width: '15%' }}>장소</th>
-                            <th style={{ width: '10%' }}>인원</th>
-                            <th style={{ width: '35%' }}>가격</th>
-                        </tr>
-                        </thead>
-                        </table>
-
                     <Accordion activeKey={activeIndex} onSelect={handleAccordionToggle}>
-                        {data.map((row) => (
-                            <Accordion.Item key={row.id} eventKey={row.id.toString()}>
+                        {data1.map((row, index) => (
+                            <Accordion.Item key={row.cno} eventKey={index.toString()}>
                                 <Accordion.Header>
-                                    <DataTable columns={columns} data={[row]} noHeader noTableHead />
+                                    <DataTable columns={columns} data={[row]} />
+                                    <Button onClick={() => handleDelete(row.cno)}>삭제</Button>
+                                    <Link to={`/classes/${row.cno}/edit`}>
+                                    <Button onClick={() => handleClick(row.cno)}>수정</Button></Link>
                                 </Accordion.Header>
                                 <Accordion.Body>
-                                    <Row>
-                                        <Col md={4}>
-                                            <Card>
-                                                <Card.Img variant="top" src={Img} alt="이미지dydy" />
-                                                <Card.Body>
-                                                    <DataTable columns={columns2} data={data2.filter((item) => item.id === row.id)} noHeader noTableHead />
-                                                </Card.Body>
-                                            </Card>
-                                        </Col>
-                                        <Col md={8}>
-                                            <DataTable columns={columns1} data={data1.filter((item) => item.id === row.id)} noHeader noTableHead />
-                                        </Col>
-                                    </Row>
+                                    <Card>
+                                        <Card.Img variant="left" src={`http://localhost/cdn/${row.cimg}`} alt="클래스 소개사진" />
+                                        <Card.Img variant="left" src={`http://localhost/cdn/${row.thumb}`} alt="클래스 썸네일" />
+                                        <Card.Img variant="left" src={`http://localhost/cdn/${row.timg}`} alt="클래스 타임라인 이미지" />
+                                        <Card.Body>
+                                            <Table>
+                                                <tbody>
+                                                {Object.entries(row).map(([key, value]) => {
+                                                    const column = columns1.find((col) => col.selector === key);
+                                                    if (column) {
+                                                        let transformedValue = value;
+                                                        if (key === "durat") {
+                                                            const { activeItem1, activeItem2, activeItem3 } = JSON.parse(value);
+                                                            transformedValue = `${activeItem1} ${activeItem2} 주 ${activeItem3}`;
+                                                        }
+                                                        if(key==="man"){
+                                                            const { activeItem4, activeItem5 } = JSON.parse(value);
+                                                            transformedValue = `최소 인원 : ${activeItem4}, 최대 인원 : ${activeItem5}`;
+                                                        }
+                                                        if(key === "addr"){
+                                                            const { addr1, addr2 } = JSON.parse(value);
+                                                            transformedValue = `${addr1} ${addr2}`;
+                                                        }
+                                                        return (
+                                                            <tr key={key}>
+                                                                <td>{column.name}</td>
+                                                                <td>{transformedValue}</td>
+                                                            </tr>
+                                                        );
+                                                    }
+                                                    return null;
+                                                })}
+                                                </tbody>
+                                            </Table>
+                                        </Card.Body>
+                                    </Card>
                                 </Accordion.Body>
                             </Accordion.Item>
                         ))}
                     </Accordion>
-
                 </Container>
             </div>
         </div>

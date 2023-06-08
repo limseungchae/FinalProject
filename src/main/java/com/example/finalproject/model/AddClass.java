@@ -1,10 +1,9 @@
 package com.example.finalproject.model;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 @Table(name = "ADD_CLASS")
@@ -21,7 +20,7 @@ public class AddClass {
     private String category;
     private String intro;
     private String meterial;
-    private String rule;
+    private String rules;
     private String notice;
     private String addr;
     private String cimg;
@@ -32,7 +31,6 @@ public class AddClass {
     private String edate;
     private String ctime;
     private String man;
-    private int price;
-    @ElementCollection
-    private List<String> hash;
+    private String price;
+    private String hash;
 }

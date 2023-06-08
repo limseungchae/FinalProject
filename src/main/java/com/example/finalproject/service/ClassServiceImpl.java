@@ -3,35 +3,16 @@ package com.example.finalproject.service;
 import com.example.finalproject.model.AddClass;
 import com.example.finalproject.repository.AddClassRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-//@Service
-//public class ClassServiceImpl implements ClassService {
-//    @Autowired
-//    private AddClassRepository addClassRepository;
-//
-//    public void saveClass(Class data) {
-//        addClassRepository.save(data);
-//    }
-//    public List<Class> getClassesByCno(Long cno) {
-//        return addClassRepository.findByCno(cno);
-//    }
-//    public List<Class> getClassesByTitleContainingIgnoreCase(String keyword) {
-//        return addClassRepository.findByTitleContainingIgnoreCase(keyword);
-//    }
-//
-//    // Add other service methods as needed
-//}
 
 @Service
 public class ClassServiceImpl implements ClassService {
@@ -43,15 +24,15 @@ public class ClassServiceImpl implements ClassService {
     }
     public void addClass(MultipartFile cimg, MultipartFile thumb, MultipartFile timg,
                          String title, String category, String intro, String meterial,
-                         String rule, String notice, String addr, String durat, String sdate,
-                         String edate, String ctime, String man, int price, List<String> hash) {
+                         String rules, String notice, String addr, String durat, String sdate,
+                         String edate, String ctime, String man, String  price, String  hash) {
 
         // 현재 날짜를 기준으로 디렉토리 이름 설정
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String directoryName = dateFormat.format(new Date());
 
         // 디렉토리를 생성할 경로
-        String parentDirectoryPath = "C:/Users/honeybee/AppData/Local/Temp/tomcat.8080.14532432547347373564/work/Tomcat/localhost/ROOT";
+        String parentDirectoryPath = "C:/Java/nginx-1.24.0/nginx-1.24.0/html/cdn";
 
         // 파일 이름들
         String[] fileNames = {"cimg", "thumb", "timg"};
@@ -79,16 +60,27 @@ public class ClassServiceImpl implements ClassService {
             try {
                 if (file.createNewFile()) {
                     System.out.println("파일 생성 성공");
-                    // 파일 전송 코드 작성
+
+                    // 파일 전송
+                    MultipartFile multipartFile;
+                    if (fileName.equals("cimg")) {
+                        multipartFile = cimg;
+                    } else if (fileName.equals("thumb")) {
+                        multipartFile = thumb;
+                    } else {
+                        multipartFile = timg;
+                    }
+
+                    multipartFile.transferTo(file);
                 } else {
                     System.out.println("파일 생성 실패");
                 }
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-            // 나머지 데이터 처리 및 저장
+        // 나머지 데이터 처리 및 저장
         AddClass addClass = new AddClass();
         addClass.setCimg(directoryName + "/cimg/cimg.png");
         addClass.setThumb(directoryName + "/thumb/thumb.png");
@@ -97,7 +89,7 @@ public class ClassServiceImpl implements ClassService {
         addClass.setCategory(category);
         addClass.setIntro(intro);
         addClass.setMeterial(meterial);
-        addClass.setRule(rule);
+        addClass.setRules(rules);
         addClass.setNotice(notice);
         addClass.setAddr(addr);
         addClass.setDurat(durat);
@@ -109,5 +101,22 @@ public class ClassServiceImpl implements ClassService {
         addClass.setHash(hash);
 
         addClassRepository.save(addClass);
-        }
     }
+
+    @Override
+    public List<AddClass> getData(String title) {
+        return addClassRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    @Override
+    public void deleteDataByCno(Long cno) {
+        addClassRepository.deleteByCno(cno);
+    }
+
+    @Override
+    public List<AddClass> getData1(Long cno) {
+        return addClassRepository.findByCno(cno);
+    }
+
+
+}

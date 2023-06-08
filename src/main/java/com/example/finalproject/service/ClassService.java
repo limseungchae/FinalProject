@@ -4,14 +4,20 @@ import com.example.finalproject.model.AddClass;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClassService {
     void addClass(MultipartFile cimg, MultipartFile thumb, MultipartFile timg,
                   String title, String category, String intro, String meterial,
-                  String rule, String notice, String addr, String durat, String sdate,
-                  String edate, String ctime, String man, int price, List<String> hash);
+                  String rules, String notice, String addr, String durat, String sdate,
+                  String edate, String ctime, String man, String price, String hash);
 
-//    void saveClass(Class data);
-//    List<Class> getClassesByCno(Long cno);
-//    List<Class> getClassesByTitleContainingIgnoreCase(String keyword);
+
+    List<AddClass> getData(String title);
+
+    void deleteDataByCno(Long cno);
+    List<AddClass> getData1(Long cno);
+
+//    List<String> getData(String title);
+
 }
