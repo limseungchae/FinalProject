@@ -5,9 +5,7 @@ import com.example.finalproject.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Repository("frtdao")
 public class FrontDAOImpl implements FrontDAO{
@@ -81,8 +79,7 @@ public class FrontDAOImpl implements FrontDAO{
     }
 
     @Override
-    public List<Pay> searchPayList(String kId) {
-        int mbno = memberRepository.findMbnoBykId(kId).intValue();;
+    public List<Pay> searchPayList(int mbno) {
         return payRepository.findAllByMbno(mbno);
     }
 
@@ -154,6 +151,16 @@ public class FrontDAOImpl implements FrontDAO{
     @Override
     public void insertReservation(Pay pay) {
         payRepository.save(pay);
+    }
+
+    @Override
+    public int selectMbnoByKakaoid(String kakaoid) {
+        return Math.toIntExact(memberRepository.findMbnoBykId(kakaoid));
+    }
+
+    @Override
+    public void updateReservation(int mbno, String tid, String paydate) {
+        frontRepository.updateReservation(tid, paydate, mbno);
     }
 
 
