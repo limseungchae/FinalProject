@@ -8,6 +8,7 @@ import {useNavigate, useOutletContext} from "react-router-dom";
 import { DataGrid } from '@mui/x-data-grid';
 
 export default function Paylist() {
+    const accessToken = localStorage.getItem("ACCESS_TOKEN");
     /*const [status, setStatus] = useState('');*/
     const userInfo = useOutletContext();
     const [rows, setRows] = useState([{
@@ -20,18 +21,18 @@ export default function Paylist() {
     // kId 서버 전송 => (서버) kId -> mbno 매핑 => 해당 mbno의 PAY데이터 get.
     // 경로: /api/paylist.
     useEffect(() => {
-        const param = `?kId=${kId}`;
         axios
-            .get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/paylist${param}`)
+            .get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/paylist`, {
+                headers: {Authorization: `Bearer ${accessToken}`},
+            })
             .catch(console.log)
             .then(response => {
-                console.log(response?.data);
-
                 if(response?.data !== null) {
                     let data = response?.data;
                     let rows = []
                     // id, cname, tuter, quantity, totprice, paydate, tid
                     for(let i = 0; data?.length > i; i++) {
+                        console.log("가져온 = > " + data[i].tid)
                         let row = {
                             id: data[i].rno,
                             mbno: data[i].mbno,
@@ -43,6 +44,7 @@ export default function Paylist() {
                             paydate: data[i].paydate?.split('T')[0],
                             tid: (data[i].tid !== null) ? "결제완료" : "결제하기",
                         }
+                        console.log("tid  =>   " + row.tid);
                         rows.push(row)
                     }
                     setRows(rows)
@@ -157,4 +159,3 @@ export default function Paylist() {
         </div>
     );
 }
-

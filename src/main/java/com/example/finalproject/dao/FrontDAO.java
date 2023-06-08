@@ -20,7 +20,7 @@ public interface FrontDAO {
     List<Object[]> selectLikey(String kId);
     void modifyMember(ModifyBody request);
 
-    List<Pay> searchPayList(String kId);
+    List<Pay> searchPayList(int mbno);
 
     String selectPayImg(int rno);
 
@@ -46,4 +46,7 @@ public interface FrontDAO {
     void insertReservation(Pay pay);
 
 
+    int selectMbnoByKakaoid(String kakaoid);
+
+    void updateReservation(int mbno, String tid, String paydate);
 }
