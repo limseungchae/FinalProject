@@ -120,8 +120,9 @@ public class FrontController {
     @PostMapping("/myinfo/payprocess")
     public void pay (@RequestParam String tid,
                      @RequestParam String paydate,
-                     @RequestParam String kakaoid) {
-        frtsrv.newPay(kakaoid, tid, paydate);
+                     @RequestParam String kakaoid,
+                     @RequestParam String cname) {
+        frtsrv.newPay(kakaoid, tid, paydate, cname);
     }
 
 }

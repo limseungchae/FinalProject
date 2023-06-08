@@ -124,8 +124,8 @@ public class FrontServiceImpl implements FrontService{
     }
 
     @Override
-    public void newPay(String kakaoid, String tid, String paydate) {
-        frtdao.updateReservation(frtdao.selectMbnoByKakaoid(kakaoid), tid, paydate);
+    public void newPay(String kakaoid, String tid, String paydate, String cname) {
+        frtdao.updateReservation(frtdao.selectMbnoByKakaoid(kakaoid), tid, paydate, cname);
 
     }
 

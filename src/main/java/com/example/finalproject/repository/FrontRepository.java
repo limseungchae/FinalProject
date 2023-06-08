@@ -40,7 +40,7 @@ public interface FrontRepository extends JpaRepository<ClassMeta, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE pay SET tid = :tid, paydate = :paydate WHERE mbno = :mbno", nativeQuery = true)
-    void updateReservation(@Param("tid") String tid, @Param("paydate") String paydate, @Param("mbno") int mbno);
+    @Query(value = "UPDATE pay SET tid = :tid, paydate = :paydate WHERE mbno = :mbno and cname =:cname", nativeQuery = true)
+    void updateReservation(@Param("tid") String tid, @Param("paydate") String paydate, @Param("mbno") int mbno, @Param("cname") String cname);
 
 }
