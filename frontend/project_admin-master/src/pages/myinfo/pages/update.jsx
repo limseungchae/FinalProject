@@ -1,6 +1,6 @@
-import React, {useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {useLocation} from 'react-router-dom';
+import {useLocation, Link} from 'react-router-dom';
 import {FaChalkboardTeacher} from "react-icons/fa";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -17,7 +17,7 @@ import Form from 'react-bootstrap/Form';
 export default function Class() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const cno = searchParams.get('cno');
+    let cno = searchParams.get('cno');
 
     const [title, setTitle] = useState("");
     const [activeItem, setActiveItem] = useState("");
@@ -27,7 +27,7 @@ export default function Class() {
     const [text4, setText4] = useState("");
     const [toggleValue, setToggleValue] = useState(1);
     const [waringtext, setWarningText] = useState(false);
-    const [address, setAddress] = useState({addr1: '', addr2: ''});
+    const [address, setAddress] = useState({addr1: '', addr2:'' });
     const [cimgFile, setCimgFile] = useState(null);
     const [thumbFile, setThumbFile] = useState(null);
     const [timgFile, setTimgFile] = useState(null);
@@ -35,18 +35,18 @@ export default function Class() {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [text5, setText5] = useState('');
-    const [activeItems, setActiveItems] = useState({activeItem1: '', activeItem2: '', activeItem3: ''});
-    const [activeItems2, setActiveItems2] = useState({activeItem4: '', activeItem5: ''});
+    const [activeItems, setActiveItems] = useState({activeItem1:'' , activeItem2:'' , activeItem3:'' });
+    const [activeItems2, setActiveItems2] = useState({activeItem4:'' , activeItem5:'' });
     const [price, setPrice] = useState('');
     const [hash, setHash] = useState('');
     const [data1, setData1] = useState([]);
     const [initialAddr1, setInitialAddr1] = useState('');
     const [initialAddr2, setInitialAddr2] = useState('');
-    const [inactive,setInActive] = useState('');
-    const [inactive2,setInActive2] = useState('');
-    const [inactive3,setInActive3] = useState('');
-    const [inactive4,setInActive4] = useState('');
-    const [inactive5,setInActive5] = useState('');
+    const [inactive, setInActive] = useState('');
+    const [inactive2, setInActive2] = useState('');
+    const [inactive3, setInActive3] = useState('');
+    const [inactive4, setInActive4] = useState('');
+    const [inactive5, setInActive5] = useState('');
     const items = [{key: 1, label: '피트니스'}, {key: 2, label: '요리'}, {key: 3, label: '엑티비티'}, {
         key: 4,
         label: '공예'
@@ -112,15 +112,26 @@ export default function Class() {
     const handleToggleChange = (value) => {
         setToggleValue(value);
     };
+    // const handleButtonClick = () => {
+    //     new window.daum.Postcode({
+    //         oncomplete: function (data) {
+    //             setAddress({addr1: data.address, addr2: ''});
+    //             console.log(address)
+    //         },
+    //     }).open();
+    // };
+
     const handleButtonClick = () => {
         new window.daum.Postcode({
             oncomplete: function (data) {
-                setAddress({addr1: data.address, addr2: ''});
-                console.log(address)
+                const newAddress = { addr1: data.address, addr2: '' };
+                setAddress(newAddress);
+                console.log(newAddress);
             },
         }).open();
     };
-    useEffect(() => {
+
+    useEffect( () => {
         if (data1.length > 0) {
             const parsedAddr1 = JSON.parse(data1[0].addr).addr1;
             const parsedAddr2 = JSON.parse(data1[0].addr).addr2;
@@ -150,7 +161,7 @@ export default function Class() {
         }
         setSelectedRange(date);
     };
-    const tileContent = ({ date }) => {
+    const tileContent = ({date}) => {
         const selected =
             startDate &&
             endDate &&
@@ -158,7 +169,7 @@ export default function Class() {
             date <= endDate &&
             selectedRange.length === 2;
 
-        return selected ? <div className="selected-range" /> : null;
+        return selected ? <div className="selected-range"/> : null;
     };
     const handleCtime = (event) => {
         const updatedData1 = [...data1];
@@ -224,48 +235,160 @@ export default function Class() {
         };
         fetchData();
     }, []);
-
-    if (data1.length > 0 && data1[0]) {
-    console.log(data1[0].man)
-    console.log(JSON.parse(data1[0].durat).activeItem2)
-    console.log(JSON.parse(data1[0].man).activeItem5)
-    console.log(JSON.parse(data1[0].addr).addr1)
-    } else {
-        console.log("data1 is empty or data1[0] is null/undefined");
+    if(data1.length > 0 ) {
+        console.log(data1[0].title)
+        console.log(data1[0].hash)
+        console.log(data1[0].intro)
+        // console.log(JSON.parse(data1[0].addr).addr1)
     }
 
-    data1.map((item) => console.log(item.cno))
+    // const handleSubmit = (event) => {
+    //     event.preventDefault(); // 기본 form 제출 동작 방지
+    //     const cno = data1.length > 0 ? data1[0].cno : '';
+    //     console.log(cno)
+    //     // form 데이터 가져오기
+    //     const form = event.target;
+    //     const formData = new FormData(form);
+    //
+    //     // formData에 들어있는 값 콘솔에 출력
+    //     for (let [key, value] of formData.entries()) {
+    //         console.log(`${key}: ${value}`);
+    //     }
+    //
+    //     // POST 요청 보내기
+    //     const url = 'http://localhost:8080/api/updateclass/{cno}'; // POST 요청을 보낼 URL
+    //
+    //
+    //     // POST 요청에 포함될 데이터
+    //     const data = Object.fromEntries(formData);
+    //
+    //     axios.post(url.replace('{cno}', cno), data)
+    //         .then(response => {
+    //             console.log('POST 요청이 성공했습니다.', response.data);
+    //             // 성공한 경우 추가 처리 로직 작성...
+    //         })
+    //         .catch(error => {
+    //             console.error('POST 요청이 실패했습니다.', error);
+    //             // 실패한 경우 에러 처리 로직 작성...
+    //         });
+    // };
+
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const tags = hash.split(',');
-        const tag = tags.slice(0, 5)
-        const formData = new FormData();
-        formData.append('cimg', cimgFile);
-        formData.append('thumb', thumbFile);
-        formData.append('timg', timgFile);
-        formData.append('title', title);
-        formData.append('category', activeItem);
-        formData.append('intro', text1);
-        formData.append('meterial', text2);
-        formData.append('rules', text3);
-        formData.append('notice', text4);
-        formData.append('addr', address);
-        formData.append('durat', activeItems);
-        formData.append('sdate', startDate);
-        formData.append('edate', endDate);
-        formData.append('ctime', text5);
-        formData.append('man', activeItems2);
-        formData.append('price', price);
-        formData.append('hash', tag);
-        console.log(formData)
-        axios.post('http://localhost:8080/api/addclass', formData,
-            {headers: {'Content-Type': 'multipart/form-data'},}).then((response) => {
-            console.log("전송 성공", response.data);
-            window.location.herf = "/myinfo/classlist"
-        }).catch((error) => {
-            console.log("전송 실패", error);
-        });
+        event.preventDefault(); // 기본 form 제출 동작 방지
+        console.log(initialAddr1)
+        console.log(address.addr1)
+        console.log(initialAddr2)
+        console.log(address.addr2)
+
+
+        // 값이 변경되었는지 확인
+        if (address.addr1 !== initialAddr1 || address.addr2 !== initialAddr2) {
+            // 데이터베이스에 변경된 값 반영
+            // 예: API 호출 또는 데이터베이스 업데이트 로직 실행
+            console.log('주소가 변경되었습니다:', address);
+            address.addr1 = initialAddr1;
+            address.addr2 = initialAddr2;
+            console.log(address.addr1)
+            console.log(address.addr2)
+            console.log('뭐나옴?')
+
+            const cno = data1.length > 0 ? data1[0].cno : '';
+            console.log(cno);
+            console.log(startDate);
+            console.log(address);
+            console.log(address.addr1);
+
+            // form 데이터 가져오기
+            const form = event.target;
+            console.log("폼" + form);
+            console.log("폼" + form.target.addr1);
+            const formData = new FormData(form);
+
+            // 멀티파트와 텍스트 데이터를 함께 담을 FormData 생성
+            const requestData = new FormData();
+            // console.log(formData.address.addr1)
+            // console.log(requestData.address.addr1)
+
+            // 멀티파트로 전송될 파일들 추가
+            requestData.append('cimg', formData.get('cimg'));
+            requestData.append('thumb', formData.get('thumb'));
+            requestData.append('timg', formData.get('timg'));
+
+            // 텍스트로 전송될 데이터 추가
+            for (let [key, value] of formData.entries()) {
+                if (key !== 'cimg' && key !== 'thumb' && key !== 'timg') {
+                    requestData.append(key, value);
+                }
+            }
+
+            // POST 요청 보내기
+            const url = `http://localhost:8080/api/updateclass/${cno}`; // POST 요청을 보낼 URL
+
+            axios
+                .post(url, requestData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                })
+                .then((response) => {
+                    console.log('POST 요청이 성공했습니다.', response.data);
+                    // 성공한 경우 추가 처리 로직 작성...
+                })
+                .catch((error) => {
+                    console.error('POST 요청이 실패했습니다.', error);
+                    // 실패한 경우 에러 처리 로직 작성...
+                });
+        } else {
+            console.log('주소가 변경되지 않았습니다.');
+        }
     };
+
+
+    // const handleSubmit = (event) => {
+    //     console.log("789-----")
+    //     event.preventDefault();
+    //     const tags = hash.split(',');
+    //     const tag = tags.slice(0, 5)
+    //     const formData = new FormData();
+    //     console.log(formData)
+    //     formData.append('cimg', cimgFile);
+    //     console.log(formData.cimg)
+    //     formData.append('thumb', thumbFile);
+    //     console.log("------25417")
+    //     formData.append('timg', timgFile);
+    //     formData.append('title', title);
+    //     console.log(formData)
+    //     console.log(formData.title)
+    //     formData.append('category', activeItem);
+    //     formData.append('intro', text1);
+    //     console.log(formData.intro)
+    //     formData.append('meterial', text2);
+    //     formData.append('rules', text3);
+    //     formData.append('notice', text4);
+    //     formData.append('addr', address);
+    //     formData.append('durat', activeItems);
+    //     formData.append('sdate', startDate);
+    //     formData.append('edate', endDate);
+    //     formData.append('ctime', text5);
+    //     formData.append('man', activeItems2);
+    //     formData.append('price', price);
+    //     formData.append('hash', tag);
+    //     console.log(formData+"김바보씨")
+    //     axios.post(`http://localhost:8080/api/updateclass?cno=${cno}`, formData, {
+    //         params: {
+    //             cno: cno,
+    //         },
+    //
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'
+    //         }
+    //     }).then((response) => {
+    //         console.log("전송 성공", response.data);
+    //         window.location.herf = "/myinfo/classlist"
+    //     }).catch((error) => {
+    //         console.log("전송 실패", error);
+    //     });
+    // };
     const handleFormReset = () => {
         setTitle("");
         setActiveItem("");
@@ -304,7 +427,7 @@ export default function Class() {
         }
     }, [data1]);
 
-    useEffect(() => {
+    useEffect( () =>{
         if (data1.length > 0) {
             const defaultActiveItem1 = JSON.parse(data1[0].durat).activeItem1;
             const defaultActiveItem2 = JSON.parse(data1[0].durat).activeItem2;
@@ -324,8 +447,9 @@ export default function Class() {
             <div id='adminHeader' className="mt-5"><h1><FaChalkboardTeacher/> 원데이 클래스</h1>
                 <hr/>
             </div>
-            <div className="adminBody mt-5 mx-3"><Container>
-                <form name="acfrm" onSubmit={handleSubmit} onReset={handleFormReset}>
+            <div className="adminBody mt-5 mx-3">
+                <Container>
+                <form name="acfrm" onSubmit={handleSubmit} onReset={handleFormReset} encType="multipart/form-data">
                     <Row className="justify-content-start" style={{padding: '5px 0'}}><Col><Row style={{width: '85%'}}
                                                                                                 className="align-items-center">
                         <Col xs={12} md={3}><h3>클래스명</h3></Col><Col xs={12} md={9} className="align-items-center">
@@ -337,10 +461,10 @@ export default function Class() {
                             </Dropdown.Item>
                             <Dropdown.Divider/>
                             {items.map((item) => (
-                            <Dropdown.Item key={item.key} eventKey={item.key}
-                                           onSelect={(eventKey) => handleClick(eventKey)}>
-                                {item.label}
-                            </Dropdown.Item>))}
+                                <Dropdown.Item key={item.key} eventKey={item.key}
+                                               onSelect={(eventKey) => handleClick(eventKey)}>
+                                    {item.label}
+                                </Dropdown.Item>))}
                         </DropdownButton></Col></Row>
                         <Col xs={12}><Form.Control
                             type="text"
@@ -360,12 +484,12 @@ export default function Class() {
                 </Row>
                     <br/><Row><h5>클래스 소개</h5><br/>
                     <textarea
-                        id="description"
-                        name="description"
+                        id="intro"
+                        name="intro"
                         value={data1.length > 0 ? data1[0].intro : ''}
                         onChange={handleChange}
                         placeholder={data1.length > 0 ? '' : '내용을 입력해주세요.'}
-                        style={{ width: '100%', height: '150px' }}
+                        style={{width: '100%', height: '150px'}}
                     />
                 </Row>
                     <Row><Col md={6}><span
@@ -381,12 +505,12 @@ export default function Class() {
                     id="tbg-radio-2" onClick={() => handleToggleChange(2)} variant="outline-primary" value={2} style={{
                     fontSize: '12px', margin: '0 10% 0 0'
                 }}>불필요</ToggleButton></ToggleButtonGroup></Col></Row><Row> <textarea
-                    id="description"
-                    name="description"
+                    id="meterial"
+                    name="meterial"
                     value={data1.length > 0 ? data1[0].meterial : ''}
                     onChange={handleChange2}
                     placeholder={data1.length > 0 ? '' : '내용을 입력해주세요.'}
-                    style={{ width: '100%', height: '150px' }}
+                    style={{width: '100%', height: '150px'}}
                 />
                     <Col md={6}><span
                         className={waringtext ? 'boom' : ''}>{text2.length < 50 ? '내용은 최소 100자 이상 작성' : ''}
@@ -394,26 +518,26 @@ export default function Class() {
                     <Col md={6}
                          className="d-flex justify-content-end"><span>{text2.length} / 1000</span></Col></Row><br/><Row>
                     <h5>사전 공지</h5><br/> <textarea
-                    id="description"
-                    name="description"
+                    id="rules"
+                    name="rules"
                     value={data1.length > 0 ? data1[0].rules : ''}
                     onChange={handleChange3}
                     placeholder={data1.length > 0 ? '' : '내용을 입력해주세요.'}
-                    style={{ width: '100%', height: '150px' }}
-                    />
-                    </Row>
+                    style={{width: '100%', height: '150px'}}
+                />
+                </Row>
                     <Row><Col md={6}><span
                         className={waringtext ? 'boom' : ''}>{text3.length < 50 ? '내용은 최소 50자 이상 작성' : ''}
                         {text3.length > 1000 ? '최대 1000자까지 입력할 수 있습니다.' : ''}</span></Col>
                         <Col md={6}
                              className="d-flex justify-content-end"><span>{text3.length} / 1000</span></Col></Row><br/><Row>
                     <h5>이용 규정</h5><br/> <textarea
-                    id="description"
-                    name="description"
+                    id="notice"
+                    name="notice"
                     value={data1.length > 0 ? data1[0].notice : ''}
                     onChange={handleChange4}
                     placeholder={data1.length > 0 ? '' : '내용을 입력해주세요.'}
-                    style={{ width: '100%', height: '150px' }}
+                    style={{width: '100%', height: '150px'}}
                 /></Row>
                     <Row><Col md={6}><span
                         className={waringtext ? 'boom' : ''}>{text4.length < 100 ? '내용은 최소 100자 이상 작성' : ''}
@@ -426,29 +550,29 @@ export default function Class() {
                     <div><Button variant="primary" onClick={handleButtonClick}>주소 찾기</Button></div>
                 </Col></Row><Row noGutters>
                     <Col style={{align: 'center'}} offset={5} xs={4}><Form.Control
-                        style={{ width: '100%', textAlign: 'center' }}
+                        style={{width: '100%', textAlign: 'center'}}
                         type='text'
                         id="addr1"
                         name="addr1"
                         readOnly
-                        value={address.addr1 || initialAddr1}
-                        onChange={(e) => setAddress({
+                        value={(address && address.addr1) || initialAddr1}
+                        onChange={(e) => setAddress(address=>({
                             ...address,
                             addr1: e.target.value
-                        })}
+                        }))}
                     />
                     </Col><Col style={{align: 'start'}} xs={3}><Form.Control style={{width: '35%', textAlign: 'center'}}
                                                                              type='text' id='addr2' name='addr2'
-                                                                             value={address.addr2 || initialAddr2}
-                                                                             onChange={(e) => setAddress({
-                                                                                 ...address,
-                                                                                 addr2: e.target.value
-                                                                             })}/></Col></Row><Row>
+                                                                             value={(address && address.addr2) || initialAddr2} onChange={(e) => setAddress(prevAddress => ({
+                    ...prevAddress,
+                    addr1: e.target.value
+                }))}/></Col></Row><Row>
                     <div><h3>클래스 강의 소개/과정 이미지 추가</h3><Form.Control style={{width: '50%'}} name="cimg" type="file"
                                                                    accept="image/*" id="cimg"
                                                                    onChange={handleImageChange}/></div>
                 </Row><br/><Row>
-                    <div><h3>클래스 썸네일 이미지 추가</h3><Form.Control style={{width: '50%'}} name="thumb" type="file" id="thumb"
+                    <div><h3>클래스 썸네일 이미지 추가</h3><Form.Control style={{width: '50%'}} name="thumb" type="file"
+                                                              id="thumb"
                                                               accept="image/*" onChange={handleImageChange2}/></div>
                 </Row><br/><Row>
                     <div><h3>강사 얼굴 추가</h3><Form.Control style={{width: '50%'}} type="file" accept="image/*" id="timg"
@@ -458,7 +582,7 @@ export default function Class() {
                     <div><h3>소요시간</h3><span style={{fontSize: '20px', color: 'red'}}>최소 강의 시간은 30분입니다.</span></div>
                 </Row><Row><Col offset={6} xs={1}>
                     <div><DropdownButton key="end" id="dropdown-button-drop-end" drop="down" variant="secondary"
-                                         title={activeItems.activeItem1 || inactive } onSelect={handleClick1}>
+                                         title={activeItems.activeItem1 || inactive} onSelect={handleClick1}>
                         <Dropdown.Item key="selectedItem" eventKey="" onSelect={() => setActiveItems(prevState => ({
                             ...prevState,
                             activeItem1: ""
@@ -475,8 +599,9 @@ export default function Class() {
                                                                                     activeItem2: ""
                                                                                 }))}>{activeItems.activeItem2 || "분"}</Dropdown.Item>
                         <Dropdown.Divider/>{items2.map((item) => (
-                        <Dropdown.Item key={item.key} eventKey={item.label}
-                                       onSelect={handleClick2}>{item.label}</Dropdown.Item>))}</DropdownButton></div>
+                            <Dropdown.Item key={item.key} eventKey={item.label}
+                                           onSelect={handleClick2}>{item.label}</Dropdown.Item>))}</DropdownButton>
+                    </div>
                 </Col><Col xs={1}>
                     <div><DropdownButton key="end" id="dropdown-button-drop-end" drop="down" variant="secondary"
                                          title={activeItems.activeItem3 || inactive3}
@@ -486,20 +611,21 @@ export default function Class() {
                                                                                     activeItem3: ""
                                                                                 }))}>{activeItems.activeItem3 || "횟수"}</Dropdown.Item>
                         <Dropdown.Divider/>{items3.map((item) => (
-                        <Dropdown.Item key={item.key} eventKey={item.label}
-                                       onSelect={handleClick3}> {item.label}</Dropdown.Item>))}
+                            <Dropdown.Item key={item.key} eventKey={item.label}
+                                           onSelect={handleClick3}> {item.label}</Dropdown.Item>))}
                     </DropdownButton></div>
                 </Col></Row><br/><Row>
                     <div><h3>클래스 일정</h3><span
                         style={{fontSize: '20px', color: 'red'}}>원하시는 시작 날짜를 선택 후 종료 날짜를 선택해주세요.
                         <br/>하루만 진행하실 경우 해당 날짜를 두번 클릭하세요</span>
                         <h5>시작일 / 종료일</h5>
-                        <div><Calendar selectRange value={selectedRange} onChange={handleDateChange} tileContent={tileContent}/></div>
+                        <div><Calendar selectRange value={selectedRange} onChange={handleDateChange}
+                                       tileContent={tileContent}/></div>
                         <br/>
                         <div><Form.Control
                             type="text"
-                            id="time"
-                            name="time"
+                            id="ctime"
+                            name="ctime"
                             value={data1.length > 0 ? data1[0].ctime : ''}
                             onChange={handleCtime}
                             placeholder={data1.length > 0 ? '' : '띄어쓰기 포함 10자 이상 적어주세요.'}
@@ -563,12 +689,14 @@ export default function Class() {
                     <hr/>
                     <Row className="justify-content-center ml-3"><Col xs={12}
                                                                       className="d-flex justify-content-center ">
-                        <div><Button variant="primary" type="submit">수정</Button>{' '}<Button variant="danger"
-                                                                                             type="reset"
-                                                                                             className="ml-2">초기화</Button>
+                        <div><Button variant="primary" type="submit">수정</Button>{' '}<Button
+                            variant="danger"
+                            type="reset"
+                            className="ml-2">초기화</Button>
                         </div>
                     </Col></Row></form>
-            </Container></div>
+                </Container>
+            </div>
         </div>
     );
 }

@@ -108,16 +108,20 @@ export default function ClassList() {
         window.location.href = `/myinfo/update?cno=${cno}`;
         // 페이지 전환 로직 또는 필요한 작업 수행
     };
-
+    const handleClick1 = () => {
+        window.location.href = `/myinfo/addclass`;
+        // 페이지 전환 로직 또는 필요한 작업 수행
+    };
     return (
         <div>
                 <input type="hidden" value={title} onChange={(e)=>setTitle(e.target.value)} />
             <div className="adminBody mt-5 mx-3" >
                 <Container>
                     <Row className="justify-content-start"  style={{padding:'5px 0' }}>
+                        <h3 >클래스 목록</h3>
                         <Col>
-                            <Row style={{width:'85%'}} className="align-items-center">
-                                <h3>클래스 목록</h3>
+                            <Row style={{width:'100%'}} className="align-items text-end">
+                                <Link to={`/myinfo/addclass`}><Button onClick={() => handleClick1()}>수정</Button></Link>
                             </Row>
                         </Col>
                     </Row>
@@ -128,7 +132,7 @@ export default function ClassList() {
                                 <Accordion.Header>
                                     <DataTable columns={columns} data={[row]} />
                                     <Button onClick={() => handleDelete(row.cno)}>삭제</Button>
-                                    <Link to={`/classes/${row.cno}/edit`}>
+                                    <Link to={`/myinfo/update?cno=${row.cno}`}>
                                     <Button onClick={() => handleClick(row.cno)}>수정</Button></Link>
                                 </Accordion.Header>
                                 <Accordion.Body>

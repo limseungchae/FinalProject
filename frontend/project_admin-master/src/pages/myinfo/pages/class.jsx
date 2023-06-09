@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {Link} from "react-router-dom"
 import {FaChalkboardTeacher} from "react-icons/fa";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -216,6 +217,7 @@ export default function Class() {
             },})
             .then((response) => {
                 console.log("전송 성공", response.data);
+                window.location.href = "/myinfo/classlist"
             })
             .catch((error) => {
                 console.log("전송 실패", error);
@@ -551,7 +553,7 @@ export default function Class() {
                     <hr/>
                     <Row className="justify-content-center ml-3"><Col xs={12}
                                                                       className="d-flex justify-content-center ">
-                        <div><Button variant="primary" type="submit">등록</Button>{' '}<Button variant="danger"
+                        <div><Link to={"/myinfo/classlist"}><Button variant="primary" type="submit">등록</Button></Link>{' '}<Button variant="danger"
                                                                                              type="reset"
                                                                                              className="ml-2">초기화</Button>
                         </div>
