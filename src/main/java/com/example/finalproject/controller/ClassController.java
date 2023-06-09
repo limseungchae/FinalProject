@@ -11,16 +11,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+
+
 @RestController
 @RequestMapping("/api")
 public class ClassController {
-
     private final ClassService classService;
-
+    @Autowired
     public ClassController(ClassService classService) {
         this.classService = classService;
     }
-
     @PostMapping(value = "/addclass", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> addClass(@RequestParam("cimg") MultipartFile cimg,
                                            @RequestParam("thumb") MultipartFile thumb,
@@ -43,18 +43,18 @@ public class ClassController {
                 sdate, edate, ctime, man, price, hash);
         return ResponseEntity.ok("Class added successfully");
     }
-
-    @GetMapping("/data")
-    public List<AddClass> getData(@RequestParam("title")String title) {
-        return classService.getData(title);
-    }
     @GetMapping("/update")
     public List<AddClass> getData(@RequestParam("cno") Long cno) {
         return classService.getData1(cno);
     }
+    @GetMapping("/data")
+    public List<AddClass> getData(@RequestParam("title")String title) {
+        return classService.getData(title);
+    }
+
     @DeleteMapping("/delete/{cno}")
     public void deleteData(@PathVariable Long cno) {
-        // cno를 기반으로 데이터 삭제 로직 수행
-        classService.deleteDataByCno(cno);
+        classService.deleteData(cno);
     }
+
 }

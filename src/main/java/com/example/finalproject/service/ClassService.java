@@ -15,9 +15,9 @@ public interface ClassService {
 
     List<AddClass> getData(String title);
 
-    void deleteDataByCno(Long cno);
+
     List<AddClass> getData1(Long cno);
 
-//    List<String> getData(String title);
 
+    void deleteData(Long cno);
 }

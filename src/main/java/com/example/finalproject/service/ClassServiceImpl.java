@@ -3,22 +3,26 @@ package com.example.finalproject.service;
 import com.example.finalproject.model.AddClass;
 import com.example.finalproject.repository.AddClassRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Service
+@Transactional
 public class ClassServiceImpl implements ClassService {
 
     private final AddClassRepository addClassRepository;
-
+    @Autowired
     public ClassServiceImpl(AddClassRepository classRepository) {
         this.addClassRepository = classRepository;
     }
@@ -108,15 +112,15 @@ public class ClassServiceImpl implements ClassService {
         return addClassRepository.findByTitleContainingIgnoreCase(title);
     }
 
-    @Override
-    public void deleteDataByCno(Long cno) {
-        addClassRepository.deleteByCno(cno);
-    }
 
     @Override
     public List<AddClass> getData1(Long cno) {
         return addClassRepository.findByCno(cno);
     }
 
+    @Override
+    public void deleteData(Long cno) {
+        addClassRepository.deleteByCno(cno);
+    }
 
 }

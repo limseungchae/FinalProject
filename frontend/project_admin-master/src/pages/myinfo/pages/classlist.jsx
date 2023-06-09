@@ -96,6 +96,7 @@ export default function ClassList() {
             .then(response => {
                 console.log('Data deleted successfully');
                 // 추가적인 처리나 화면 갱신 등 필요한 작업 수행
+                window.location.reload();
             })
             .catch(error => {
                 console.error('Error deleting data:', error);
@@ -104,13 +105,9 @@ export default function ClassList() {
     };
 
     const handleClick = (cno) => {
-        // 페이지 이동을 수행하는 로직
-        // 예시: '/classes/${cno}/edit' 경로로 이동
         window.location.href = `/myinfo/update?cno=${cno}`;
+        // 페이지 전환 로직 또는 필요한 작업 수행
     };
-
-
-
 
     return (
         <div>
