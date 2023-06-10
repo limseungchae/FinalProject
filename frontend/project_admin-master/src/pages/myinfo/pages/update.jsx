@@ -331,6 +331,7 @@ export default function Class() {
                     },
                 })
                 .then((response) => {
+                    window.location.href = '/myinfo/classlist';
                     console.log('POST 요청이 성공했습니다.', response.data);
                     // 성공한 경우 추가 처리 로직 작성...
                 })
