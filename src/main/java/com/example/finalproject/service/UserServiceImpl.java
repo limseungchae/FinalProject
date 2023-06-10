@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService{
             return usdao.selectUser(kakaoid);
         }
     }
+
+    @Override
+    public User readUser(String mbno) {
+        return usdao.selectAuthenticatedUser(mbno);
+    }
 }

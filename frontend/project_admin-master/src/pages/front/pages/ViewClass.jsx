@@ -1,3 +1,5 @@
+/*global kakao*/
+// 카카오맵 사용할때 global kakao 라고 컴포넌트 최상위에 적어야함
 import React, {useEffect, useState} from 'react';
 import {Col, Row, Image, Container, Button} from "react-bootstrap";
 import "./ViewClass.css"
@@ -9,23 +11,96 @@ import Modal from "react-bootstrap/Modal";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-
 export default function ViewClass () {
     // 로컬 스토리지에서 ACCESS TOKEN 가져오기
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
 
     const location = useLocation(); // url값 가져오는 훅
-    const [classInfo, setClassInfo] = useState({});
-    const [completeImg, setCompleteImg] = useState([]);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [date, setDate] = useState(null);
 
+    const [classInfo, setClassInfo] = useState({});
+    const [completeImg, setCompleteImg] = useState({});
+
+    const [quantity, setQuantity] = useState(1);    // 인원
+    const curDate = new Date(); // 현재 날짜
+    const [dateValue, setDateValue] = useState(curDate);       // 날짜를 선택할때마다 값 바뀜, 초기값은 현재 날짜
+
+    // 일정의 달력에서 선택돼있는 date 형태의 날짜를 YYYY-MM-DD 로 포맷
+    const year = dateValue.getFullYear();
+    const month = String(dateValue.getMonth() + 1).padStart(2, '0');
+    const day = String(dateValue.getDate()).padStart(2, '0');
+    const formatedDate = `${year}-${month}-${day}`;
+
+    const [originPrice, setOriginPrice] = useState(0);  // 원가
+    const [price, setPrice] = useState(0);              // 총금액
+
+    // 1 ~ 5까지 인원수 선택할 옵션태그 반복문으로 생성
+    const options = [];
+
+    for (let i = 1; i <= 5; i++) {
+        options.push(<option key={i} value={i}>{i}</option>);
+    }
 
     // 클래스 정보
     useEffect(() => {
         axios.get(`http://localhost:8080/viewclass${location.search}`)
-            .then(response => setClassInfo(response.data))
+            .then(res => {
+                setClassInfo(res.data);
+                setPrice(res.data.sale)
+                setOriginPrice(res.data.sale)
+
+                // 카카오 지도 표시
+                const addr = res.data.addr;
+
+                const patterns = [
+                    /(.+로 \d+[-\d]*)/,
+                    /(.+동 \d+[-\d]*)/,
+                    /(.+길 \d+[-\d]*)/
+                ];
+
+                let extractedAddr = "";
+
+                for (const pattern of patterns) {
+                    const match = addr.match(pattern);
+                    if (match) {
+                        extractedAddr = match[1];
+                        console.log(extractedAddr);
+                        break;
+                    }
+                }
+
+                const mapContainer = document.getElementById('map'),
+                    mapOption = {
+                        center: new kakao.maps.LatLng(0, 0),    // 초기 지도 중심좌표 - 필수
+                        level: 3 // 지도의 확대 레벨
+                    };
+
+                // 지도 생성
+                const map = new kakao.maps.Map(mapContainer, mapOption);
+
+                // 주소를 좌표로 변환하는 객체
+                const geocoder = new kakao.maps.services.Geocoder();
+
+                // 주소로 좌표를 검색
+                geocoder.addressSearch(extractedAddr, function(result, status) {
+
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === kakao.maps.services.Status.OK) {
+
+                        const coords = new kakao.maps.LatLng(result[0].y, result[0].x); // 결과 좌표값
+
+                        console.log(coords + " 좌표는 ");
+                        // 결과 좌표 위치에 마커 표시
+                        const marker = new kakao.maps.Marker({
+                            map: map,
+                            position: coords
+                        });
+
+                        // 결과 좌표 위치로 지도 이동
+                        map.setCenter(coords);
+                    }
+                })
+
+            })
             .catch(error => console.log(error))
     }, []);
 
@@ -33,14 +108,11 @@ export default function ViewClass () {
     // 클래스 완성작 이미지
     useEffect(() => {
         axios.get(`http://localhost:8080/viewclass/completeimg${location.search}`)
-            .then(response => setCompleteImg(response.data))
+            .then(res => {
+                setCompleteImg(res.data);
+            })
             .catch(error => console.log(error))
     }, []);
-
-    // 리액트 달력
-    const handleDateChange = (date) => {
-
-    };
 
     // 찜하기 처리
     const [favoriteShow, setFavoriteShow] = useState(false);
@@ -48,17 +120,51 @@ export default function ViewClass () {
     const handleClose = () => setFavoriteShow(false);
     const handleAddFavorite = () => {
         if (accessToken && accessToken !== "null") {
-            setFavoriteShow(false)
+            axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/viewclass/addfavorite${location.search}`,
+                {
+                headers: {Authorization: `Bearer ${accessToken}`},
+            })
+                .then(res => {
+                    setFavoriteShow(false)
+                    if(res.data === true) alert("이미 '찜!' 하셨네요!")
+                    else alert("'찜!' 목록에 추가했습니다!")
+                })
+                .catch(e => console.log(e));
         } else window.location.href = "/login";
+    }
+
+    // 예약하기 처리시 요청 본문에 담을 클래스
+    class ReservationDTO{
+        cname = classInfo.cname;
+        quantity = quantity;
+        totprice = price;
+        actdate = formatedDate
     }
 
     // 예약하기 처리
     const handleReservation = () => {
         if (accessToken && accessToken !== "null") {
-            window.location.href = '/';     // 결제페이지 생기기전 임시 리디렉트
-        }else window.location.href = "/login";
+            const rDTO = new ReservationDTO();
+
+            axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/viewclass/reservation`, rDTO, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                },
+            }).then(res => {
+                if(res.data === true) alert("해당일에 이미 예약한 내역이 있습니다!")
+                else alert("성공적으로 예약했습니다!")
+            })
+        }else {
+            window.location.href = "/login";
+        }
     };
 
+
+    // 인원 선택시 인원, 총금액 변경
+    const handleAmount = (e) => {
+        setPrice(e.target.value * originPrice);
+        setQuantity(e.target.value);
+    };
 
     return (
 
@@ -137,28 +243,34 @@ export default function ViewClass () {
 
                 <Row className={'payboard'}>
                     <h5 className={'schedule-title'}>일정</h5>
-                    <div className='rap'>
-                        <div>
-                            <Calendar
-                                onChange={handleDateChange}
-                                value={[startDate, endDate]}
-                                className="calendar"
-                            />
+                    <Col className={'offset-2 col-5'}>
+                        <div className='rap'>
+                            <div>
+                                <Calendar
+                                    onChange={setDateValue}
+                                    value={dateValue}
+                                    className="calendar"
+                                />
+                            </div>
                         </div>
-                    </div>
+                    </Col>
 
-                    <Row className={'mt-3'}>
-                        <Col className={'offset-2 col-8'}>
-                            <Row className={'pay'}>
-                                <Col className={'offset-3 col-4'}><span className={'discount-price'}>{classInfo.sale}원</span></Col>
-                                <Col className={'col-5 res-btn-container'}>
-                                    <Button className={'text-white reservation-btn mb-2'} onClick={handleReservation}>
-                                        예약하기
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
+                    <Col className={'col-5'}>
+                        <div>
+                            <select onChange={handleAmount}>
+                                {options}
+                            </select>
+                        </div>
+                        <Row className={'pay'}>
+                            <Col className={'offset-3 col-4'}><span className={'discount-price'}>{price}원</span></Col>
+                            <Col className={'col-5 res-btn-container'}>
+                                <Button className={'text-white reservation-btn mb-2'} onClick={handleReservation}>
+                                    예약하기
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Col>
+
                 </Row>
 
                 <section className={'text-start'}>
@@ -226,18 +338,11 @@ export default function ViewClass () {
                         <Row>
                             <div><span className="class-info-title">장소</span></div>
                             <Col className={'col mt-3'}>
-                                <Col className={'col-8'}><div className={'bg-dark bg-opacity-25 map'}></div></Col>
+                                <Col className={'col-10'}>
+                                    <div id="map" className={'map'}></div>
+                                </Col>
                             </Col>
                             <div className={'addr-container mt-3'}><span>{classInfo.addr}</span></div>
-                        </Row>
-
-                        <Row>
-                            <Col className={'col-6'}>
-                                <Row className={'mt-3'}>
-                                    <Col className={'col-4'}><Button className={'map-btn'}>지도보기</Button></Col>
-                                    <Col className={'col-4'}><Button className={'map-btn'}>주소복사</Button></Col>
-                                </Row>
-                            </Col>
                         </Row>
                     </div>
                 </section>

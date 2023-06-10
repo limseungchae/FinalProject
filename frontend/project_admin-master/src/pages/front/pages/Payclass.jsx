@@ -2,23 +2,39 @@ import React, {useEffect, useState} from 'react';
 import './Payclass.css';
 import axios from 'axios';
 import qs from 'qs';
+import {useLocation, useParams} from "react-router-dom";
 
-export const Payclass = () => {
+const Payclass = () => {
+    const location = useLocation();
     const [orderInfoAgreed, setOrderInfoAgreed] = useState(false);
     const [personalInfoAgreed, setPersonalInfoAgreed] = useState(false);
-    const [ono, setOno] = useState("");
-    const [payList, setPayList] = useState([]);
+    /*const [ono, setOno] = useState("");
+    const [payList, setPayList] = useState([]);*/
+    const [img, setImg] = useState("");
+    const [payInfo, setPayInfo] = useState({});
+    const [userInfo, setUserInfo] = useState({});
+    const [paramCname, setParamCname] = useState("");
 
-    const param = `?ono=${ono}`
-    console.log(param)
-    axios.get(`http://localhost:8080/api/pay${param}`)
-        .then((res)=>{setPayList(res.data);console.log("성공")})
-        .catch((Error)=>{console.log(Error)})
-    const test = () =>{
-        if(payList.length >0){
-            return payList.map((val)=><div key={val.ono}>{val.item}</div> );
-        }
-    }
+    const params = location.search.replace("?","").split("&");
+    const rno = params[0].replace("rno=","");
+    const mbno = params[1].replace("mbno=","");
+
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/payclass?rno=${rno}&mbno=${mbno}`)
+            .catch(console.log)
+            .then(response => {
+                const body = response.data;
+                const img = body.img;
+                const payInfo = body.info;
+                const userInfo = body.member;
+
+                setImg(img);
+                setPayInfo(payInfo);
+                setUserInfo(userInfo);
+                setParamCname(encodeURIComponent(payInfo.cname))
+            });
+    }, [])
 
     const handleClick = async () => {
         // 약관에 동의한 경우만 처리
@@ -29,43 +45,40 @@ export const Payclass = () => {
         const IMP = window.IMP;
         IMP.init('imp84245708');
 
-
-        // useEffect(() => {
-        //     let param = `?ono=${ono}`
-        //     console.log(param)
-        //     axios.get(`http://localhost:8080/api/pay${param}`)
-        //         .then(response => setPayList(response.data))
-        //         .catch(error => console.log(error))
-        // }, [ono]);
-        //
-
         try {
-
             const response = await axios.post(
                 'https://kapi.kakao.com/v1/payment/ready',
                 qs.stringify({
                     cid: 'TC0ONETIME',
                     partner_order_id: 'YOUR_PARTNER_ORDER_ID', // 여기에 고유한 주문 ID를 넣으세요
                     partner_user_id: 'YOUR_PARTNER_USER_ID', // 여기에 고유한 사용자 ID를 넣으세요
-                    item_name: '초코파이', // 여기에 상품명을 넣으세요
+                    item_name: `${payInfo.cname}`, // 여기에 상품명을 넣으세요
                     quantity: 1, // 여기에 구매 수량을 넣으세요
-                    total_amount: 2200, // 여기에 총 결제 금액을 넣으세요
+                    total_amount: `${payInfo.totprice}`, // 여기에 총 결제 금액을 넣으세요
                     vat_amount: 200,
                     tax_free_amount: 0, // 여기에 면세 금액을 넣으세요
-                    approval_url: 'http://localhost:3000/approval', // 여기에 성공 시 리디렉션할 URL을 넣으세요
+                    approval_url: 'http://localhost:3000/approval', // 여x기에 성공 시 리디렉션할 URL을 넣으세요
                     fail_url: 'http://localhost:3000/viewclass', // 여기에 실패 시 리디렉션할 URL을 넣으세요
                     cancel_url: 'http://localhost:3000/payclass', // 여기에 취소 시 리디렉션할 URL을 넣으세요
                 }),
                 {
                     headers: {
                         Authorization: 'KakaoAK f57ea5bc4f7c552c7541e7a194783d59',
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
                     },
                 }
-            );
+            ).then(r => {
+                const date = new Date();
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const paydate = `${year}-${month}-${day}`;
 
-            const box = response.data.next_redirect_pc_url;
-            window.open(box);
+                axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/myinfo/payprocess?tid=${r.data.tid}&paydate=${paydate}&kakaoid=${localStorage.getItem("kakaoid")}&cname=${paramCname}`)
+
+                window.open(r.data.next_redirect_pc_url);
+            }).then(r => r);
+
         } catch (error) {
             alert(error.message);
         }
@@ -96,14 +109,14 @@ export const Payclass = () => {
                             <div className="order-tbl order-page buy-target-goods p-bespoke watch-opt cartListRst">
                                 {/* S : 이미지 */}
                                 <div className="order-td order-image">
-                                    <img src="/images/_pingk.png" width="100" height="100" alt="Product" />
+                                    <img src={img} width="100" height="100" alt="Product" />
                                 </div>
                                 {/* E : 이미지 */}
                                 {/*<div><button onClick={test}>실험</button></div>*/}
                                 {/* S : 모델명 */}
                                 <div className="order-td order-name">
                                     <div>
-                                        <p className="o-title class-name">클래스명</p>
+                                        <p className="o-title class-name">{payInfo.cname}</p>
                                         <p className="o-title instructor-name">강사명</p>
                                     </div>
                                 </div>
@@ -111,17 +124,17 @@ export const Payclass = () => {
                                 {/* E : 모델명 */}
                                 {/* S : 갯수 */}
                                 <div className="order-td order-spec">
-                                    <p>일정 : 2020-05-30</p>
-                                    <p>제목 : 제목</p>
+                                    <p>일정 : {payInfo.actdate}</p>
+                                    {/*<p>제목 : 제목</p>*/}
                                 </div>
                                 <input type="hidden" name="buyQtyOrd" value="1" />
                                 {/* E : 갯수 */}
                                 <div className="order-td order-count">
-                                    <p>인원: 1인</p>
+                                    <p>인원: {payInfo.quantity}인</p>
                                 </div>
                                 {/* S : 가격 */}
                                 <div className="order-td order-price">
-                                    <p>₩999,000</p>
+                                    <p>₩{payInfo.totprice}</p>
                                 </div>
                                 {/* E : 가격 */}
                             </div>
@@ -137,11 +150,15 @@ export const Payclass = () => {
                                         <span className="head">주문자 정보</span>
                                         <ul className="order-info-detail info-order">
                                             <li>
-                                                닉네임 : <span id="spanMbrNm">abc1111</span>
+                                                닉네임 : <span id="spanMbrNm">{userInfo.nickname}</span>
                                             </li>
-                                            <li>
-                                                이메일 : <span id="spanMbrEmail">abc1111@naver.com</span>
-                                            </li>
+                                            {(userInfo.email !== "null") ?
+                                                <li>
+                                                    이메일 : <span id="spanMbrEmail">{userInfo.email}</span>
+                                                </li>
+                                                :
+                                                <li></li>
+                                            }
                                         </ul>
                                     </li>
                                     {/* e : 회원 주문자 정보 */}
@@ -167,13 +184,13 @@ export const Payclass = () => {
                                 <li>
                                     <span className="head">상품 수</span>
                                     <span className="text">
-                    <strong id="goods_cnt">1</strong>인
+                    <strong id="goods_cnt">{payInfo.quantity}</strong>인
                   </span>
                                 </li>
                                 <li>
                                     <span className="head">주문 금액</span>
                                     <span className="text">
-                    <strong id="order_payment_total_goods_amt_view">999000</strong>원
+                    <strong id="order_payment_total_goods_amt_view">{payInfo.totprice}</strong>원
                   </span>
                                 </li>
                             </ul>
@@ -183,7 +200,7 @@ export const Payclass = () => {
                     <strong>결제 예정 금액</strong>
                   </span>
                                     <span className="text">
-                    <strong id="order_payment_total_pay_amt_view">999000</strong>원
+                    <strong id="order_payment_total_pay_amt_view">{payInfo.totprice}</strong>원
                   </span>
                                 </li>
                             </ul>

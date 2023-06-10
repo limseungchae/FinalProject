@@ -6,7 +6,6 @@
 }
 
 .headerNav{
-    background-color: #7575ef;
     min-height: 100px;
 }
 .logo span
@@ -58,3 +57,13 @@
     border-color: #ced4da;
 }
 
+#headerBox
+{
+    cursor: pointer;
+    user-select: none;
+}
+
+#headerBox:hover
+{
+    background-color: var(--color-umbak);
+}

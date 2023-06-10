@@ -20,17 +20,29 @@ import {Link} from "react-router-dom";
 import {AiFillCaretDown} from "react-icons/ai";
 import {MdOutlineSearchOff} from "react-icons/md";
 
-
-
 export default function ClassMain() {
     const [classList, setClassList] = useState([]);
     const [category, setCategory] = useState("all");
     const [selectMenuActive, setSelectMenuActive] = useState("");
-    const [area, setArea] = useState("지역선택")
+    const [area, setArea] = useState("지역선택");
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = document.documentElement.scrollTop;
+            setIsVisible(scrollPosition > 250);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         let param = `?category=${category}&sido=${area}`
-        axios.get(`http://localhost:8080/api/main${param}`)
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/main${param}`)
             .then(response => setClassList(response.data))
             .catch(error => console.log(error))
     }, [category, area]);
@@ -56,6 +68,10 @@ export default function ClassMain() {
         if(selectMenuActive === "selectMenuActive") setSelectMenuActive("");
 
     };
+    const handleScroll = () => {
+        window.scrollTo(0, 0);
+    };
+
     return(
         <>
             <Carousel className=" mt-4 mb-5 ">
@@ -100,14 +116,14 @@ export default function ClassMain() {
                     <Col xl={8}>
                         <div className="mainNavContainer">
                             <ul className={"d-flex justify-content-between text-center flex-wrap list-unstyled mb-5"}>
-                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#fd7e14"}} value="all" onClick={handleOnClick}><img src={all} alt="all" /><p className={"mt-1"}>전체</p></li>
-                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#6c757d"}} value="15" onClick={handleOnClick}><img src={fitness} alt="fitness" /><p className={"mt-1"}>피트니스</p></li>
-                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#faad14"}} value="18" onClick={handleOnClick}><img src={cook} alt="cook" /><p className={"mt-1"}>요리</p></li>
-                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#f27781"}} value="19" onClick={handleOnClick}><img src={craft} alt="craft" /><p className={"mt-1"}>공예</p></li>
-                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#6f42c1"}} value="16" onClick={handleOnClick}><img src={music} alt="music" /><p className={"mt-1"}>음악</p></li>
-                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#52c41a"}} value="32" onClick={handleOnClick}><img src={art} alt="art" /><p className={"mt-1"}>미술</p></li>
-                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#e83e8c"}} value="11" onClick={handleOnClick}><img src={activity} alt="activity" /><p className={"mt-1"}>액티비티</p></li>
-                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#3B4CA8"}} value="0" onClick={handleOnClick}><img src={others} alt="others" /><p className={"mt-1"}>기타</p></li>
+                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#fd7e14"}} value="all" onClick={handleOnClick}><img src={all} alt="all" /><p className={"mt-1 fw-bold"}>전체</p></li>
+                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#6c757d"}} value="15" onClick={handleOnClick}><img src={fitness} alt="fitness" /><p className={"mt-1 fw-bold"}>피트니스</p></li>
+                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#faad14"}} value="18" onClick={handleOnClick}><img src={cook} alt="cook" /><p className={"mt-1 fw-bold"}>요리</p></li>
+                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#f27781"}} value="19" onClick={handleOnClick}><img src={craft} alt="craft" /><p className={"mt-1 fw-bold"}>공예</p></li>
+                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#6f42c1"}} value="16" onClick={handleOnClick}><img src={music} alt="music" /><p className={"mt-1 fw-bold"}>음악</p></li>
+                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#52c41a"}} value="32" onClick={handleOnClick}><img src={art} alt="art" /><p className={"mt-1 fw-bold"}>미술</p></li>
+                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#e83e8c"}} value="11" onClick={handleOnClick}><img src={activity} alt="activity" /><p className={"mt-1 fw-bold"}>액티비티</p></li>
+                                <li className="px-3 pb-1 pt-2" style={{"--clr":"#3B4CA8"}} value="0" onClick={handleOnClick}><img src={others} alt="others" /><p className={"mt-1 fw-bold"}>기타</p></li>
                             </ul>
                         </div>
                     </Col>
@@ -144,15 +160,14 @@ export default function ClassMain() {
                 </Row>
             </Container>
 
-
             <Container className="mainCardContainer">
                 <Row>
                     <Col className="offset-xl-2 col-xl-8 mb-5">
                         <Row>
-                            { (classList.length > 0) ? classList.map((array) => {
+                            { (classList.length > 0) ? classList.map((array, index) => {
                               return(
-                                  <Col className="col-xl-4 mt-4">
-                                      <Link to={`/viewclass?link=${array[0]}`} style={{textDecoration:"none"}}>
+                                  <Col className="col-xl-4 mt-4" key={index}>
+                                      <Link to={`/viewclass?link=${array[0]}`} onClick={handleScroll} style={{textDecoration:"none"}}>
                                       <Card border="light" className="mx-auto" style={{ width: '270px',color:"black" }}>
                                           <Card.Img variant="top" src={array[9]} width="100%" height="218px" />
                                           <Card.Body>
@@ -161,8 +176,8 @@ export default function ClassMain() {
                                               </div>
                                               <Card.Title className="fs-6 mb-0 fw-bold w-100" style={{whiteSpace: "nowrap", overflow:"hidden",textOverflow:"ellipsis"}}>{array[1]}</Card.Title>
                                               <Card.Text>
-                                                  <p className="mb-0" ><span className="text-warning"><ImStarFull/> <ImStarFull/> <ImStarFull/> <ImStarHalf /> <ImStarEmpty /></span> <span className="fw-light" style={{fontSize:"12px"}}>({array[6]})</span></p>
-                                                  <p className="fw-bold text-end"><span className="text-danger">{Math.floor(array[7]*100)}% </span >{array[8].toLocaleString()}원</p>
+                                                  <span className="mb-0" style={{display:"block"}}><span className="text-warning"><ImStarFull/> <ImStarFull/> <ImStarFull/> <ImStarHalf /> <ImStarEmpty /></span> <span className="fw-light" style={{fontSize:"12px"}}>({array[6]})</span></span>
+                                                  <span className="fw-bold text-end" style={{display:"block"}}><span className="text-danger">{Math.floor(array[7]*100)}% </span >{array[8].toLocaleString()}원</span>
                                               </Card.Text>
                                           </Card.Body>
                                       </Card>
@@ -176,10 +191,8 @@ export default function ClassMain() {
                     </Col>
                 </Row>
             </Container>
-
-
             {/*최상단으로 이동*/}
-            <div className="SettingView-module__layer_setting___JwfQs">
+            <div className="SettingView-module__layer_setting___JwfQs" style={isVisible ? {display:"block"} : {display: "none"} } id="topBar">
                 <a href="#" role="button" className="SettingView-module__btn_setting___Z_3Uu SettingView-module__type_top___GkN8V" aria-pressed="false">
                     <span className="blind">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" className="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">

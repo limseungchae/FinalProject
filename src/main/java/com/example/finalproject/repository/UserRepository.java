@@ -7,4 +7,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByKakaoid(Long kakaoid);
+    User findByMbno(Long mbno);
 }

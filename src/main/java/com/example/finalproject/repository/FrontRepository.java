@@ -11,13 +11,13 @@ import java.util.List;
 public interface FrontRepository extends JpaRepository<ClassMeta, Long> {
 
     // main 페이지 사용
-    @Query("select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta ")
+    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from classmeta )where rownum < 11",nativeQuery = true)
     List<Object[]> findMainAll();
-    @Query("select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta where category = :ctg ")
+    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from classmeta where category = :ctg)where rownum < 11 ",nativeQuery = true)
     List<Object[]> findFilteredMain(@Param("ctg") String ctg);
-    @Query("select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta where sido = :sido")
+    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from classmeta where sido = :sido)where rownum < 11",nativeQuery = true)
     List<Object[]> findSidoMain(@Param("sido") String sido);
-    @Query("select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta where category = :ctg and sido = :sido")
+    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from classmeta where category = :ctg and sido = :sido)where rownum < 11 ",nativeQuery = true)
     List<Object[]> findFilterSidoMain(@Param("ctg") String ctg, @Param("sido") String sido);
 
     // search 페이지 사용

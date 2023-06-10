@@ -10,7 +10,7 @@ export default function MyInfo() {
     const [hello, setHello] = useState('')
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/hello')
+        axios.get('${process.env.REACT_APP_SERVER_DOMAIN}/api/hello')
             .then(response => setHello(response.data))
             .catch(error => console.log(error))
     }, []);

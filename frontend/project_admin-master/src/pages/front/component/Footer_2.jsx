@@ -1,15 +1,17 @@
 import React from "react";
 import "./Footer_2.css"
-import {FaFacebookSquare, FaInstagramSquare, FaSnapchatGhost, FaTwitter} from "react-icons/fa";
+import {FaFacebookSquare, FaForumbee} from "react-icons/fa";
+import {BsFillEmojiSmileFill} from "react-icons/bs";
+import {TbSunglasses} from "react-icons/tb";
 
 export default function Footer_2(){
     return(
         <footer className="frontFooter_2">
 
             <div className="frontFooter_2Social">
-                <a href="#"><FaInstagramSquare /></a>
-                <a href="#"><FaSnapchatGhost /></a>
-                <a href="#"><FaTwitter /></a>
+                <a href="https://github.com/khd6194"><FaForumbee /></a>
+                <a href="https://github.com/hideonbush3"><BsFillEmojiSmileFill /></a>
+                <a href="https://github.com/kimch321" id="kimch321"><TbSunglasses /></a>
                 <a href="#"><FaFacebookSquare /></a>
             </div>
 

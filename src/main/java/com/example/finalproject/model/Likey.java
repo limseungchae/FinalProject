@@ -4,25 +4,26 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "LIKEY")
+@Table(name = "likey")
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class Likey {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likey;
+    @Column(insertable = false, updatable = false)
+    private Long lkno;
     private String kakaoid;
     @Column(name = "link")
     private int link;
     @CreatedDate
     @Column(insertable = false, updatable = false)
-    private Date regdate;
+    private LocalDateTime regdate;
 /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "link", referencedColumnName = "link")
