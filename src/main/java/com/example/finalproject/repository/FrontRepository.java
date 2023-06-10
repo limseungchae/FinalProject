@@ -2,7 +2,6 @@ package com.example.finalproject.repository;
 
 import com.example.finalproject.model.ClassMeta;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -12,13 +11,13 @@ import java.util.List;
 public interface FrontRepository extends JpaRepository<ClassMeta, Long> {
 
     // main 페이지 사용
-    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta ) where rownum < 11",nativeQuery = true)
+    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from classmeta )where rownum < 11",nativeQuery = true)
     List<Object[]> findMainAll();
-    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta where category = :ctg) where rownum < 11 ",nativeQuery = true)
+    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from classmeta where category = :ctg)where rownum < 11 ",nativeQuery = true)
     List<Object[]> findFilteredMain(@Param("ctg") String ctg);
-    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta where sido = :sido) where rownum < 11",nativeQuery = true)
+    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from classmeta where sido = :sido)where rownum < 11",nativeQuery = true)
     List<Object[]> findSidoMain(@Param("sido") String sido);
-    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from ClassMeta where category = :ctg and sido = :sido) where rownum < 11 ",nativeQuery = true)
+    @Query(value = "select * from(select link, cname, sido, gugun, category, star, cntrvs, rate, sale, thumbnail from classmeta where category = :ctg and sido = :sido)where rownum < 11 ",nativeQuery = true)
     List<Object[]> findFilterSidoMain(@Param("ctg") String ctg, @Param("sido") String sido);
 
     // search 페이지 사용
@@ -31,16 +30,5 @@ public interface FrontRepository extends JpaRepository<ClassMeta, Long> {
             "JOIN Likey lk ON cm.link = lk.link " +
             "WHERE lk.kakaoid = :kId")
     List<Object[]> findLikeyByUserid(@Param("kId") String kId);
-
-    @Query("select link from ClassMeta where cname = :cname")
-    Long findLinkByCname(@Param("cname") String cname);
-
-    @Query("select thumbnail from ClassMeta where link = :link")
-    String findThumbnailByLink(@Param("link") Long link);
-
-    @Modifying
-    @Transactional
-    @Query(value = "UPDATE pay SET tid = :tid, paydate = :paydate WHERE mbno = :mbno and cname =:cname", nativeQuery = true)
-    void updateReservation(@Param("tid") String tid, @Param("paydate") String paydate, @Param("mbno") int mbno, @Param("cname") String cname);
 
 }

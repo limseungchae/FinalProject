@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {Link} from "react-router-dom"
 import {FaChalkboardTeacher} from "react-icons/fa";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -86,10 +87,11 @@ export default function Class() {
     const handleButtonClick = () => {
         new window.daum.Postcode({
             oncomplete: function (data) {
-                setAddress({
+                setAddress((prevAddress) => ({
+                    ...prevAddress,
                     addr1: data.address,
-                    addr2: ''
-                });
+                    addr2: '',
+                }));
             },
         }).open();
     };
@@ -124,36 +126,53 @@ export default function Class() {
         setText5(e.target.value);
     };
 
+    const updateActiveItems = (newActiveItems) => {
+        setActiveItems((prevActiveItems) => ({
+            ...prevActiveItems,
+            ...newActiveItems,
+        }));
+    };
     const handleClick1 = (eventKey1) => {
-        setActiveItems(prevState => ({
-            ...prevState,
-            activeItem1: eventKey1
-        }));
+        updateActiveItems({ activeItem1: eventKey1 });
     };
-    const handleClick2 = (eventKey2) => {
-        setActiveItems(prevState => ({
-            ...prevState,
-            activeItem2: eventKey2
-        }));
-    };
-    const handleClick3 = (eventKey3) => {
-        setActiveItems(prevState => ({
-            ...prevState,
-            activeItem3: eventKey3
-        }));
-    };
-    const handleClick4 = (eventKey4) => {
-        setActiveItems2(prevState => ({
-            ...prevState,
-            activeItem4: eventKey4
+
+    const updateActiveItems2 = (newActiveItems) => {
+        setActiveItems((prevActiveItems) => ({
+            ...prevActiveItems,
+            ...newActiveItems,
         }));
     };
 
-    const handleClick5 = (eventKey5) => {
-        setActiveItems2(prevState => ({
-            ...prevState,
-            activeItem5: eventKey5
+    const handleClick2 = (eventKey2) => {
+        updateActiveItems2({ activeItem2: eventKey2 });
+    };
+    const updateActiveItems3 = (newActiveItems) => {
+        setActiveItems((prevActiveItems) => ({
+            ...prevActiveItems,
+            ...newActiveItems,
         }));
+    };
+    const handleClick3 = (eventKey3) => {
+        updateActiveItems3({ activeItem3: eventKey3 });
+    };
+
+    const updateActiveItems4 = (newActiveItems) => {
+        setActiveItems2((prevActiveItems) => ({
+            ...prevActiveItems,
+            ...newActiveItems,
+        }));
+    };
+    const handleClick4 = (eventKey4) => {
+        updateActiveItems4({ activeItem4: eventKey4 });
+    };
+    const updateActiveItems5 = (newActiveItems) => {
+        setActiveItems2((prevActiveItems) => ({
+            ...prevActiveItems,
+            ...newActiveItems,
+        }));
+    };
+    const handleClick5 = (eventKey5) => {
+        updateActiveItems5({ activeItem5: eventKey5 });
     };
 
     const handlePrice = (event) => {
@@ -179,14 +198,14 @@ export default function Class() {
         formData.append('category', activeItem);
         formData.append('intro', text1);
         formData.append('meterial', text2);
-        formData.append('rule', text3);
+        formData.append('rules', text3);
         formData.append('notice', text4);
-        formData.append('addr', address);
-        formData.append('durat', activeItems);
+        formData.append('addr', JSON.stringify(address));
+        formData.append('durat', JSON.stringify(activeItems));
         formData.append('sdate', startDate);
         formData.append('edate', endDate);
         formData.append('ctime', text5);
-        formData.append('man', activeItems2);
+        formData.append('man', JSON.stringify(activeItems2));
         formData.append('price', price);
         formData.append('hash', tag);
 
@@ -198,6 +217,7 @@ export default function Class() {
             },})
             .then((response) => {
                 console.log("전송 성공", response.data);
+                window.location.href = "/myinfo/classlist"
             })
             .catch((error) => {
                 console.log("전송 실패", error);
@@ -533,7 +553,7 @@ export default function Class() {
                     <hr/>
                     <Row className="justify-content-center ml-3"><Col xs={12}
                                                                       className="d-flex justify-content-center ">
-                        <div><Button variant="primary" type="submit">등록</Button>{' '}<Button variant="danger"
+                        <div><Link to={"/myinfo/classlist"}><Button variant="primary" type="submit">등록</Button></Link>{' '}<Button variant="danger"
                                                                                              type="reset"
                                                                                              className="ml-2">초기화</Button>
                         </div>
