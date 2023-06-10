@@ -3,6 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import axios from "axios";
 import {FaCarrot} from "react-icons/fa";
 import {useOutletContext} from "react-router-dom";
+import "./Modify.css";
 
 export default function Modify() {
     const [name, setName] = useState('');
@@ -104,7 +105,7 @@ export default function Modify() {
                                 <label htmlFor="name"><p style={{margin:"0"}}>이름</p></label>
                             </Col>
                             <Col className={"col-6"}>
-                                <input type="text" id="name" readOnly={true} style={{width:"100%",height:"40px"}} value={name} />
+                                <input type="text" className="inputText" id="name" readOnly={true} style={{width:"100%",height:"40px"}} value={name} />
                             </Col>
                         </Row>
 
@@ -113,7 +114,7 @@ export default function Modify() {
                                 <label htmlFor="birth"><p style={{margin:"0"}}>생년월일</p></label>
                             </Col>
                             <Col className={"col-6"}>
-                                <input type="text" id="birth" style={{width:"100%",height:"40px"}} placeholder='ex)20130527' onChange={handleBirth} value={birth}  />
+                                <input type="text" className="inputText" id="birth" style={{width:"100%",height:"40px"}} placeholder='ex)20130527' onChange={handleBirth} value={birth}  />
                             </Col>
                         </Row>
                         <Row className={"mb-4"}>
@@ -122,9 +123,9 @@ export default function Modify() {
                             </Col>
                             <Col className={"col-6"}>
                                 <div className="registerGenderInputContainer d-flex justify-content-between px-2">
-                                    <label><input type="radio" id="gender" name='gender' value="male" checked={gender === 'male'} onChange={handleGender}/><span>&nbsp;&nbsp; 남</span></label>
-                                    <label><input type="radio" name='gender' value="female" checked={gender === 'female'} onChange={handleGender} /><span>&nbsp;&nbsp; 여</span></label>
-                                    <label><input type="radio" name='gender' value="none" checked={gender === 'none'} onChange={handleGender} /><span>&nbsp;&nbsp; 선택안함</span></label>
+                                    <label><input type="radio" className="inputRadio" id="gender" name='gender' value="male" checked={gender === 'male'} onChange={handleGender}/><span>&nbsp;&nbsp; 남</span></label>
+                                    <label><input type="radio" className="inputRadio" name='gender' value="female" checked={gender === 'female'} onChange={handleGender} /><span>&nbsp;&nbsp; 여</span></label>
+                                    <label><input type="radio" className="inputRadio" name='gender' value="none" checked={gender === 'none'} onChange={handleGender} /><span>&nbsp;&nbsp; 선택안함</span></label>
                                 </div>
                             </Col>
                         </Row>
@@ -133,7 +134,7 @@ export default function Modify() {
                                 <label htmlFor="phone"><p style={{margin:"0"}}>휴대폰 번호</p></label>
                             </Col>
                             <Col className={"col-6"}>
-                                <input type="text" id="phone" style={{width:"100%",height:"40px"}} placeholder='ex)01012341234' onChange={handlePhone} value={phone}/>
+                                <input type="text" className="inputText" id="phone" style={{width:"100%",height:"40px"}} placeholder='ex)01012341234' onChange={handlePhone} value={phone}/>
                             </Col>
                         </Row>
                         <Row className={"mb-5"}>
@@ -142,8 +143,8 @@ export default function Modify() {
                             </Col>
                             <Col className={"col-6"}>
                                 <div className="registerTypeInputContainer d-flex justify-content-between px-2">
-                                    <label><input type="radio" id="userType" name='userType' value="user" checked={userType === 'user'} onChange={handleUserType} /><span>&nbsp;&nbsp; 유저</span></label>
-                                    <label><input type="radio" name='userType' value="tutor" checked={userType === 'tutor'} onChange={handleUserType} /><span>&nbsp;&nbsp; 유저 + 강사</span></label>
+                                    <label><input type="radio" className="inputRadio" id="userType" name='userType' value="user" checked={userType === 'user'} onChange={handleUserType} /><span>&nbsp;&nbsp; 유저</span></label>
+                                    <label><input type="radio" className="inputRadio" name='userType' value="tutor" checked={userType === 'tutor'} onChange={handleUserType} /><span>&nbsp;&nbsp; 유저 + 강사</span></label>
                                 </div>
                             </Col>
                         </Row>

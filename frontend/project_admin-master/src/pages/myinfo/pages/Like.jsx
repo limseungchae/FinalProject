@@ -10,7 +10,6 @@ import {MdOutlineSearchOff} from "react-icons/md";
 
 export default function Like(){
     const userInfo = useOutletContext();
-    console.log(userInfo)
     const nickname = userInfo.nickname;
     const kId = userInfo.kakaoid;
     const [likeList, setLikeList] = useState([]);
