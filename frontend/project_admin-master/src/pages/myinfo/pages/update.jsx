@@ -242,36 +242,6 @@ export default function Class() {
         // console.log(JSON.parse(data1[0].addr).addr1)
     }
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault(); // 기본 form 제출 동작 방지
-    //     const cno = data1.length > 0 ? data1[0].cno : '';
-    //     console.log(cno)
-    //     // form 데이터 가져오기
-    //     const form = event.target;
-    //     const formData = new FormData(form);
-    //
-    //     // formData에 들어있는 값 콘솔에 출력
-    //     for (let [key, value] of formData.entries()) {
-    //         console.log(`${key}: ${value}`);
-    //     }
-    //
-    //     // POST 요청 보내기
-    //     const url = 'http://localhost:8080/api/updateclass/{cno}'; // POST 요청을 보낼 URL
-    //
-    //
-    //     // POST 요청에 포함될 데이터
-    //     const data = Object.fromEntries(formData);
-    //
-    //     axios.post(url.replace('{cno}', cno), data)
-    //         .then(response => {
-    //             console.log('POST 요청이 성공했습니다.', response.data);
-    //             // 성공한 경우 추가 처리 로직 작성...
-    //         })
-    //         .catch(error => {
-    //             console.error('POST 요청이 실패했습니다.', error);
-    //             // 실패한 경우 에러 처리 로직 작성...
-    //         });
-    // };
 
     const handleSubmit = (event) => {
         event.preventDefault(); // 기본 form 제출 동작 방지
