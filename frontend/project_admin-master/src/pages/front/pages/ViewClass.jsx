@@ -186,8 +186,8 @@ export default function ViewClass () {
                 <div className={'viewClassInfo'}>
 
                 <Row className="align-items-stretch">
-                    <Col>
-                        <Image src={classInfo.thumbnail} className={"w-100"}></Image>
+                    <Col className={'thumbnail-container'}>
+                        <Image src={classInfo.thumbnail} className={"thumbnail"}></Image>
                     </Col>
 
                     <Col className={'top-right'}>
