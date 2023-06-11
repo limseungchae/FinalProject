@@ -206,10 +206,6 @@ export default function ViewClass () {
                                 <div><h5>수강인원</h5></div>
                                 <h4 className={'class-infomation'}>{classInfo.man}</h4>
                             </Col>
-                            <Col>
-                                <div><h5>횟수</h5></div>
-                                <h4 className={'class-infomation'}>{classInfo.man}</h4>
-                            </Col>
                         </Row>
 
                         <Row className={'schedule'}>
@@ -242,8 +238,8 @@ export default function ViewClass () {
                 </div>
 
                 <Row className={'payboard'}>
-                    <h5 className={'schedule-title'}>일정</h5>
-                    <Col className={'offset-2 col-5'}>
+                    <h4 className={'schedule-title'}>일정</h4>
+                    <Col className={'col-5 mb-5'}>
                         <div className='rap'>
                             <div>
                                 <Calendar
@@ -256,14 +252,18 @@ export default function ViewClass () {
                     </Col>
 
                     <Col className={'col-5'}>
-                        <div>
-                            <select onChange={handleAmount}>
+                        <div className={'mt-4'}>
+                            <p className={'reservation-info'}>원하시는 날짜와 인원수를 선택해주세요</p>
+                        </div>
+                        <div className={'select-people-container'}>
+                            <span>인원수</span>
+                            <select onChange={handleAmount} className={'select-number-of-people'}>
                                 {options}
                             </select>
                         </div>
-                        <Row className={'pay'}>
-                            <Col className={'offset-3 col-4'}><span className={'discount-price'}>{price}원</span></Col>
-                            <Col className={'col-5 res-btn-container'}>
+                        <Row>
+                            <Col className={'col-4'}><span className={'discount-price'}>{price}원</span></Col>
+                            <Col className={'col'}>
                                 <Button className={'text-white reservation-btn mb-2'} onClick={handleReservation}>
                                     예약하기
                                 </Button>
