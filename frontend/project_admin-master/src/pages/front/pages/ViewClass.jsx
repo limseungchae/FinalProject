@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom"
 import Modal from "react-bootstrap/Modal";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import './react-calendar.css'
 
 export default function ViewClass () {
     // 로컬 스토리지에서 ACCESS TOKEN 가져오기
@@ -185,8 +186,8 @@ export default function ViewClass () {
                 <div className={'viewClassInfo'}>
 
                 <Row className="align-items-stretch">
-                    <Col>
-                        <Image src={classInfo.thumbnail} className={"w-100"}></Image>
+                    <Col className={'thumbnail-container'}>
+                        <Image src={classInfo.thumbnail} className={"thumbnail"}></Image>
                     </Col>
 
                     <Col className={'top-right'}>
@@ -204,10 +205,6 @@ export default function ViewClass () {
                             </Col>
                             <Col className={'col-4'}>
                                 <div><h5>수강인원</h5></div>
-                                <h4 className={'class-infomation'}>{classInfo.man}</h4>
-                            </Col>
-                            <Col>
-                                <div><h5>횟수</h5></div>
                                 <h4 className={'class-infomation'}>{classInfo.man}</h4>
                             </Col>
                         </Row>
@@ -242,33 +239,44 @@ export default function ViewClass () {
                 </div>
 
                 <Row className={'payboard'}>
-                    <h5 className={'schedule-title'}>일정</h5>
-                    <Col className={'offset-2 col-5'}>
+                    <h4 className={'schedule-title'}>일정</h4>
+                    <Col className={'col-5 mb-5'}>
                         <div className='rap'>
                             <div>
                                 <Calendar
                                     onChange={setDateValue}
                                     value={dateValue}
-                                    className="calendar"
+                                    className="react-calendar"
                                 />
                             </div>
                         </div>
                     </Col>
 
                     <Col className={'col-5'}>
-                        <div>
-                            <select onChange={handleAmount}>
+                        <div className={'mt-4'}>
+                            <p className={'reservation-info'}>원하시는 날짜와 인원수를 선택해주세요</p>
+                        </div>
+                        <Row className={'date-info'}>
+                            <Col><span>날짜</span></Col>
+                            <Col className={'text-right'}>{formatedDate}</Col>
+                        </Row>
+                        <Row className={'select-people-container'}>
+                            <Col><span>인원수</span></Col>
+                            <Col className={'text-right'}>
+                            <select onChange={handleAmount} className={'select-number-of-people'}>
                                 {options}
                             </select>
-                        </div>
-                        <Row className={'pay'}>
-                            <Col className={'offset-3 col-4'}><span className={'discount-price'}>{price}원</span></Col>
-                            <Col className={'col-5 res-btn-container'}>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className={'col-4'}><span className={'all-price'}>총금액</span></Col>
+                            <Col className={'col text-right'}><span className={'discount-price'}>{price}원</span></Col>
+                        </Row>
+                        <div className={'text-right mt-2'}>
                                 <Button className={'text-white reservation-btn mb-2'} onClick={handleReservation}>
                                     예약하기
                                 </Button>
-                            </Col>
-                        </Row>
+                        </div>
                     </Col>
 
                 </Row>

@@ -37,6 +37,7 @@ export default function Header() {
 
     const logout = () => {
         localStorage.setItem("ACCESS_TOKEN", null);
+        localStorage.setItem("kakaoid", null);
         setToken("null")
         window.location.href = "/";
     }

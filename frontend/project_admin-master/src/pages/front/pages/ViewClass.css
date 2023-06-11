@@ -13,6 +13,17 @@
     border-bottom: 4px solid #eeeeef;
 }
 
+.thumbnail-container{
+    width:500px;
+    height: 450px;
+}
+
+.thumbnail{
+    height: 100%;
+    width: 100%;
+    object-fit: contain; /* 이미지 비율 유지 */
+}
+
 /* 최상단 클래스 정보 오른쪽 컨테이너 */
 .top-right{
     margin-left: -10px;
@@ -116,84 +127,8 @@
 }
 
 .schedule-title{
-    margin: 25px 0 0 25px;
-}
-
-
-
-
-
-
-
-
-/* 달력 */
-.dateHead div {
-    background: #7575ef;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 5px;
-}
-
-.grid div {
-    padding: .6rem;
-    font-size: .9rem;
-    cursor: pointer;
-}
-
-.dateBoard div {
-    color: #222;
     font-weight: bold;
-    min-height: 4rem;
-    padding: .6rem .8rem;
-    border-radius: 5px;
-    border: 1px solid #eee;
-}
-
-.noColor {
-    background: #eee;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-}
-
-/* 좌우 버튼 */
-.prevDay {
-    display: block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid #000;
-    border-width: 3px 3px 0 0;
-    cursor: pointer;
-    transform: rotate(-135deg);
-}
-
-.nextDay {
-    display: block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid #000;
-    border-width: 3px 3px 0 0;
-    cursor: pointer;
-    transform: rotate(45deg);
-}
-
-/* ---- */
-
-* {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    box-sizing: border-box;
-    font-family: Pretendard;
+    margin: 25px 0 0 25px;
 }
 
 .rap {
@@ -202,44 +137,42 @@
     margin-top: 1.4rem;
 }
 
-.dateHead {
-    margin: .4rem 0;
+.reservation-info{
+    font-weight: bold;
+    font-size: 1.3em;
 }
 
+/* 선택 날짜 */
+.date-info{
+    margin-top: 70px;
+    font-size: 20px
+}
+/* 인원수 */
+.select-people-container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px
+}
 
-
-
-
-
-
-
+.select-number-of-people{
+    margin-left: 10px;
+    width: 80px;
+}
 
 /* 금액, 예약 */
-.list-price{
-    text-decoration: line-through;
+.all-price{
+    font-size: 30px;
 }
 
 .discount-price{
-    font-size: 25px;
-}
-
-.discount-pct{
-    font-size: 25px;
-}
-
-.pay{
-    align-content: baseline;
-    align-items: baseline;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .reservation-btn{
     padding: 8px 60px;
     font-size: 20px;
     background-color: #7575ef;
-}
-
-.res-btn-container{
-    text-align: right;
 }
 
 

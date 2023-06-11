@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, Col, Row} from "react-bootstrap";
-import "./Join.css"
 
 
 export default function Join () {

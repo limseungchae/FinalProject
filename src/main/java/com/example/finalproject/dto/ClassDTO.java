@@ -1,21 +1,13 @@
-package com.example.finalproject.model;
+package com.example.finalproject.dto;
 
 import lombok.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
-
-
-@Entity
-@Table(name = "ADD_CLASS")
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class AddClass {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cno;
+@AllArgsConstructor
+public class ClassDTO {
     private String title;
     private String category;
     private String intro;
@@ -23,9 +15,6 @@ public class AddClass {
     private String rules;
     private String notice;
     private String addr;
-    private String cimg;
-    private String thumb;
-    private String timg;
     private String durat;
     private String sdate;
     private String edate;
@@ -33,4 +22,8 @@ public class AddClass {
     private String man;
     private String price;
     private String hash;
+    private MultipartFile cimgPath;
+    private MultipartFile thumbPath;
+    private MultipartFile timgPath;
+
 }
