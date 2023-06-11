@@ -116,77 +116,9 @@
 }
 
 .schedule-title{
+    font-weight: bold;
     margin: 25px 0 0 25px;
 }
-
-
-
-
-
-
-
-
-/* 달력 */
-.dateHead div {
-    background: #7575ef;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 5px;
-}
-
-.grid div {
-    padding: .6rem;
-    font-size: .9rem;
-    cursor: pointer;
-}
-
-.dateBoard div {
-    color: #222;
-    font-weight: bold;
-    min-height: 4rem;
-    padding: .6rem .8rem;
-    border-radius: 5px;
-    border: 1px solid #eee;
-}
-
-.noColor {
-    background: #eee;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-}
-
-/* 좌우 버튼 */
-.prevDay {
-    display: block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid #000;
-    border-width: 3px 3px 0 0;
-    cursor: pointer;
-    transform: rotate(-135deg);
-}
-
-.nextDay {
-    display: block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid #000;
-    border-width: 3px 3px 0 0;
-    cursor: pointer;
-    transform: rotate(45deg);
-}
-
-/* ---- */
 
 * {
     margin: 0;
@@ -206,40 +138,33 @@
     margin: .4rem 0;
 }
 
+/* 인원수 */
+.select-people-container{
+    margin-top: 135px;
+    margin-bottom: 20px;
+    font-size: 20px
+}
 
-
-
-
-
-
-
+.select-number-of-people{
+    margin-left: 10px;
+    width: 80px;
+}
 
 /* 금액, 예약 */
-.list-price{
-    text-decoration: line-through;
-}
-
 .discount-price{
-    font-size: 25px;
+    font-size: 30px;
+    font-weight: bold;
 }
 
-.discount-pct{
-    font-size: 25px;
-}
-
-.pay{
-    align-content: baseline;
-    align-items: baseline;
+.reservation-info{
+    font-weight: bold;
+    font-size: 1.3em;
 }
 
 .reservation-btn{
     padding: 8px 60px;
     font-size: 20px;
     background-color: #7575ef;
-}
-
-.res-btn-container{
-    text-align: right;
 }
 
 
