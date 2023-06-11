@@ -2,6 +2,7 @@ package com.example.finalproject.repository;
 
 import com.example.finalproject.model.ClassMeta;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -31,4 +32,14 @@ public interface FrontRepository extends JpaRepository<ClassMeta, Long> {
             "WHERE lk.kakaoid = :kId")
     List<Object[]> findLikeyByUserid(@Param("kId") String kId);
 
+    @Query("select link from ClassMeta where cname = :cname")
+    Long findLinkByCname(@Param("cname") String cname);
+
+    @Query("select thumbnail from ClassMeta where link = :link")
+    String findThumbnailByLink(@Param("link") Long link);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE pay SET tid = :tid, paydate = :paydate WHERE mbno = :mbno and cname =:cname", nativeQuery = true)
+    void updateReservation(@Param("tid") String tid, @Param("paydate") String paydate, @Param("mbno") int mbno, @Param("cname") String cname);
 }
