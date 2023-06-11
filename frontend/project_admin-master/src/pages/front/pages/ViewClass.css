@@ -13,6 +13,17 @@
     border-bottom: 4px solid #eeeeef;
 }
 
+.thumbnail-container{
+    width:500px;
+    height: 450px;
+}
+
+.thumbnail{
+    height: 100%;
+    width: 100%;
+    object-fit: contain; /* 이미지 비율 유지 */
+}
+
 /* 최상단 클래스 정보 오른쪽 컨테이너 */
 .top-right{
     margin-left: -10px;
