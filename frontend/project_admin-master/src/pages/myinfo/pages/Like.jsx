@@ -7,6 +7,7 @@ import {ImStarEmpty, ImStarFull, ImStarHalf} from "react-icons/im";
 import {FaCarrot} from "react-icons/fa";
 import axios from "axios";
 import {MdOutlineSearchOff} from "react-icons/md";
+import {BsHeartFill} from "react-icons/bs";
 
 export default function Like(){
     const userInfo = useOutletContext();
@@ -27,6 +28,13 @@ export default function Like(){
         window.scrollTo(0, 0);
     };
 
+    const handleUnlike = (link) => {
+        let param = `?link=${link}&kId=${kId}`;
+        axios
+            .post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/unlikey${param}`)
+            .catch(console.log);
+        window.location.href = "/myinfo/like"
+    };
     return(
         <Container>
             <Row>
@@ -54,6 +62,11 @@ export default function Like(){
                                             </Card.Body>
                                         </Card>
                                     </Link>
+                                    <div style={{position:"absolute", top:"4px", right:"20px"}} onClick={e => {
+                                        handleUnlike(array[0])
+                                    }} className="likeIcon">
+                                        <BsHeartFill className="fs-2 text-danger" />
+                                    </div>
                                 </Col>
                             )
                         }) : <Col className="col-xl-12 mt-4 text-center"><MdOutlineSearchOff style={{fontSize:"200px",color:"grey"}} /><p className="fw-bold h4">찜 목록이 없습니다</p></Col>

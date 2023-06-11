@@ -134,6 +134,10 @@ public class FrontDAOImpl implements FrontDAO{
     public Likey isExistLikey(String kakaoid, int link) {
         return likeyRepository.findByKakaoidAndLink(kakaoid, link);
     }
+    @Override
+    public void deleteLikey(String kId, int link) {
+        likeyRepository.deleteLikey(kId, link);
+    }
 
     @Override
     public void insertFavorite(Long kakaoid, int link) {
@@ -162,6 +166,5 @@ public class FrontDAOImpl implements FrontDAO{
     public void updateReservation(int mbno, String tid, String paydate, String cname) {
         frontRepository.updateReservation(tid, paydate, mbno, cname);
     }
-
 
 }

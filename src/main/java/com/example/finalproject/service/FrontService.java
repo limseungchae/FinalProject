@@ -12,6 +12,8 @@ public interface FrontService {
     List<Object[]> readSearch(String search);
     // 라이크페이지
     List<Object[]> readLikey(String kId);
+    // unlike
+    void removeLikey(String kId, int link);
     void modify(ModifyBody request);
 
     List<Pay> readPayList(String kId);
