@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom"
 import Modal from "react-bootstrap/Modal";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import './react-calendar.css'
 
 export default function ViewClass () {
     // 로컬 스토리지에서 ACCESS TOKEN 가져오기
@@ -245,7 +246,7 @@ export default function ViewClass () {
                                 <Calendar
                                     onChange={setDateValue}
                                     value={dateValue}
-                                    className="calendar"
+                                    className="react-calendar"
                                 />
                             </div>
                         </div>
@@ -255,20 +256,27 @@ export default function ViewClass () {
                         <div className={'mt-4'}>
                             <p className={'reservation-info'}>원하시는 날짜와 인원수를 선택해주세요</p>
                         </div>
-                        <div className={'select-people-container'}>
-                            <span>인원수</span>
+                        <Row className={'date-info'}>
+                            <Col><span>날짜</span></Col>
+                            <Col className={'text-right'}>{formatedDate}</Col>
+                        </Row>
+                        <Row className={'select-people-container'}>
+                            <Col><span>인원수</span></Col>
+                            <Col className={'text-right'}>
                             <select onChange={handleAmount} className={'select-number-of-people'}>
                                 {options}
                             </select>
-                        </div>
+                            </Col>
+                        </Row>
                         <Row>
-                            <Col className={'col-4'}><span className={'discount-price'}>{price}원</span></Col>
-                            <Col className={'col'}>
+                            <Col className={'col-4'}><span className={'all-price'}>총금액</span></Col>
+                            <Col className={'col text-right'}><span className={'discount-price'}>{price}원</span></Col>
+                        </Row>
+                        <div className={'text-right mt-2'}>
                                 <Button className={'text-white reservation-btn mb-2'} onClick={handleReservation}>
                                     예약하기
                                 </Button>
-                            </Col>
-                        </Row>
+                        </div>
                     </Col>
 
                 </Row>

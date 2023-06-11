@@ -120,27 +120,25 @@
     margin: 25px 0 0 25px;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    box-sizing: border-box;
-    font-family: Pretendard;
-}
-
 .rap {
     max-width: 800px;
     padding: 0 1.4rem;
     margin-top: 1.4rem;
 }
 
-.dateHead {
-    margin: .4rem 0;
+.reservation-info{
+    font-weight: bold;
+    font-size: 1.3em;
 }
 
+/* 선택 날짜 */
+.date-info{
+    margin-top: 70px;
+    font-size: 20px
+}
 /* 인원수 */
 .select-people-container{
-    margin-top: 135px;
+    margin-top: 20px;
     margin-bottom: 20px;
     font-size: 20px
 }
@@ -151,14 +149,13 @@
 }
 
 /* 금액, 예약 */
+.all-price{
+    font-size: 30px;
+}
+
 .discount-price{
     font-size: 30px;
     font-weight: bold;
-}
-
-.reservation-info{
-    font-weight: bold;
-    font-size: 1.3em;
 }
 
 .reservation-btn{
