@@ -59,8 +59,8 @@ public class FrontServiceImpl implements FrontService{
     }
 
     @Override
-    public List<Pay> readPayList(String kId) {
-        return frtdao.searchPayList(kId);
+    public List<Pay> readPayList(String mbno) {
+        return frtdao.searchPayList(Integer.parseInt(mbno));
     }
 
     @Override
@@ -121,6 +121,12 @@ public class FrontServiceImpl implements FrontService{
             isExist = false;
         }
         return isExist;
+    }
+
+    @Override
+    public void newPay(String kakaoid, String tid, String paydate, String cname) {
+        frtdao.updateReservation(frtdao.selectMbnoByKakaoid(kakaoid), tid, paydate, cname);
+
     }
 
 }

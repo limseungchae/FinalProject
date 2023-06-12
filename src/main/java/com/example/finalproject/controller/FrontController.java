@@ -5,7 +5,6 @@ import com.example.finalproject.model.*;
 import com.example.finalproject.service.FrontService;
 import com.example.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -67,8 +66,8 @@ public class FrontController {
 
     // /paylist 의 get 요청
     @GetMapping("/api/paylist")
-    public List<Pay> payList(@RequestParam String kId) {
-        return frtsrv.readPayList(kId);
+    public List<Pay> payList(@AuthenticationPrincipal String mbno) {
+        return frtsrv.readPayList(mbno);
     }
 
     // /payclass의 get 요청
@@ -116,4 +115,14 @@ public class FrontController {
     public ResponseEntity<?> reservation(@RequestBody ReservationDTO rDTO, @AuthenticationPrincipal String mbno){
         return ResponseEntity.ok().body(frtsrv.newReservation(rDTO, mbno));
     }
+
+    // 결제 후 db의 pay 테이블 업데이트 - tid, paydate에 값 저장
+    @PostMapping("/myinfo/payprocess")
+    public void pay (@RequestParam String tid,
+                     @RequestParam String paydate,
+                     @RequestParam String kakaoid,
+                     @RequestParam String cname) {
+        frtsrv.newPay(kakaoid, tid, paydate, cname);
+    }
+
 }

@@ -81,8 +81,7 @@ public class FrontDAOImpl implements FrontDAO{
     }
 
     @Override
-    public List<Pay> searchPayList(String kId) {
-        int mbno = memberRepository.findMbnoBykId(kId).intValue();;
+    public List<Pay> searchPayList(int mbno) {
         return payRepository.findAllByMbno(mbno);
     }
 
@@ -157,7 +156,14 @@ public class FrontDAOImpl implements FrontDAO{
     }
 
     @Override
-    public boolean selectReservation(int mbno) {
-        return false;
+    public int selectMbnoByKakaoid(String kakaoid) {
+        return Math.toIntExact(memberRepository.findMbnoBykId(kakaoid));
     }
+
+    @Override
+    public void updateReservation(int mbno, String tid, String paydate, String cname) {
+        frontRepository.updateReservation(tid, paydate, mbno, cname);
+    }
+
+
 }

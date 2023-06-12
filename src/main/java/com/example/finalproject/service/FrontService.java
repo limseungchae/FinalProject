@@ -33,4 +33,5 @@ public interface FrontService {
 
     boolean newReservation(ReservationDTO rDTO, String mbno);
 
+    void newPay(String kakaoid, String tid, String paydate, String cname);
 }

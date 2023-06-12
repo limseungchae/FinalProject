@@ -13,6 +13,7 @@ const Payclass = () => {
     const [img, setImg] = useState("");
     const [payInfo, setPayInfo] = useState({});
     const [userInfo, setUserInfo] = useState({});
+    const [paramCname, setParamCname] = useState("");
 
     const params = location.search.replace("?","").split("&");
     const rno = params[0].replace("rno=","");
@@ -31,19 +32,9 @@ const Payclass = () => {
                 setImg(img);
                 setPayInfo(payInfo);
                 setUserInfo(userInfo);
+                setParamCname(encodeURIComponent(payInfo.cname))
             });
     }, [])
-
-    /*const param = `?ono=${ono}`
-    console.log(param)
-    axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/pay${param}`)
-        .then((res)=>{setPayList(res.data);console.log("성공")})
-        .catch((Error)=>{console.log(Error)})
-    const test = () =>{
-        if(payList.length >0){
-            return payList.map((val)=><div key={val.ono}>{val.item}</div> );
-        }
-    }*/
 
     const handleClick = async () => {
         // 약관에 동의한 경우만 처리
@@ -54,16 +45,6 @@ const Payclass = () => {
         const IMP = window.IMP;
         IMP.init('imp84245708');
 
-
-        // useEffect(() => {
-        //     let param = `?ono=${ono}`
-        //     console.log(param)
-        //     axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/pay${param}`)
-        //         .then(response => setPayList(response.data))
-        //         .catch(error => console.log(error))
-        // }, [ono]);
-        //
-
         try {
             const response = await axios.post(
                 'https://kapi.kakao.com/v1/payment/ready',
@@ -71,12 +52,12 @@ const Payclass = () => {
                     cid: 'TC0ONETIME',
                     partner_order_id: 'YOUR_PARTNER_ORDER_ID', // 여기에 고유한 주문 ID를 넣으세요
                     partner_user_id: 'YOUR_PARTNER_USER_ID', // 여기에 고유한 사용자 ID를 넣으세요
-                    item_name: '초코파이', // 여기에 상품명을 넣으세요
+                    item_name: `${payInfo.cname}`, // 여기에 상품명을 넣으세요
                     quantity: 1, // 여기에 구매 수량을 넣으세요
-                    total_amount: 2200, // 여기에 총 결제 금액을 넣으세요
+                    total_amount: `${payInfo.totprice}`, // 여기에 총 결제 금액을 넣으세요
                     vat_amount: 200,
                     tax_free_amount: 0, // 여기에 면세 금액을 넣으세요
-                    approval_url: 'http://localhost:3000/approval', // 여기에 성공 시 리디렉션할 URL을 넣으세요
+                    approval_url: 'http://localhost:3000/approval', // 여x기에 성공 시 리디렉션할 URL을 넣으세요
                     fail_url: 'http://localhost:3000/viewclass', // 여기에 실패 시 리디렉션할 URL을 넣으세요
                     cancel_url: 'http://localhost:3000/payclass', // 여기에 취소 시 리디렉션할 URL을 넣으세요
                 }),
@@ -86,21 +67,17 @@ const Payclass = () => {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
                     },
                 }
-            );
+            ).then(r => {
+                const date = new Date();
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const paydate = `${year}-${month}-${day}`;
 
-            console.log(response);
+                axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/myinfo/payprocess?tid=${r.data.tid}&paydate=${paydate}&kakaoid=${localStorage.getItem("kakaoid")}&cname=${paramCname}`)
 
-            const box = response.data.next_redirect_pc_url;
-            window.open(box);
-
-            const {
-                data: { next_redirect_pc_url, tid },
-            } = response;
-
-            console.log(next_redirect_pc_url);
-            console.log(tid);
-            // localstorage에 tid 저장
-            window.localStorage.setItem("tid", tid);
+                window.open(r.data.next_redirect_pc_url);
+            }).then(r => r);
 
         } catch (error) {
             alert(error.message);
@@ -179,7 +156,7 @@ const Payclass = () => {
                                                 <li>
                                                     이메일 : <span id="spanMbrEmail">{userInfo.email}</span>
                                                 </li>
-                                            :
+                                                :
                                                 <li></li>
                                             }
                                         </ul>
