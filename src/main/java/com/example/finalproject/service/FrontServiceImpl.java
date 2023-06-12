@@ -46,6 +46,10 @@ public class FrontServiceImpl implements FrontService{
     public List<Object[]> readLikey(String kId) {
         return frtdao.selectLikey(kId);
     }
+    @Override
+    public void removeLikey(String kId, int link) {
+        frtdao.deleteLikey(kId, link);
+    }
 
     @Override
     public List<Object[]> readModify(String kId) {

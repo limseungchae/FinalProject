@@ -18,6 +18,8 @@ public interface FrontDAO {
     List<Object[]> selectSearch(String search);
     // 찜페이지
     List<Object[]> selectLikey(String kId);
+    void deleteLikey(String kId, int link);
+
     void modifyMember(ModifyBody request);
 
     List<Pay> searchPayList(int mbno);
