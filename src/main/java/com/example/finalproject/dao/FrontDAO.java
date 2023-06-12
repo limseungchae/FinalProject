@@ -50,5 +50,5 @@ public interface FrontDAO {
 
     int selectMbnoByKakaoid(String kakaoid);
 
-    void updateReservation(int mbno, String tid, String paydate, String cname);
+//    void updateReservation(int mbno, String tid, String paydate, String cname);
 }

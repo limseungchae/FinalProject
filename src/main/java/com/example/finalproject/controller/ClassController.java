@@ -85,10 +85,10 @@ public class ClassController {
                                               @RequestParam("timg") MultipartFile timg,
                                               @ModelAttribute ClassDTO classDTO) {
 
-        classService.updateClass(cno, cimg, thumb, timg, classDTO);
-
         try {
+            System.out.println(classDTO.getAddr());
             System.out.println(cno);
+            classService.updateClass(cno, cimg, thumb, timg, classDTO);
 //            classService.updateClass(classDto);
             return ResponseEntity.ok("Class updated successfully");
         } catch (Exception e) {

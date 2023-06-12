@@ -127,10 +127,10 @@ public class FrontServiceImpl implements FrontService{
         return isExist;
     }
 
-    @Override
-    public void newPay(String kakaoid, String tid, String paydate, String cname) {
-        frtdao.updateReservation(frtdao.selectMbnoByKakaoid(kakaoid), tid, paydate, cname);
-
-    }
+//    @Override
+//    public void newPay(String kakaoid, String tid, String paydate, String cname) {
+//        frtdao.updateReservation(frtdao.selectMbnoByKakaoid(kakaoid), tid, paydate, cname);
+//
+//    }
 
 }
