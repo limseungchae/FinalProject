@@ -122,7 +122,7 @@ public class FrontController {
         return ResponseEntity.ok().body(frtsrv.newReservation(rDTO, mbno));
     }
 
-    // 결제 후 db의 pay 테이블 업데이트 - tid, paydate에 값 저장
+//    // 결제 후 db의 pay 테이블 업데이트 - tid, paydate에 값 저장
     @PostMapping("/myinfo/payprocess")
     public void pay (@RequestParam String tid,
                      @RequestParam String paydate,

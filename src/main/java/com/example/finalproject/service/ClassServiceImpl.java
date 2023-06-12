@@ -144,16 +144,9 @@ public class ClassServiceImpl implements ClassService {
         String directoryName = dateFormat.format(new Date());
         String parentDirectoryPath = "C:/Java/nginx-1.24.0/nginx-1.24.0/html/cdn";
         String[] fileNames = {"cimg", "thumb", "timg"};
-
-
         try {
-
-
-            // Perform file storage operations
             for (String fileName : fileNames) {
                 String directoryPath = parentDirectoryPath + "/" + directoryName + "/" + fileName;
-
-                // Create directory
                 File directory = new File(directoryPath);
                 if (!directory.exists()) {
                     if (directory.mkdirs()) {
@@ -164,11 +157,9 @@ public class ClassServiceImpl implements ClassService {
                 } else {
                     System.out.println("Directory already exists");
                 }
-
                 String uniqueFileName = UUID.randomUUID().toString();
                 String filePath = directoryPath + "/" + uniqueFileName + ".png";
                 File file = new File(filePath);
-
                 try {
                     if (file.createNewFile()) {
                         System.out.println("파일 생성 성공");
@@ -182,7 +173,6 @@ public class ClassServiceImpl implements ClassService {
                         } else {
                             multipartFile = timg;
                         }
-
                         multipartFile.transferTo(file);
                     } else {
                         System.out.println("파일 생성 실패");
@@ -191,15 +181,10 @@ public class ClassServiceImpl implements ClassService {
                     e.printStackTrace();
                 }
             }
-
             System.out.println("업데이트 클래스");
             Optional<AddClass> optionalClass = addClassRepository.findById(cno);
             if (optionalClass.isPresent()) {
                 AddClass existingClass = optionalClass.get();
-
-                // 이미지 파일 업로드 처리 등 필요한 로직을 수행합니다.
-
-                // ClassDTO에서 받아온 필드 값으로 업데이트합니다.
                 existingClass.setTitle(classDTO.getTitle());
                 existingClass.setCategory(classDTO.getCategory());
                 existingClass.setIntro(classDTO.getIntro());
@@ -214,15 +199,10 @@ public class ClassServiceImpl implements ClassService {
                 existingClass.setMan(classDTO.getMan());
                 existingClass.setPrice(classDTO.getPrice());
                 existingClass.setHash(classDTO.getHash());
-
-                // 데이터베이스에 변경 내용을 저장합니다.
                 addClassRepository.save(existingClass);
             } else {
-                // 클래스를 찾지 못한 경우에 대한 예외 처리
                 throw new RuntimeException("Class not found with cno: " + cno);
             }
-
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -43,7 +43,7 @@ public interface FrontDAO {
 
     Pay isExistReservation(String cname, String actdate, int mbno);
 
-    void insertFavorite(Long kakaoid, int link);
+    void insertFavorite(String kakaoid, int link);
 
     void insertReservation(Pay pay);
 

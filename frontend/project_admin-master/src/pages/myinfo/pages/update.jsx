@@ -20,7 +20,7 @@ export default function Class() {
     let cno = searchParams.get('cno');
 
     const [title, setTitle] = useState("");
-    const [activeItem, setActiveItem] = useState("");
+    const [category, setCategory] = useState("");
     const [text1, setText1] = useState("");
     const [text2, setText2] = useState("");
     const [text3, setText3] = useState("");
@@ -51,6 +51,7 @@ export default function Class() {
         key: 4,
         label: '공예'
     }, {key: 5, label: '음악'}, {key: 6, label: '미술'}, {key: 7, label: '엑티비티'}];
+
     const items1 = [{key: 1, label: '00시간'}, {key: 2, label: '01시간'}, {key: 3, label: '02시간'}, {
         key: 4,
         label: '03시간'
@@ -86,9 +87,20 @@ export default function Class() {
     const handleClick = (eventKey) => {
         const selectedItem = items.find((item) => item.key === parseInt(eventKey));
         if (selectedItem) {
-            setActiveItem(selectedItem.label);
+            setCategory(selectedItem.label);
+            console.log('Selected Item:', eventKey);
         }
     };
+
+    // 데이터베이스 값 업데이트 요청 보내기
+    // axios
+    //     .post('/updateclass/{cno}', { value: eventKey })
+    //     .then((response) => {
+    //         console.log('Value updated successfully:', response.data);
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error updating value:', error);
+    //     });
     const handleChange = (event) => {
         const updatedData1 = [...data1];
         updatedData1[0].intro = event.target.value;
@@ -258,6 +270,11 @@ export default function Class() {
             console.log('주소가 변경되었습니다:', address);
             address.addr1 = initialAddr1;
             address.addr2 = initialAddr2;
+            activeItems.activeItem1 = inactive;
+            activeItems.activeItem2 = inactive2;
+            activeItems.activeItem3 = inactive3;
+            activeItems2.activeItem4 = inactive4;
+            activeItems2.activeItem5 = inactive5;
             console.log(address.addr1)
             console.log(address.addr2)
             console.log('뭐나옴?')
@@ -283,6 +300,12 @@ export default function Class() {
             requestData.append('cimg', formData.get('cimg'));
             requestData.append('thumb', formData.get('thumb'));
             requestData.append('timg', formData.get('timg'));
+            requestData.append('category', category);
+            requestData.append('sdate', startDate);
+            requestData.append('edate', endDate);
+            requestData.append('addr', JSON.stringify(address));
+            requestData.append('durat', JSON.stringify(activeItems));
+            requestData.append('man', JSON.stringify(activeItems2));
 
             // 텍스트로 전송될 데이터 추가
             for (let [key, value] of formData.entries()) {
@@ -290,6 +313,13 @@ export default function Class() {
                     requestData.append(key, value);
                 }
             }
+
+            const updatedAddress = {
+                addr1: initialAddr1,
+                addr2: initialAddr2,
+            };
+
+            setAddress(updatedAddress);
 
             // POST 요청 보내기
             const url = `http://localhost:8080/api/updateclass/${cno}`; // POST 요청을 보낼 URL
@@ -360,9 +390,10 @@ export default function Class() {
     //         console.log("전송 실패", error);
     //     });
     // };
+
     const handleFormReset = () => {
         setTitle("");
-        setActiveItem("");
+        setCategory("");
         setText1("");
         setText2("");
         setText3("");
@@ -424,15 +455,15 @@ export default function Class() {
                     <Row className="justify-content-start" style={{padding: '5px 0'}}><Col><Row style={{width: '85%'}}
                                                                                                 className="align-items-center">
                         <Col xs={12} md={3}><h3>클래스명</h3></Col><Col xs={12} md={9} className="align-items-center">
-                        <DropdownButton key="end" id="dropdown-button-drop-end" drop="end" variant="secondary"
-                                        title={activeItem || (data1.length > 0 ? data1[0].category : "카테고리")}
+                        <DropdownButton key="end" id="dropdown-button-drop-end" drop="end" variant="secondary" name="category"
+                                        title={category || (data1.length > 0 ? data1[0].category : "카테고리")}
                                         onSelect={(eventKey) => handleClick(eventKey)}>
-                            <Dropdown.Item key="selectedItem" eventKey=""
-                                           onSelect={() => setActiveItem("")}>{activeItem || "카테고리"}
+                            <Dropdown.Item key="selectedItem" eventKey="" name="category"
+                                           onSelect={() => setCategory("")}> {category || "카테고리"}
                             </Dropdown.Item>
                             <Dropdown.Divider/>
                             {items.map((item) => (
-                                <Dropdown.Item key={item.key} eventKey={item.key}
+                                <Dropdown.Item key={item.key} eventKey={item.key} name="category"
                                                onSelect={(eventKey) => handleClick(eventKey)}>
                                     {item.label}
                                 </Dropdown.Item>))}
@@ -536,7 +567,7 @@ export default function Class() {
                                                                              type='text' id='addr2' name='addr2'
                                                                              value={(address && address.addr2) || initialAddr2} onChange={(e) => setAddress(prevAddress => ({
                     ...prevAddress,
-                    addr1: e.target.value
+                    addr2: e.target.value
                 }))}/></Col></Row><Row>
                     <div><h3>클래스 강의 소개/과정 이미지 추가</h3><Form.Control style={{width: '50%'}} name="cimg" type="file"
                                                                    accept="image/*" id="cimg"

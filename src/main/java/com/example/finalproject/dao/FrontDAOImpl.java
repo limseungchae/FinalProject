@@ -87,15 +87,20 @@ public class FrontDAOImpl implements FrontDAO{
 
     @Override
     public String selectPayImg(int rno) {
-        Long longRno = Long.valueOf(rno);
-        String cname = payRepository.findCnameByRno(longRno);
-        // cname => Link
-        Long link = frontRepository.findLinkByCname(cname);
-        // link => thumbnail
-        String payImg = frontRepository.findThumbnailByLink(link);
-
-        return payImg;
+        return null;
     }
+
+//    @Override
+//    public String selectPayImg(int rno) {
+//        Long longRno = Long.valueOf(rno);
+//        String cname = payRepository.findCnameByRno(longRno);
+//        // cname => Link
+//        Long link = frontRepository.findLinkByCname(cname);
+//        // link => thumbnail
+//        String payImg = frontRepository.findThumbnailByLink(link);
+//
+//        return payImg;
+//    }
 
     @Override
     public Pay selectInfo(int rno) {
@@ -142,9 +147,9 @@ public class FrontDAOImpl implements FrontDAO{
     }
 
     @Override
-    public void insertFavorite(Long kakaoid, int link) {
+    public void insertFavorite(String kakaoid, int link) {
         Likey likey = new Likey();
-        likey.setKakaoid(String.valueOf(kakaoid));
+        likey.setKakaoid(kakaoid);
         likey.setLink(link);
         likeyRepository.save(likey);
     }

@@ -99,7 +99,7 @@ public class FrontServiceImpl implements FrontService{
 
     // 찜하기 로직
     @Override
-    public boolean newFavorite(Long kakaoid, int link) {
+    public boolean newFavorite(String kakaoid, int link) {
         boolean isExist = false;
         if (frtdao.isExistLikey(String.valueOf(kakaoid), link) != null){
             isExist = true;

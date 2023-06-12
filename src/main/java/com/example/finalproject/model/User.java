@@ -23,7 +23,7 @@ User {
     private Long mbno;
 
     @Column(name = "KAKAOID")
-    private Long kakaoid;
+    private String kakaoid;
 
     @Column(name = "NICKNAME")
     private String nickname;
