@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDTO {
     private String token;
-    private Long kakaoid;
+    private String kakaoid;
     private Long mbno;
 }
