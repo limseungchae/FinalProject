@@ -6,7 +6,7 @@ export default function Oauth() {
     const postData = {
         'grant_type':'authorization_code',
         'client_id':'5d1c1e7c981c84a329eb735d9ad56f88',
-        'redirect_uri':'http://localhost:3000/auth/kakao',
+        'redirect_uri':`${process.env.REACT_APP_FRONT_DOMAIN}/auth/kakao`,
         'code':code,
         'client_secret':'A02yOfXLP1tARjREXatbEAfP9w1WrDKX'
         // 본문 데이터
