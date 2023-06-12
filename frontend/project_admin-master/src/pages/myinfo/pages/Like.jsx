@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./Like.css";
 import {Col, Container, Row} from "react-bootstrap";
 import {Link, useOutletContext} from "react-router-dom";
 import Card from "react-bootstrap/Card";
