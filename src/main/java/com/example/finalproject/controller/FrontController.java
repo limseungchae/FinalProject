@@ -20,9 +20,9 @@ public class FrontController {
 
     @GetMapping("/test/user")
     public ResponseEntity<?> readUserInfo(@AuthenticationPrincipal String mbno){
-        User user = ussrv.readUser(mbno);
-        System.out.println(user);
-        return ResponseEntity.ok().body(user);
+        Member member = frtsrv.readMember(Integer.parseInt(mbno));
+        System.out.println(member);
+        return ResponseEntity.ok().body(member);
     }
     @GetMapping("/api/hello")
     public String test() {

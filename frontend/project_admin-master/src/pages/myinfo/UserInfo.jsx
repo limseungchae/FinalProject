@@ -68,7 +68,12 @@ export default function UserInfo() {
                                 <Link to="/myinfo/modify" style={{textDecoration:"none", color:"black"}}><li className="border-bottom py-2 ps-2" value="modify">내 정보 수정</li></Link>
                                 <Link to="/myinfo/like" style={{textDecoration:"none", color:"black"}}><li className="border-bottom py-2 ps-2" value="like">찜 목록</li></Link>
                                 <Link to="/myinfo/paylist" style={{textDecoration:"none", color:"black"}}><li className="border-bottom py-2 ps-2">결재내역</li></Link>
-                                <Link to="/myinfo/classlist" style={{textDecoration:"none", color:"black"}}><li className="py-2 ps-2">클래스 관리</li></Link>
+                                {userInfo.type !== "user"
+                                    ?
+                                    <Link to="/myinfo/classlist" style={{textDecoration:"none", color:"black"}}><li className="py-2 ps-2">클래스 관리</li></Link>
+                                    :
+                                    <></>
+                                }
                             </ul>
                         </Col>
                         <Col lg={10}>
