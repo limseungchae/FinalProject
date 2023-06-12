@@ -54,7 +54,7 @@ export default function ClassList() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const url = `http://localhost:8080/api/data?title=${title}`;
+                const url = `${process.env.REACT_APP_SERVER_DOMAIN}/api/data?title=${title}`;
                 const response1 = await axios.get(url);
                 const responseData1 = response1.data;
                 const updatedData1 = responseData1.map((item) => {
@@ -92,7 +92,7 @@ export default function ClassList() {
     }, []);
 
     const handleDelete = (cno) => {
-        axios.delete(`http://localhost:8080/api/delete/${cno}`)
+        axios.delete(`${process.env.REACT_APP_SERVER_DOMAIN}/api/delete/${cno}`)
             .then(response => {
                 console.log('Data deleted successfully');
                 // 추가적인 처리나 화면 갱신 등 필요한 작업 수행
@@ -143,7 +143,7 @@ export default function ClassList() {
                                         <Card.Body>
                                             <Table>
                                                 <tbody>
-                                                {Object.entries(row).map(([key, value]) => {
+                                                {Object?.entries(row)?.map(([key, value]) => {
                                                     const column = columns1.find((col) => col.selector === key);
                                                     if (column) {
                                                         let transformedValue = value;

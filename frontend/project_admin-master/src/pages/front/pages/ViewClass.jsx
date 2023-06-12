@@ -43,7 +43,7 @@ export default function ViewClass () {
 
     // 클래스 정보
     useEffect(() => {
-        axios.get(`http://localhost:8080/viewclass${location.search}`)
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/viewclass${location.search}`)
             .then(res => {
                 setClassInfo(res.data);
                 setPrice(res.data.sale)
@@ -108,7 +108,7 @@ export default function ViewClass () {
 
     // 클래스 완성작 이미지
     useEffect(() => {
-        axios.get(`http://localhost:8080/viewclass/completeimg${location.search}`)
+        axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/viewclass/completeimg${location.search}`)
             .then(res => {
                 setCompleteImg(res.data);
             })

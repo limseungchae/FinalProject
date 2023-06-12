@@ -23,7 +23,7 @@ export default function Oauth() {
         .then(response => {
             // 성공적으로 요청을 보낸 경우의 처리
             console.log(response.data);
-            axios.get('http://localhost:8080/auth/token?token=' + response.data.access_token)
+            axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/auth/token?token=` + response.data.access_token)
                 .then((res)=> {
                 if(res.data.token) {
                     localStorage.setItem("ACCESS_TOKEN", res.data.token);

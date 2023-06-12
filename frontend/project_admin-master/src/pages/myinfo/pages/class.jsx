@@ -184,6 +184,8 @@ export default function Class() {
     };
 
     const handleSubmit = (event) => {
+        console.log("handleSubmit???")
+
         event.preventDefault();
         const tags = hash.split(',');
         const tag = tags.slice(0, 5)
@@ -211,7 +213,7 @@ export default function Class() {
 
         console.log(formData)
 
-        axios.post('http://localhost:8080/api/addclass', formData, {
+        axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/addclass`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },})
@@ -259,7 +261,10 @@ export default function Class() {
                 <hr/>
             </div>
             <div className="adminBody mt-5 mx-3"><Container>
-                <form name="acfrm" onSubmit={handleSubmit} onReset={handleFormReset}>
+                <form name="acfrm" onSubmit={(e) => {
+                    console.log("submit 되나요?")
+                    handleSubmit(e);
+                }} onReset={handleFormReset}>
                     <Row className="justify-content-start" style={{padding: '5px 0'}}><Col><Row style={{width: '85%'}}
                                                                                                 className="align-items-center"><Col
                         xs={12} md={3}><h3>클래스명</h3></Col><Col xs={12} md={9} className="align-items-center">
@@ -553,7 +558,11 @@ export default function Class() {
                     <hr/>
                     <Row className="justify-content-center ml-3"><Col xs={12}
                                                                       className="d-flex justify-content-center ">
-                        <div><Link to={"/myinfo/classlist"}><Button variant="primary" type="submit">등록</Button></Link>{' '}<Button variant="danger"
+                        <div>
+                            {/*<Link to={"/myinfo/classlist"}>*/}
+                                <Button variant="primary" type="submit">등록</Button>
+                            {/*</Link>*/}
+                            {' '}<Button variant="danger"
                                                                                              type="reset"
                                                                                              className="ml-2">초기화</Button>
                         </div>

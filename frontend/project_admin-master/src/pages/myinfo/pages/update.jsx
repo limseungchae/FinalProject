@@ -217,7 +217,7 @@ export default function Class() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const url = `http://localhost:8080/api/update?cno=${cno}`;
+                const url = `${process.env.REACT_APP_SERVER_DOMAIN}/api/update?cno=${cno}`;
                 const response1 = await axios.get(url);
                 const responseData1 = response1.data;
                 const updatedData1 = responseData1.map((item) => ({
@@ -322,7 +322,7 @@ export default function Class() {
             setAddress(updatedAddress);
 
             // POST 요청 보내기
-            const url = `http://localhost:8080/api/updateclass/${cno}`; // POST 요청을 보낼 URL
+            const url = `${process.env.REACT_APP_SERVER_DOMAIN}/api/updateclass/${cno}`; // POST 요청을 보낼 URL
 
             axios
                 .post(url, requestData, {
@@ -375,7 +375,7 @@ export default function Class() {
     //     formData.append('price', price);
     //     formData.append('hash', tag);
     //     console.log(formData+"김바보씨")
-    //     axios.post(`http://localhost:8080/api/updateclass?cno=${cno}`, formData, {
+    //     axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/updateclass?cno=${cno}`, formData, {
     //         params: {
     //             cno: cno,
     //         },

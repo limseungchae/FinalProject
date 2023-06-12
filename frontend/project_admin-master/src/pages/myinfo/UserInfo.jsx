@@ -17,7 +17,7 @@ export default function UserInfo() {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/test/user", {
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/test/user`, {
                     headers: {
                         Authorization: `Bearer ${token}` // 토큰을 요청 헤더에 첨부합니다.
                     }
