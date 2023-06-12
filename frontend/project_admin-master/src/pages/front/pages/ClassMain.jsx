@@ -27,6 +27,8 @@ export default function ClassMain() {
     const [area, setArea] = useState("지역선택");
     const [isVisible, setIsVisible] = useState(false);
 
+    console.log(classList)
+
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = document.documentElement.scrollTop;
@@ -43,6 +45,7 @@ export default function ClassMain() {
     useEffect(() => {
         let param = `?category=${category}&sido=${area}`
         axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/main${param}`)
+            /*axios.get(`http://43.200.177.16:8080/api/main${param}`)*/
             .then(response => setClassList(response.data))
             .catch(error => console.log(error))
     }, [category, area]);
@@ -164,7 +167,7 @@ export default function ClassMain() {
                 <Row>
                     <Col className="offset-xl-2 col-xl-8 mb-5">
                         <Row>
-                            { (classList.length > 0) ? classList.map((array, index) => {
+                            { (classList?.length > 0) ? classList?.map((array, index) => {
                               return(
                                   <Col className="col-xl-4 mt-4" key={index}>
                                       <Link to={`/viewclass?link=${array[0]}`} onClick={handleScroll} style={{textDecoration:"none"}}>
