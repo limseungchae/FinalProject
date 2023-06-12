@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {Col, Container, Nav, Row} from 'react-bootstrap';
-import {Link, Outlet, useNavigate} from 'react-router-dom';
+import {Link, Outlet} from 'react-router-dom';
 
 import Header from "../front/component/Header";
-import Footer from "../front/component/Footer";
 import Footer_2 from "../front/component/Footer_2";
-import {MdOutlineKeyboardArrowRight} from "react-icons/md";
 import axios from "axios";
 
 export default function UserInfo() {

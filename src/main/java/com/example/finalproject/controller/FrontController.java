@@ -49,6 +49,12 @@ public class FrontController {
         return frtsrv.readLikey(kId);
     }
 
+    // /like의 delete 요청
+    @PostMapping("/api/unlikey")
+    public void deleteLikey(@RequestParam int link, @RequestParam String kId) {
+        frtsrv.removeLikey(kId,link);
+    }
+
     // modify페이지 1): read
     @GetMapping("/api/readModify")
     public List<Object[]> readModify(@RequestParam String kId) {
