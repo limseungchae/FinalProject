@@ -121,7 +121,7 @@ export default function ClassList() {
                         <h3 >클래스 목록</h3>
                         <Col>
                             <Row style={{width:'100%'}} className="align-items text-end">
-                                <Link to={`/myinfo/addclass`}><Button onClick={() => handleClick1()}>수정</Button></Link>
+                                <Link to={`/myinfo/addclass`}><Button onClick={() => handleClick1()}>등록</Button></Link>
                             </Row>
                         </Col>
                     </Row>

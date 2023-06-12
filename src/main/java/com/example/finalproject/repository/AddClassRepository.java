@@ -18,6 +18,8 @@ public interface AddClassRepository extends JpaRepository<AddClass,Long> {
     @Query("SELECT c FROM AddClass c WHERE c.cno = :cno order by c.cno desc")
     List<AddClass> findByCno(@Param("cno") Long cno);
 
+
+
     @Modifying
     @Transactional
     void deleteByCno(Long cno);

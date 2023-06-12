@@ -85,15 +85,20 @@ public class FrontDAOImpl implements FrontDAO{
 
     @Override
     public String selectPayImg(int rno) {
-        Long longRno = Long.valueOf(rno);
-        String cname = payRepository.findCnameByRno(longRno);
-        // cname => Link
-        Long link = frontRepository.findLinkByCname(cname);
-        // link => thumbnail
-        String payImg = frontRepository.findThumbnailByLink(link);
-
-        return payImg;
+        return null;
     }
+
+//    @Override
+//    public String selectPayImg(int rno) {
+//        Long longRno = Long.valueOf(rno);
+//        String cname = payRepository.findCnameByRno(longRno);
+//        // cname => Link
+//        Long link = frontRepository.findLinkByCname(cname);
+//        // link => thumbnail
+//        String payImg = frontRepository.findThumbnailByLink(link);
+//
+//        return payImg;
+//    }
 
     @Override
     public Pay selectInfo(int rno) {
@@ -162,9 +167,9 @@ public class FrontDAOImpl implements FrontDAO{
         return Math.toIntExact(memberRepository.findMbnoBykId(kakaoid));
     }
 
-    @Override
-    public void updateReservation(int mbno, String tid, String paydate, String cname) {
-        frontRepository.updateReservation(tid, paydate, mbno, cname);
-    }
+//    @Override
+//    public void updateReservation(int mbno, String tid, String paydate, String cname) {
+//        frontRepository.updateReservation(tid, paydate, mbno, cname);
+//    }
 
 }

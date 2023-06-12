@@ -15,16 +15,16 @@ const Payclass = () => {
     const [userInfo, setUserInfo] = useState({});
     const [paramCname, setParamCname] = useState("");
 
-    const params = location?.search?.replace("?","").split("&");
-    const rno = params[0]?.replace("rno=","");
-    const mbno = params[1]?.replace("mbno=","");
+    const params = location.search.replace("?","").split("&");
+    const rno = params[0].replace("rno=","");
+    const mbno = params[1].replace("mbno=","");
 
     useEffect(() => {
         axios
             .get(`${process.env.REACT_APP_SERVER_DOMAIN}/api/payclass?rno=${rno}&mbno=${mbno}`)
             .catch(console.log)
             .then(response => {
-                const body = response?.data;
+                const body = response.data;
                 const img = body.img;
                 const payInfo = body.info;
                 const userInfo = body.member;
@@ -57,10 +57,8 @@ const Payclass = () => {
                     total_amount: `${payInfo.totprice}`, // 여기에 총 결제 금액을 넣으세요
                     vat_amount: 200,
                     tax_free_amount: 0, // 여기에 면세 금액을 넣으세요
-                    approval_url: 'http://localhost:3000/approval', // 여x기에 성공 시 리디렉션할 URL을 넣으세요
+                    approval_url: 'http://localhost:3000/myinfo/paylist', // 여x기에 성공 시 리디렉션할 URL을 넣으세요
                     fail_url: 'http://localhost:3000/viewclass', // 여기에 실패 시 리디렉션할 URL을 넣으세요
-                    cancel_url: `http://localhost:3000/payclass`, // 여기에 취소 시 리디렉션할 URL을 넣으세요
-                    /*cancel_url: `http://localhost:3000/payclass?rno=${rno}&mbno=${mbno}`, // 제안: 김충일*/
                 }),
                 {
                     headers: {
