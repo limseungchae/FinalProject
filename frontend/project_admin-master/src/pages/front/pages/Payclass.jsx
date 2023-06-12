@@ -28,7 +28,7 @@ const Payclass = () => {
                 const img = body.img;
                 const payInfo = body.info;
                 const userInfo = body.member;
-
+                console.log(body);
                 setImg(img);
                 setPayInfo(payInfo);
                 setUserInfo(userInfo);

@@ -85,22 +85,17 @@ public class FrontDAOImpl implements FrontDAO{
         return payRepository.findAllByMbno(mbno);
     }
 
-    @Override
-    public String selectPayImg(int rno) {
-        return null;
-    }
+   @Override
+   public String selectPayImg(int rno) {
+      Long longRno = Long.valueOf(rno);
+        String cname = payRepository.findCnameByRno(longRno);
+       // cname => Link
+        Long link = frontRepository.findLinkByCname(cname);
+       // link => thumbnail
+       String payImg = frontRepository.findThumbnailByLink(link);
 
-//    @Override
-//    public String selectPayImg(int rno) {
-//        Long longRno = Long.valueOf(rno);
-//        String cname = payRepository.findCnameByRno(longRno);
-//        // cname => Link
-//        Long link = frontRepository.findLinkByCname(cname);
-//        // link => thumbnail
-//        String payImg = frontRepository.findThumbnailByLink(link);
-//
-//        return payImg;
-//    }
+       return payImg;
+   }
 
     @Override
     public Pay selectInfo(int rno) {

@@ -85,6 +85,7 @@ public class FrontController {
     public ResponseEntity<?> payClass(@RequestParam int rno, @RequestParam int mbno) {
         // 1. CLASSIMG 찾기
         String img = frtsrv.readPayImg(rno);
+        System.out.println(img);
         // 2. PAY 찾기
         Pay info = frtsrv.readPayInfo(rno);
         // 3. MEMBER 찾기
