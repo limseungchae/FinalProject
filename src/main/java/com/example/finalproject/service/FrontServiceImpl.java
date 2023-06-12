@@ -99,7 +99,7 @@ public class FrontServiceImpl implements FrontService{
 
     // 찜하기 로직
     @Override
-    public boolean newFavorite(Long kakaoid, int link) {
+    public boolean newFavorite(String kakaoid, int link) {
         boolean isExist = false;
         if (frtdao.isExistLikey(String.valueOf(kakaoid), link) != null){
             isExist = true;
@@ -127,10 +127,10 @@ public class FrontServiceImpl implements FrontService{
         return isExist;
     }
 
-//    @Override
-//    public void newPay(String kakaoid, String tid, String paydate, String cname) {
-//        frtdao.updateReservation(frtdao.selectMbnoByKakaoid(kakaoid), tid, paydate, cname);
-//
-//    }
+    @Override
+    public void newPay(String kakaoid, String tid, String paydate, String cname) {
+        frtdao.updateReservation(frtdao.selectMbnoByKakaoid(kakaoid), tid, paydate, cname);
+
+    }
 
 }

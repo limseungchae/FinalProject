@@ -17,7 +17,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User selectUser(Long id) {
+    public User selectUser(String id) {
         System.out.println("회원테이블에 이미 등록된 유저라면 오른쪽에 해당 데이터가 출력된다 .... => "
                 + userRepository.findByKakaoid(id));
         return userRepository.findByKakaoid(id);
