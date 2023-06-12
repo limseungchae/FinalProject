@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
             e.printStackTrace();
         }
         // User 객체 만들기 위한 값을 jsonNode에서 추출
-        Long kakaoid = jsonNode.get("id").asLong();
+        String kakaoid = String.valueOf(jsonNode.get("id"));
         String nickname = String.valueOf(jsonNode.get("properties").get("nickname"));
         String email = String.valueOf(jsonNode.get("kakao_account").get("email"));
         System.out.println("서버로부터 받아온 카카오 유저 정보입니다 \n" +

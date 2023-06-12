@@ -31,9 +31,9 @@ public interface FrontService {
 
     List<Object[]> readModify(String kId);
 
-    boolean newFavorite(Long kakaoid, int link);
+    boolean newFavorite(String kakaoid, int link);
 
     boolean newReservation(ReservationDTO rDTO, String mbno);
 
-//    void newPay(String kakaoid, String tid, String paydate, String cname);
+    void newPay(String kakaoid, String tid, String paydate, String cname);
 }

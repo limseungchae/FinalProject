@@ -145,9 +145,9 @@ public class FrontDAOImpl implements FrontDAO{
     }
 
     @Override
-    public void insertFavorite(Long kakaoid, int link) {
+    public void insertFavorite(String kakaoid, int link) {
         Likey likey = new Likey();
-        likey.setKakaoid(String.valueOf(kakaoid));
+        likey.setKakaoid(kakaoid);
         likey.setLink(link);
         likeyRepository.save(likey);
     }
@@ -167,9 +167,9 @@ public class FrontDAOImpl implements FrontDAO{
         return Math.toIntExact(memberRepository.findMbnoBykId(kakaoid));
     }
 
-//    @Override
-//    public void updateReservation(int mbno, String tid, String paydate, String cname) {
-//        frontRepository.updateReservation(tid, paydate, mbno, cname);
-//    }
+    @Override
+    public void updateReservation(int mbno, String tid, String paydate, String cname) {
+        frontRepository.updateReservation(tid, paydate, mbno, cname);
+    }
 
 }

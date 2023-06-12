@@ -59,6 +59,8 @@ const Payclass = () => {
                     tax_free_amount: 0, // 여기에 면세 금액을 넣으세요
                     approval_url: 'http://localhost:3000/myinfo/paylist', // 여x기에 성공 시 리디렉션할 URL을 넣으세요
                     fail_url: 'http://localhost:3000/viewclass', // 여기에 실패 시 리디렉션할 URL을 넣으세요
+                    cancel_url: `http://localhost:3000/payclass?rno=${rno}&mbno=${mbno}`, // 제안: 김충일*/
+
                 }),
                 {
                     headers: {
